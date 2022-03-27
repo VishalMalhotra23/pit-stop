@@ -1,0 +1,42 @@
+[
+  {
+    "name": "McLaren",
+    "key": "mclaren"
+  },
+  {
+    "name": "Red Bull",
+    "key": "red-bull"
+  },
+  {
+    "name": "Ferrari",
+    "key": "ferrari"
+  },
+  {
+    "name": "Mercedes",
+    "key": "mercedes"
+  },
+  {
+    "name": "Haas",
+    "key": "haas"
+  },
+  {
+    "name": "Alfa Romeo",
+    "key": "alfa-romeo"
+  },
+  {
+    "name": "Alpine",
+    "key": "alpine"
+  },
+  {
+    "name": "AlphaTauri",
+    "key": "alphatauri"
+  },
+  {
+    "name": "Aston Martin",
+    "key": "aston-martin"
+  },
+  {
+    "name": "Williams",
+    "key": "williams"
+  }
+]

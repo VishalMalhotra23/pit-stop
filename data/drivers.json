@@ -1,0 +1,102 @@
+{
+  "ferrari": [
+    {
+      "name": "Carlos Sainz",
+      "key": "carlos-sainz"
+    },
+    {
+      "name": "Charles Leclerc",
+      "key": "charles-leclerc"
+    }
+  ],
+  "mercedes": [
+    {
+      "name": "George Russell",
+      "key": "george-russell"
+    },
+    {
+      "name": "Lewis Hamilton",
+      "key": "lewis-hamilton"
+    }
+  ],
+  "haas": [
+    {
+      "name": "Mick Schumacher",
+      "key": "mick-schumacher"
+    },
+    {
+      "name": "Kevin Magnussen",
+      "key": "kevin-magnussen"
+    }
+  ],
+  "alfa-romeo": [
+    {
+      "name": "Zhou Guanyu",
+      "key": "zhou-guanyu"
+    },
+    {
+      "name": "Valtteri Bottas",
+      "key": "valtteri-bottas"
+    }
+  ],
+  "alpine": [
+    {
+      "name": "Esteban Ocon",
+      "key": "esteban-ocon"
+    },
+    {
+      "name": "Fernando Alonso",
+      "key": "fernando-alonso"
+    }
+  ],
+  "alphatauri": [
+    {
+      "name": "Pierre Gasly",
+      "key": "pierre-gasly"
+    },
+    {
+      "name": "Yuki Tsunoda",
+      "key": "yuki-tsunoda"
+    }
+  ],
+  "aston-martin": [
+    {
+      "name": "Sebastian Vettel",
+      "key": "sebastian-vettel"
+    },
+    {
+      "name": "Lance Stroll",
+      "key": "lance-stroll"
+    }
+  ],
+  "williams": [
+    {
+      "name": "Alexander Albon",
+      "key": "alex-albon"
+    },
+    {
+      "name": "Nicholas Latifi",
+      "key": "nicholas-latifi"
+    }
+  ],
+  "mclaren": [
+    {
+      "name": "Lando Norris",
+      "key": "lando-norris"
+    },
+    {
+      "name": "Daniel Ricciardo",
+      "key": "daniel-ricciardo"
+    }
+  ],
+  "red-bull": [
+    {
+      "name": "Sergio Perez",
+      "key": "sergio-perez"
+    },
+    {
+      "name": "Max Verstappen",
+      "key": "max-verstappen"
+    }
+  ]
+}
