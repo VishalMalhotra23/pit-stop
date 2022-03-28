@@ -35,8 +35,32 @@ describe('NFTMarket', function () {
 
     let items = await market.fetchMarketItems();
 
+    let idToUpdate;
+
     items = await Promise.all(
       items.map(async (i) => {
+        idToUpdate = i.tokenId;
+        const tokenURI = await nft.tokenURI(i.tokenId);
+        let item = {
+          price: i.price.toString(),
+          tokenId: i.tokenId.toString(),
+          seller: i.seller,
+          owner: i.owner,
+          tokenURI
+        };
+        return item;
+      })
+    );
+
+    console.log('items: ', items);
+
+    await nft.updateTokenURI(idToUpdate, 'https://www.mytokenlocation69.com');
+
+    items = await market.fetchMarketItems();
+
+    items = await Promise.all(
+      items.map(async (i) => {
+        idToUpdate = i.tokenId;
         const tokenURI = await nft.tokenURI(i.tokenId);
         let item = {
           price: i.price.toString(),
