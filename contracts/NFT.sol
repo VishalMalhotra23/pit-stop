@@ -10,6 +10,8 @@ contract NFT is ERC721URIStorage {
   Counters.Counter private _tokenIds;
   address contractAddress;
 
+  mapping(address => uint256[]) private itemIdToTokenItem;
+
   constructor(address marketplaceAddress) ERC721('Pit Stop NFTs', 'PTSTP') {
     contractAddress = marketplaceAddress;
   }
@@ -17,6 +19,9 @@ contract NFT is ERC721URIStorage {
   function createToken(string memory tokenURI) public returns (uint256) {
     _tokenIds.increment();
     uint256 newItemId = _tokenIds.current();
+
+    itemIdToTokenItem[msg.sender].push(newItemId);
+
     _mint(msg.sender, newItemId);
     _setTokenURI(newItemId, tokenURI);
     setApprovalForAll(contractAddress, true);
@@ -29,5 +34,9 @@ contract NFT is ERC721URIStorage {
   {
     _setTokenURI(tokenId, tokenURI);
     return tokenId;
+  }
+
+  function fetchNFTs() public view returns (uint256[] memory) {
+    return itemIdToTokenItem[msg.sender];
   }
 }
