@@ -7,7 +7,6 @@ import { RootState } from '../store/rootReducer';
 
 const Home: NextPage = () => {
   const { connect } = useAuth();
-
   const { address, authenticated } = useSelector(
     (state: RootState) => state.auth
   );

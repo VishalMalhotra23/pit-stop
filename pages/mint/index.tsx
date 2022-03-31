@@ -4,12 +4,19 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import NFTCard from '../../components/NFTCard';
 import teams from '../../data/teams.json';
+import useNFT from '../../hooks/useNFT';
+
 const teams1 = teams.slice(0, 5);
 const teams2 = teams.slice(5);
 
 const Mint: NextPage = () => {
-  const [team, setTeam] = useState('ferrari');
-  const livery = useMemo(() => teams.find((t) => t.key === team)?.name, [team]);
+  const [teamKey, setTeamKey] = useState('ferrari');
+  const livery = useMemo(
+    () => teams.find((t) => t.key === teamKey)?.name,
+    [teamKey]
+  );
+
+  const { mintNFT, fetchMintedNFTs } = useNFT();
 
   return (
     <div className="text-center text-red-700">
@@ -20,12 +27,12 @@ const Mint: NextPage = () => {
       </Head>
       <div className="h-screen flex">
         <div className="w-1/2 p-10 flex flex-col items-center">
-          <NFTCard team={team} />
+          <NFTCard team={teamKey} />
           <div className="flex mt-10">
             {teams1.map((team) => {
               return (
                 <div
-                  onClick={() => setTeam(team.key)}
+                  onClick={() => setTeamKey(team.key)}
                   className="cursor-pointer text-white mx-1"
                 >
                   <Image
@@ -41,7 +48,7 @@ const Mint: NextPage = () => {
             {teams2.map((team) => {
               return (
                 <div
-                  onClick={() => setTeam(team.key)}
+                  onClick={() => setTeamKey(team.key)}
                   className="cursor-pointer text-white mx-1"
                 >
                   <Image
@@ -57,6 +64,8 @@ const Mint: NextPage = () => {
         <div className="w-1/2 p-10 text-left">
           <h3 className="text-gray-mute text-xl font-semibold">Livery</h3>
           <h1 className="text-white text-2xl font-bold">{livery}</h1>
+          <button onClick={async () => await mintNFT(teamKey)}>mint</button>
+          <button onClick={async () => await fetchMintedNFTs()}>fetch</button>
         </div>
       </div>
     </div>

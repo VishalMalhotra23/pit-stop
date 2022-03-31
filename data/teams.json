@@ -1,42 +1,52 @@
 [
   {
     "name": "McLaren",
-    "key": "mclaren"
+    "key": "mclaren",
+    "livery": "QmTXEXP45EVK41X1uNa8i8UitFfdfSokMm2BpSRbXYpEH4"
   },
   {
     "name": "Red Bull",
-    "key": "red-bull"
+    "key": "red-bull",
+    "livery": "QmbZ9KSnkCvX7TKLaakSmBQxRdsegqjaywK8GWUp879yqs"
   },
   {
     "name": "Ferrari",
-    "key": "ferrari"
+    "key": "ferrari",
+    "livery": "QmadLxvhsEz4fdvYZHsuEPJf62LNERCv4nAgjjC3yKgYQL"
   },
   {
     "name": "Mercedes",
-    "key": "mercedes"
+    "key": "mercedes",
+    "livery": "QmZDgyWvvrEPyuSyjoFLVNsck21Do7uS8662iUErSfcPFt"
   },
   {
     "name": "Haas",
-    "key": "haas"
+    "key": "haas",
+    "livery": "QmPbRpcwn2XwQNSxyfCTqv9YxywsX3sWs9anELZgPwmmy9"
   },
   {
     "name": "Alfa Romeo",
-    "key": "alfa-romeo"
+    "key": "alfa-romeo",
+    "livery": "QmbpFmXN1GmEr6W6bM42qKzqYNNBQhoUZfXf9Xo7vS2pRi"
   },
   {
     "name": "Alpine",
-    "key": "alpine"
+    "key": "alpine",
+    "livery": "QmaruwvDnbLugJuuwuCjyG2zpWPGP2C8ftyT6BR2ztzz2P"
   },
   {
     "name": "AlphaTauri",
-    "key": "alphatauri"
+    "key": "alphatauri",
+    "livery": "QmQVfCY3YdEBDVoZwejmTzCaVYxrhrU91H1YvAvmBAWfWb"
   },
   {
     "name": "Aston Martin",
-    "key": "aston-martin"
+    "key": "aston-martin",
+    "livery": "QmdTSobs9bDPuwNDq1cUxcbFvcfrzDnoWdTmEMLCy8uh17"
   },
   {
     "name": "Williams",
-    "key": "williams"
+    "key": "williams",
+    "livery": "QmdjC6HSeLj226esUovURdBEb9po5VzVNyAcruoPjLjfys"
   }
 ]
