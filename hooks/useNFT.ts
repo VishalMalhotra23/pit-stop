@@ -12,7 +12,8 @@ export default function useNFT() {
       name: teams.find((t) => t.key === teamKey)?.name,
       image: `https://ipfs.infura.io/ipfs/${
         teams.find((t) => t.key === teamKey)?.livery
-      }`
+      }`,
+      points: 0
     });
 
     try {

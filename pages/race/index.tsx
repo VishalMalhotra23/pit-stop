@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import teams from '../../data/teams.json';
+import TEAMS from '../../data/teams.json';
 import drivers from '../../data/drivers.json';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -46,7 +46,7 @@ const Race: NextPage = () => {
                 Teams
               </h1>
               <div className="flex w-full justify-between">
-                {teams.map((team) => {
+                {TEAMS.map((team) => {
                   return (
                     <div
                       onClick={() => setTeam(team.key)}

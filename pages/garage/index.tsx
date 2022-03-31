@@ -8,9 +8,9 @@ import useNFT from '../../hooks/useNFT';
 const Garage: NextPage = () => {
   const { fetchMintedNFTs } = useNFT();
 
-  useEffect(async () => {
-    await fetchMintedNFTs();
-  }, []);
+  // useEffect(async () => {
+  //   await fetchMintedNFTs();
+  // }, []);
 
   return (
     <div className="text-center text-red-700">
