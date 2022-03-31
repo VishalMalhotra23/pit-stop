@@ -5,8 +5,12 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 import teams from '../data/teams.json';
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
+import { useDispatch } from 'react-redux';
+import { getGarageSuccess } from '../store/garage/actions';
 
 export default function useNFT() {
+  const dispatch = useDispatch();
+
   async function uploadMetaDataToIPFS(teamKey: string) {
     const data = JSON.stringify({
       name: teams.find((t) => t.key === teamKey)?.name,
@@ -70,7 +74,7 @@ export default function useNFT() {
       })
     );
 
-    return items;
+    dispatch(getGarageSuccess(items));
   }
 
   return {

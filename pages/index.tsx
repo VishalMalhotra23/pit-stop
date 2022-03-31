@@ -1,20 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import useAuth from '../hooks/useAuth';
-import { RootState } from '../store/rootReducer';
+import Image from 'next/image';
+import Navbar from '../components/Navbar';
 
 const Home: NextPage = () => {
-  const { connect } = useAuth();
-  const { address, authenticated } = useSelector(
-    (state: RootState) => state.auth
-  );
-
-  useEffect(() => {
-    connect();
-  }, []);
-
   return (
     <div className="text-center text-red-700">
       <Head>
@@ -23,11 +12,71 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {authenticated && (
-        <h1 className="text-xl font-semibold text-center text-white mx-auto">
-          Welcome, {address}
-        </h1>
-      )}
+      <Navbar />
+
+      <div className="w-full mt-8 relative">
+        <Image src={require(`../public/img/mesh.png`)} />
+        <div className="absolute z-10 left-40 top-20 text-left">
+          <h1 className="text-white text-5xl font-bold w-96">
+            Built for the love of Racing.
+          </h1>
+          <p className="text-white text-xl mt-10">
+            Build your garage. Back your favourite drivers.
+            <br />
+            Get to the top of leaderboard.
+            <br />
+            Let’s go racing.
+          </p>
+          <button className="mt-10 bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
+            Get Started
+          </button>
+        </div>
+      </div>
+
+      <div className="w-4/5 mx-auto my-10 grid grid-cols-3">
+        <div className="px-10 py-3">
+          <div className="h-64 flex items-center justify-center">
+            <Image
+              src={require(`../public/img/collect.svg`)}
+              width={266}
+              height={193}
+            />
+          </div>
+          <h1 className="text-white font-bold text-3xl">Collect</h1>
+          <p className="text-white text-base">
+            Get started by minting the livery of your choice and create your own
+            garage.
+          </p>
+        </div>
+        <div className="px-10 py-3">
+          <div className="h-64 flex items-center justify-center">
+            <Image
+              src={require(`../public/img/support.svg`)}
+              width={233}
+              height={190}
+            />
+          </div>
+          <h1 className="text-white font-bold text-3xl">Support</h1>
+          <p className="text-white text-base">
+            Use your NFTs to back your favourite drivers in real world grand
+            prix.
+          </p>
+        </div>
+        <div className="px-10 py-3">
+          <div className="h-64 flex items-center justify-center">
+            <Image
+              src={require(`../public/img/win.svg`)}
+              width={372}
+              height={193}
+            />
+          </div>
+          <h1 className="text-white font-bold text-3xl">Win</h1>
+          <p className="text-white text-base">
+            Climb the leaderboards and earn rewards or sell your liveries on our
+            marketplace.
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

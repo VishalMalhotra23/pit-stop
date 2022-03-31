@@ -1,17 +1,9 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useEffect } from 'react';
 import GarageCard from '../../components/GarageCard';
-import useNFT from '../../hooks/useNFT';
 
 const Garage: NextPage = () => {
-  const { fetchMintedNFTs } = useNFT();
-
-  // useEffect(async () => {
-  //   await fetchMintedNFTs();
-  // }, []);
-
   return (
     <div className="text-center text-red-700">
       <Head>
