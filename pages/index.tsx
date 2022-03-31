@@ -1,7 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+import Countdown from '../components/Countdown';
 import Navbar from '../components/Navbar';
+import RACE from '../data/race.json';
 
 const Home: NextPage = () => {
   return (
@@ -76,6 +79,21 @@ const Home: NextPage = () => {
             marketplace.
           </p>
         </div>
+      </div>
+
+      <div className="bg-gradient-to-r from-redOne to-redTwo w-full py-10">
+        <h1 className="text-white text-center text-3xl font-bold">
+          {RACE.name}
+        </h1>
+        <p className="text-white text-center text-lg mt-2">Starts In</p>
+        <div className="w-1/4 mx-auto my-4">
+          <Countdown timestamp={RACE.timestamp} />
+        </div>
+        <Link href="/race">
+          <button className="border-2 border-black bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
+            Let's Go!
+          </button>
+        </Link>
       </div>
     </div>
   );

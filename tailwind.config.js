@@ -22,7 +22,7 @@ module.exports = {
       }
     },
     fontFamily: {
-      montserrat: ['Montserrat', 'sans-serif']
+      sora: ['Sora', 'sans-serif']
     },
     fontSize: {
       '3xs': '0.675rem',
