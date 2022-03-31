@@ -7,9 +7,28 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Countdown from '../../components/Countdown';
 import Navbar from '../../components/Navbar';
+import { RootState } from '../../store/rootReducer';
+import { useSelector } from 'react-redux';
 
 const Race: NextPage = () => {
   const [team, setTeam] = useState('ferrari');
+  const [selectedNFT, setSelectedNFT] = useState('Haas');
+
+  const { garage } = useSelector((state: RootState) => state.garage);
+  const { address, authenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  async function backDriver(driver: string, selectedNFT: string) {
+    const itemId = garage.find(
+      (garageItem: any) => garageItem.name === selectedNFT
+    ).itemId;
+    console.log(itemId);
+    const response = await fetch(
+      `/api/wager?address=${address}&driver=${driver}&itemId=${itemId}`
+    );
+    console.log(response);
+  }
 
   return (
     <div className="h-screen text-center text-red-700">
@@ -51,6 +70,7 @@ const Race: NextPage = () => {
                 {TEAMS.map((team) => {
                   return (
                     <div
+                      key={team.key}
                       onClick={() => setTeam(team.key)}
                       className="cursor-pointer text-white"
                     >
@@ -72,7 +92,7 @@ const Race: NextPage = () => {
                 {/* @ts-ignore */}
                 {DRIVERS[`${team}`].map((driver) => {
                   return (
-                    <div className="w-full">
+                    <div key={driver.key} className="w-full">
                       <Image
                         src={require(`../../public/img/drivers/${driver.key}.png`)}
                         width={249}
@@ -81,9 +101,22 @@ const Race: NextPage = () => {
                       <h3 className="my-1 text-base font-semibold text-white">
                         {driver.name}
                       </h3>
-                      <button className="my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl">
+                      <button
+                        onClick={() => backDriver(driver.key, selectedNFT)}
+                        className="my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
+                      >
                         Support
                       </button>
+                      <div className="drop-shadow-xl mb-5 float-left rounded-lg bg-gray-light px-4">
+                        <select
+                          onChange={(e) => setSelectedNFT(e.target.value)}
+                          className="px-4 py-2 bg-gray-light text-primary outline-none"
+                        >
+                          {garage.map((garageItem: any) => (
+                            <option>{garageItem.name}</option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
                   );
                 })}

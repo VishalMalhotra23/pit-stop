@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Countdown = ({ timestamp }: ICountdownProps) => {
+  const [loop, setLoop] = useState<any>();
   const [days, setDays] = useState('0');
   const [hours, setHours] = useState('0');
   const [minutes, setMinutes] = useState('0');
@@ -8,36 +9,44 @@ const Countdown = ({ timestamp }: ICountdownProps) => {
 
   const countDownDate = timestamp * 1000;
 
-  const x = setInterval(function () {
-    const now = new Date().getTime();
+  useEffect(() => {
+    setLoop(
+      setInterval(function () {
+        const now = new Date().getTime();
 
-    const distance = countDownDate - now;
+        const distance = countDownDate - now;
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        const daysString = days < 10 ? `0${days}` : `${days}`;
+        const hoursString = hours < 10 ? `0${hours}` : `${hours}`;
+        const minutesString = minutes < 10 ? `0${minutes}` : `${minutes}`;
+        const secondsString = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+        setDays(daysString);
+        setHours(hoursString);
+        setMinutes(minutesString);
+        setSeconds(secondsString);
+
+        if (distance < 0) {
+          clearInterval(loop);
+          setDays('0');
+          setHours('0');
+          setMinutes('0');
+          setSeconds('0');
+        }
+      }, 1000)
     );
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    const daysString = days < 10 ? `0${days}` : `${days}`;
-    const hoursString = hours < 10 ? `0${hours}` : `${hours}`;
-    const minutesString = minutes < 10 ? `0${minutes}` : `${minutes}`;
-    const secondsString = seconds < 10 ? `0${seconds}` : `${seconds}`;
-
-    setDays(daysString);
-    setHours(hoursString);
-    setMinutes(minutesString);
-    setSeconds(secondsString);
-
-    if (distance < 0) {
-      clearInterval(x);
-      setDays('0');
-      setHours('0');
-      setMinutes('0');
-      setSeconds('0');
-    }
-  }, 1000);
+    return () => {
+      clearInterval(loop);
+    };
+  }, []);
 
   return (
     <div className="flex justify-between w-3/4 mx-auto text-center">

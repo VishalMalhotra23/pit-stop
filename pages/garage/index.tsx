@@ -1,10 +1,15 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
 import GarageCard from '../../components/GarageCard';
 import Navbar from '../../components/Navbar';
+import { RootState } from '../../store/rootReducer';
 
 const Garage: NextPage = () => {
+  const { garage } = useSelector((state: RootState) => state.garage);
+
   return (
     <div className="h-screen text-center text-red-700">
       <Head>
@@ -26,17 +31,19 @@ const Garage: NextPage = () => {
                 <h1 className="text-white text-base">Mizan Ali</h1>
                 <h3 className="text-white text-base">@mizanxali</h3>
               </div>
+              <Link href="/mint">
+                <button className="border-2 border-black bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
+                  Mint
+                </button>
+              </Link>
             </div>
           </div>
         </div>
         <div className="w-1/2 p-10">
           <div className="grid grid-cols-2 gap-10">
-            <GarageCard />
-            <GarageCard />
-            <GarageCard />
-            <GarageCard />
-            <GarageCard />
-            <GarageCard />
+            {garage.map((garageItem: any) => (
+              <GarageCard key={garageItem.itemId} NFT={garageItem} />
+            ))}
           </div>
         </div>
       </div>
