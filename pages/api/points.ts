@@ -1,15 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
+import router from '../../util/router';
 
 export default async function wager(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { driver } = req.query;
-
-  console.log(driver);
+  const { address } = req.query;
 
   try {
+    const userData = await router.get(`/users/${address}.json`);
+    let user = userData.data;
+
+    const driver = user.wager.driver;
+
     const raceData = await axios.get(
       'https://ergast.com/api/f1/current/last/results.json'
     );
@@ -32,7 +36,10 @@ export default async function wager(
       if (standing.name === driver) points = standing.points;
     });
 
-    res.status(200).json({ success: true, points });
+    user.points += points;
+    await router.put(`/users/${address}.json`, user);
+
+    res.status(200).json({ success: true, points, itemId: user.wager.itemId });
   } catch (error) {
     res.status(400).json({ success: false });
   }
@@ -41,4 +48,5 @@ export default async function wager(
 type Data = {
   success: boolean;
   points?: number;
+  itemId?: number;
 };

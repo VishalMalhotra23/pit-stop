@@ -29,15 +29,15 @@ const Race: NextPage = () => {
     console.log(data);
   }
 
-  async function claimPoints(driver: string, itemId: number) {
+  async function claimPoints() {
     //fetch points to scored from F1 race standings and update garage points on firebase
-    const response = await fetch(`/api/points?driver=${driver}`);
+    const response = await fetch(`/api/points?address=${address}`);
     const data = await response.json();
     console.log(data);
     const pointsScored = data.points;
 
     //update token uri
-    updateNFTPoints(itemId, pointsScored);
+    updateNFTPoints(parseInt(data.itemId), pointsScored);
   }
 
   return (
@@ -112,11 +112,17 @@ const Race: NextPage = () => {
                         {driver.name}
                       </h3>
                       <button
-                        // onClick={() => backDriver(driver.key, 1)}
-                        onClick={() => claimPoints(driver.key, 1)}
+                        onClick={() => backDriver(driver.key, 1)}
+                        // onClick={() => claimPoints()}
                         className="my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
                       >
                         Support
+                      </button>
+                      <button
+                        onClick={() => claimPoints()}
+                        className="my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
+                      >
+                        Claim
                       </button>
                     </div>
                   );
