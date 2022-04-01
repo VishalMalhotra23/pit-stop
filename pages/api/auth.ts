@@ -14,7 +14,9 @@ export default async function auth(
     if (!user) {
       user = {
         address,
-        nonce: Math.floor(Math.random() * 10000000)
+        nonce: Math.floor(Math.random() * 10000000),
+        points: 0,
+        username: `Pit Crew Member ${Math.floor(Math.random() * 100000)}`
       };
 
       await router.put(`/users/${address}.json`, user);

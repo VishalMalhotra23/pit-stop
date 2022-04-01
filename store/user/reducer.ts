@@ -4,7 +4,7 @@ import { GET_USER, GET_USER_SUCCESS, GET_USER_ERROR } from './types';
 
 const initialState: IUserState = {
   userLoading: false,
-  user: [],
+  user: {},
   userError: null
 };
 

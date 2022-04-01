@@ -4,10 +4,9 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { useDispatch } from 'react-redux';
 import { authSuccess } from '../store/auth/actions';
+import { getUserSuccess } from '../store/user/actions';
 
 export default function useAuth() {
-  const [loggedIn, setLoggedIn] = useState(false);
-
   const dispatch = useDispatch();
 
   const getWeb3Modal = useCallback(async () => {
@@ -46,9 +45,15 @@ export default function useAuth() {
       `/api/verify?address=${account}&signature=${signature}`
     );
     const data = await response.json();
-    setLoggedIn(data.authenticated);
-    console.log(loggedIn);
+    const { username, points } = data;
+
     dispatch(authSuccess(account));
+    dispatch(
+      getUserSuccess({
+        username,
+        points
+      })
+    );
   }, []);
 
   return {
