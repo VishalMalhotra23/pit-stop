@@ -13,6 +13,7 @@ export default async function wager(
     let user = userData.data;
 
     const driver = user.wager.driver;
+    const itemId = user.wager.itemId;
 
     const raceData = await axios.get(
       'https://ergast.com/api/f1/current/last/results.json'
@@ -37,9 +38,10 @@ export default async function wager(
     });
 
     user.points += points;
+    user.wager = null;
     await router.put(`/users/${address}.json`, user);
 
-    res.status(200).json({ success: true, points, itemId: user.wager.itemId });
+    res.status(200).json({ success: true, points, itemId });
   } catch (error) {
     res.status(400).json({ success: false });
   }
