@@ -39,4 +39,31 @@ contract NFT is ERC721URIStorage {
   function fetchNFTs() public view returns (uint256[] memory) {
     return itemIdToTokenItem[msg.sender];
   }
+
+  function removeMintedNFTOnSale(uint256 tokenId)
+    public
+    returns (uint256[] memory)
+  {
+    uint256[] memory arr = remove(tokenId, itemIdToTokenItem[msg.sender]);
+    itemIdToTokenItem[msg.sender] = arr;
+    return itemIdToTokenItem[msg.sender];
+  }
+
+  function remove(uint256 _valueToFindAndRemove, uint256[] memory _array)
+    public
+    pure
+    returns (uint256[] memory)
+  {
+    uint256[] memory auxArray = new uint256[](_array.length - 1);
+    uint256 j;
+
+    for (uint256 i = 0; i < _array.length; i++) {
+      if (_array[i] != _valueToFindAndRemove) {
+        auxArray[j] = (_array[i]);
+        j++;
+      }
+    }
+
+    return auxArray;
+  }
 }

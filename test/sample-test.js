@@ -13,65 +13,67 @@ describe('NFTMarket', function () {
     await nft.deployed();
     const nftContractAddress = nft.address;
 
-    let listingPrice = await market.getListingPrice();
-    listingPrice = listingPrice.toString();
+    // let listingPrice = await market.getListingPrice();
+    // listingPrice = listingPrice.toString();
 
-    const auctionPrice = ethers.utils.parseUnits('100', 'ether');
+    // const auctionPrice = ethers.utils.parseUnits('100', 'ether');
 
     await nft.createToken('https://www.mytokenlocation.com');
     await nft.createToken('https://www.mytokenlocation2.com');
 
-    await market.createMarketItem(nftContractAddress, 1, auctionPrice, {
-      value: listingPrice
-    });
-    await market.createMarketItem(nftContractAddress, 2, auctionPrice, {
-      value: listingPrice
-    });
+    // await market.createMarketItem(nftContractAddress, 1, auctionPrice, {
+    //   value: listingPrice
+    // });
+    // await market.createMarketItem(nftContractAddress, 2, auctionPrice, {
+    //   value: listingPrice
+    // });
 
-    const [_, buyerAddress] = await ethers.getSigners();
-    await market
-      .connect(buyerAddress)
-      .createMarketSale(nftContractAddress, 1, { value: auctionPrice });
+    // const [_, buyerAddress] = await ethers.getSigners();
+    // await market
+    //   .connect(buyerAddress)
+    //   .createMarketSale(nftContractAddress, 1, { value: auctionPrice });
 
-    let items = await market.fetchMarketItems();
+    // let items = await market.fetchMarketItems();
 
-    let idToUpdate;
+    // let idToUpdate;
 
-    items = await Promise.all(
-      items.map(async (i) => {
-        idToUpdate = i.tokenId;
-        const tokenURI = await nft.tokenURI(i.tokenId);
-        let item = {
-          price: i.price.toString(),
-          tokenId: i.tokenId.toString(),
-          seller: i.seller,
-          owner: i.owner,
-          tokenURI
-        };
-        return item;
-      })
-    );
+    // items = await Promise.all(
+    //   items.map(async (i) => {
+    //     idToUpdate = i.tokenId;
+    //     const tokenURI = await nft.tokenURI(i.tokenId);
+    //     let item = {
+    //       price: i.price.toString(),
+    //       tokenId: i.tokenId.toString(),
+    //       seller: i.seller,
+    //       owner: i.owner,
+    //       tokenURI
+    //     };
+    //     return item;
+    //   })
+    // );
 
-    await nft.updateTokenURI(idToUpdate, 'https://www.mytokenlocation69.com');
+    await nft.updateTokenURI(2, 'https://www.mytokenlocation69.com');
 
-    items = await market.fetchMarketItems();
+    // items = await market.fetchMarketItems();
 
-    items = await Promise.all(
-      items.map(async (i) => {
-        idToUpdate = i.tokenId;
-        const tokenURI = await nft.tokenURI(i.tokenId);
-        let item = {
-          price: i.price.toString(),
-          tokenId: i.tokenId.toString(),
-          seller: i.seller,
-          owner: i.owner,
-          tokenURI
-        };
-        return item;
-      })
-    );
+    // items = await Promise.all(
+    //   items.map(async (i) => {
+    //     idToUpdate = i.tokenId;
+    //     const tokenURI = await nft.tokenURI(i.tokenId);
+    //     let item = {
+    //       price: i.price.toString(),
+    //       tokenId: i.tokenId.toString(),
+    //       seller: i.seller,
+    //       owner: i.owner,
+    //       tokenURI
+    //     };
+    //     return item;
+    //   })
+    // );
 
-    console.log('Market items: ', items);
+    // console.log('Market items: ', items);
+
+    await nft.removeMintedNFTOnSale(2);
 
     items = await nft.fetchNFTs();
 
