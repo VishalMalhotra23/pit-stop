@@ -91,8 +91,48 @@ export default function useNFT() {
     dispatch(getGarageSuccess(items));
   }
 
+  async function updateNFTPoints(itemId: number, newPoints: number) {
+    const web3Modal = new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection);
+    const signer = provider.getSigner();
+
+    let contract = new ethers.Contract(
+      // @ts-ignore
+      process.env.NEXT_PUBLIC_NFT_ADDRESS,
+      NFT.abi,
+      signer
+    );
+
+    const tokenUri = await contract.tokenURI(itemId);
+    const meta = await axios.get(tokenUri);
+    const metaData = meta.data;
+    const oldPoints = metaData.points;
+
+    const totalPoints = oldPoints + newPoints;
+
+    const data = JSON.stringify({
+      name: metaData.name,
+      image: metaData.image,
+      points: totalPoints
+    });
+
+    try {
+      const added = await client.add(data);
+      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+      /* after file is uploaded to IPFS, return the URL to use it in the transaction */
+      console.log(url);
+      await contract.updateTokenURI(itemId, url);
+      router.push('/garage');
+      fetchMintedNFTs();
+    } catch (error) {
+      console.log('Error uploading data: ', error);
+    }
+  }
+
   return {
     mintNFT,
-    fetchMintedNFTs
+    fetchMintedNFTs,
+    updateNFTPoints
   };
 }

@@ -9,25 +9,35 @@ import Countdown from '../../components/Countdown';
 import Navbar from '../../components/Navbar';
 import { RootState } from '../../store/rootReducer';
 import { useSelector } from 'react-redux';
+import useNFT from '../../hooks/useNFT';
 
 const Race: NextPage = () => {
   const [team, setTeam] = useState('ferrari');
-  const [selectedNFT, setSelectedNFT] = useState('Haas');
 
   const { garage } = useSelector((state: RootState) => state.garage);
   const { address, authenticated } = useSelector(
     (state: RootState) => state.auth
   );
 
-  async function backDriver(driver: string, selectedNFT: string) {
-    const itemId = garage.find(
-      (garageItem: any) => garageItem.name === selectedNFT
-    ).itemId;
-    console.log(itemId);
+  const { updateNFTPoints } = useNFT();
+
+  async function backDriver(driver: string, itemId: number) {
     const response = await fetch(
       `/api/wager?address=${address}&driver=${driver}&itemId=${itemId}`
     );
-    console.log(response);
+    const data = await response.json();
+    console.log(data);
+  }
+
+  async function claimPoints(driver: string, itemId: number) {
+    //fetch points to scored from F1 race standings and update garage points on firebase
+    const response = await fetch(`/api/points?driver=${driver}`);
+    const data = await response.json();
+    console.log(data);
+    const pointsScored = data.points;
+
+    //update token uri
+    updateNFTPoints(itemId, pointsScored);
   }
 
   return (
@@ -102,21 +112,12 @@ const Race: NextPage = () => {
                         {driver.name}
                       </h3>
                       <button
-                        onClick={() => backDriver(driver.key, selectedNFT)}
+                        // onClick={() => backDriver(driver.key, 1)}
+                        onClick={() => claimPoints(driver.key, 1)}
                         className="my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
                       >
                         Support
                       </button>
-                      <div className="drop-shadow-xl mb-5 float-left rounded-lg bg-gray-light px-4">
-                        <select
-                          onChange={(e) => setSelectedNFT(e.target.value)}
-                          className="px-4 py-2 bg-gray-light text-primary outline-none"
-                        >
-                          {garage.map((garageItem: any) => (
-                            <option>{garageItem.name}</option>
-                          ))}
-                        </select>
-                      </div>
                     </div>
                   );
                 })}
