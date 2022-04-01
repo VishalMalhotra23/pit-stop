@@ -52,17 +52,22 @@ const Garage: NextPage = () => {
               </h3>
               {user.history &&
                 user.history.length > 0 &&
-                user.history.map((gp: any) => (
-                  <>
-                    <h3 className="text-left capitalize text-white text-sm">
-                      {gp.driver.replace('-', ' ')}
-                    </h3>
-                    <h3 className="text-left text-white text-sm">{gp.race}</h3>
-                    <h3 className="text-left text-white text-sm">
-                      {gp.points}
-                    </h3>
-                  </>
-                ))}
+                user.history
+                  .slice(0)
+                  .reverse()
+                  .map((gp: any) => (
+                    <>
+                      <h3 className="text-left capitalize text-white text-sm">
+                        {gp.driver.replace('-', ' ')}
+                      </h3>
+                      <h3 className="text-left text-white text-sm">
+                        {gp.race}
+                      </h3>
+                      <h3 className="text-left text-white text-sm">
+                        {gp.points}
+                      </h3>
+                    </>
+                  ))}
             </div>{' '}
           </div>
         </div>
