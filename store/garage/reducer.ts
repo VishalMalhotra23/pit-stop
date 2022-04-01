@@ -1,6 +1,5 @@
 import { IAction } from '../storeInterfaces';
-
-import { GET_GARAGE, GET_GARAGE_SUCCESS, GET_GARAGE_ERROR } from './types';
+import { GET_GARAGE_ITEMS } from './types';
 
 const initialState: IGarageState = {
   garageLoading: false,
@@ -10,12 +9,9 @@ const initialState: IGarageState = {
 
 const garageReducer = (state = initialState, action: IAction) => {
   switch (action.type) {
-    case GET_GARAGE:
-      return { ...state, garageLoading: true };
-    case GET_GARAGE_SUCCESS:
+    case GET_GARAGE_ITEMS:
       return { ...state, garageLoading: false, garage: action.payload };
-    case GET_GARAGE_ERROR:
-      return { ...state, garageLoading: false, garageError: action.payload };
+
     default:
       return state;
   }

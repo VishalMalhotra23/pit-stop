@@ -1,21 +1,8 @@
-import { GET_GARAGE, GET_GARAGE_SUCCESS, GET_GARAGE_ERROR } from './types';
+import { GET_GARAGE_ITEMS } from './types';
 
-export function getGarageRequest() {
+export function getGarageItems(payload: any) {
   return {
-    type: GET_GARAGE
-  };
-}
-
-export function getGarageError(message: string) {
-  return {
-    type: GET_GARAGE_ERROR,
-    payload: message
-  };
-}
-
-export function getGarageSuccess(payload: any) {
-  return {
-    type: GET_GARAGE_SUCCESS,
+    type: GET_GARAGE_ITEMS,
     payload
   };
 }

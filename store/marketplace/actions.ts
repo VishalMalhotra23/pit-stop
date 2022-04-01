@@ -1,25 +1,22 @@
-import {
-  GET_MARKETPLACE,
-  GET_MARKETPLACE_SUCCESS,
-  GET_MARKETPLACE_ERROR
-} from './types';
+import { GET_CREATED_ITEMS, GET_MARKET_ITEMS, GET_MY_ITEMS } from './types';
 
-export function getMarketplaceRequest() {
+export function getMarketItems(payload: any) {
   return {
-    type: GET_MARKETPLACE
+    type: GET_MARKET_ITEMS,
+    payload
   };
 }
 
-export function getMarketplaceError(message: string) {
+export function getCreatedItems(payload: any) {
   return {
-    type: GET_MARKETPLACE_ERROR,
-    payload: message
+    type: GET_CREATED_ITEMS,
+    payload
   };
 }
 
-export function getMarketplaceSuccess(payload: any) {
+export function getMyItems(payload: any) {
   return {
-    type: GET_MARKETPLACE_SUCCESS,
+    type: GET_MY_ITEMS,
     payload
   };
 }

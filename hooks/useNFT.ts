@@ -6,7 +6,7 @@ const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 import teams from '../data/teams.json';
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import { useDispatch } from 'react-redux';
-import { getGarageSuccess } from '../store/garage/actions';
+import { getGarageItems } from '../store/garage/actions';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
@@ -43,8 +43,7 @@ export default function useNFT() {
     const signer = provider.getSigner();
 
     let contract = new ethers.Contract(
-      // @ts-ignore
-      process.env.NEXT_PUBLIC_NFT_ADDRESS,
+      process.env.NEXT_PUBLIC_NFT_ADDRESS as string,
       NFT.abi,
       signer
     );
@@ -63,8 +62,7 @@ export default function useNFT() {
     const signer = provider.getSigner();
 
     let contract = new ethers.Contract(
-      // @ts-ignore
-      process.env.NEXT_PUBLIC_NFT_ADDRESS,
+      process.env.NEXT_PUBLIC_NFT_ADDRESS as string,
       NFT.abi,
       signer
     );
@@ -88,7 +86,7 @@ export default function useNFT() {
       })
     );
 
-    dispatch(getGarageSuccess(items));
+    dispatch(getGarageItems(items));
   }
 
   async function updateNFTPoints(itemId: number, newPoints: number) {
@@ -98,8 +96,7 @@ export default function useNFT() {
     const signer = provider.getSigner();
 
     let contract = new ethers.Contract(
-      // @ts-ignore
-      process.env.NEXT_PUBLIC_NFT_ADDRESS,
+      process.env.NEXT_PUBLIC_NFT_ADDRESS as string,
       NFT.abi,
       signer
     );
