@@ -7,9 +7,9 @@ import Web3Modal from 'web3modal';
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 import {
-  getCreatedItems,
+  getListedItems,
   getMarketItems,
-  getMyItems
+  getPurchasedItems
 } from '../store/marketplace/actions';
 
 export default function useNFTMarket() {
@@ -134,11 +134,11 @@ export default function useNFTMarket() {
       NFT.abi,
       provider
     );
-    const myNFTsData = await marketContract.fetchMyNFTs();
-    const createdNFTsData = await marketContract.fetchItemsCreated();
+    const purchasedNFTsData = await marketContract.fetchMyNFTs();
+    const listedNFTsData = await marketContract.fetchItemsCreated();
 
-    const myNFTItems = await Promise.all(
-      myNFTsData.map(async (i: any) => {
+    const purchasedNFTItems = await Promise.all(
+      purchasedNFTsData.map(async (i: any) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
@@ -159,8 +159,8 @@ export default function useNFTMarket() {
       })
     );
 
-    const createdNFTItems = await Promise.all(
-      createdNFTsData.map(async (i: any) => {
+    const listedNFTItems = await Promise.all(
+      listedNFTsData.map(async (i: any) => {
         const tokenUri = await tokenContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
@@ -181,8 +181,8 @@ export default function useNFTMarket() {
       })
     );
 
-    dispatch(getMyItems(myNFTItems));
-    dispatch(getCreatedItems(createdNFTItems));
+    dispatch(getPurchasedItems(purchasedNFTItems));
+    dispatch(getListedItems(listedNFTItems.filter((i: any) => !i.sold)));
   }
 
   return {

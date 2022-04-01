@@ -1,4 +1,8 @@
-import { GET_CREATED_ITEMS, GET_MARKET_ITEMS, GET_MY_ITEMS } from './types';
+import {
+  GET_LISTED_ITEMS,
+  GET_MARKET_ITEMS,
+  GET_PURCHASED_ITEMS
+} from './types';
 
 export function getMarketItems(payload: any) {
   return {
@@ -7,16 +11,16 @@ export function getMarketItems(payload: any) {
   };
 }
 
-export function getCreatedItems(payload: any) {
+export function getListedItems(payload: any) {
   return {
-    type: GET_CREATED_ITEMS,
+    type: GET_LISTED_ITEMS,
     payload
   };
 }
 
-export function getMyItems(payload: any) {
+export function getPurchasedItems(payload: any) {
   return {
-    type: GET_MY_ITEMS,
+    type: GET_PURCHASED_ITEMS,
     payload
   };
 }

@@ -1,10 +1,14 @@
 import { IAction } from '../storeInterfaces';
-import { GET_CREATED_ITEMS, GET_MARKET_ITEMS, GET_MY_ITEMS } from './types';
+import {
+  GET_LISTED_ITEMS,
+  GET_MARKET_ITEMS,
+  GET_PURCHASED_ITEMS
+} from './types';
 
 const initialState: IMarketplaceState = {
   marketplaceLoading: false,
   marketItems: [],
-  myItems: [],
+  purchasedItems: [],
   createdItems: [],
   marketplaceError: null
 };
@@ -17,13 +21,13 @@ const marketplaceReducer = (state = initialState, action: IAction) => {
         marketplaceLoading: false,
         marketItems: action.payload
       };
-    case GET_MY_ITEMS:
+    case GET_PURCHASED_ITEMS:
       return {
         ...state,
         marketplaceLoading: false,
-        myItems: action.payload
+        purchasedItems: action.payload
       };
-    case GET_CREATED_ITEMS:
+    case GET_LISTED_ITEMS:
       return {
         ...state,
         marketplaceLoading: false,
@@ -38,7 +42,7 @@ const marketplaceReducer = (state = initialState, action: IAction) => {
 export interface IMarketplaceState {
   marketplaceLoading: boolean;
   marketItems: any;
-  myItems: any;
+  purchasedItems: any;
   createdItems: any;
   marketplaceError: string | null;
 }
