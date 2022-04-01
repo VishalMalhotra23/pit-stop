@@ -9,7 +9,7 @@ const initialState: IMarketplaceState = {
   marketplaceLoading: false,
   marketItems: [],
   purchasedItems: [],
-  createdItems: [],
+  listedItems: [],
   marketplaceError: null
 };
 
@@ -31,7 +31,7 @@ const marketplaceReducer = (state = initialState, action: IAction) => {
       return {
         ...state,
         marketplaceLoading: false,
-        createdItems: action.payload
+        listedItems: action.payload
       };
 
     default:
@@ -43,7 +43,7 @@ export interface IMarketplaceState {
   marketplaceLoading: boolean;
   marketItems: any;
   purchasedItems: any;
-  createdItems: any;
+  listedItems: any;
   marketplaceError: string | null;
 }
 
