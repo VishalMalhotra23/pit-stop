@@ -5,9 +5,12 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import { useDispatch } from 'react-redux';
 import { authSuccess } from '../store/auth/actions';
 import { getUserSuccess } from '../store/user/actions';
+import useUser from './useUser';
 
 export default function useAuth() {
   const dispatch = useDispatch();
+
+  const { getUser } = useUser();
 
   const getWeb3Modal = useCallback(async () => {
     const web3Modal = new Web3Modal({
@@ -45,15 +48,9 @@ export default function useAuth() {
       `/api/verify?address=${account}&signature=${signature}`
     );
     const data = await response.json();
-    const { username, points } = data;
 
     dispatch(authSuccess(account));
-    dispatch(
-      getUserSuccess({
-        username,
-        points
-      })
-    );
+    getUser(account);
   }, []);
 
   return {

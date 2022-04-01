@@ -10,6 +10,7 @@ import Navbar from '../../components/Navbar';
 import { RootState } from '../../store/rootReducer';
 import { useSelector } from 'react-redux';
 import useNFT from '../../hooks/useNFT';
+import useUser from '../../hooks/useUser';
 
 const Race: NextPage = () => {
   const [team, setTeam] = useState('ferrari');
@@ -20,6 +21,7 @@ const Race: NextPage = () => {
   );
 
   const { updateNFTPoints } = useNFT();
+  const { getUser } = useUser();
 
   async function backDriver(driver: string, itemId: number) {
     const response = await fetch(
@@ -37,7 +39,10 @@ const Race: NextPage = () => {
     const pointsScored = data.points;
 
     //update token uri
-    updateNFTPoints(parseInt(data.itemId), pointsScored);
+    await updateNFTPoints(parseInt(data.itemId), pointsScored);
+
+    //refetch user
+    await getUser(address);
   }
 
   return (

@@ -39,10 +39,26 @@ export default async function wager(
 
     user.points += points;
     user.wager = null;
+    if (user.history)
+      user.history.push({
+        driver,
+        race: raceData.data.MRData.RaceTable.Races[0].raceName,
+        points
+      });
+    else
+      user.history = [
+        {
+          driver,
+          race: raceData.data.MRData.RaceTable.Races[0].raceName,
+          points
+        }
+      ];
     await router.put(`/users/${address}.json`, user);
 
     res.status(200).json({ success: true, points, itemId });
   } catch (error) {
+    console.log(error);
+
     res.status(400).json({ success: false });
   }
 }

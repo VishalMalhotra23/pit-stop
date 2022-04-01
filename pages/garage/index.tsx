@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import GarageCard from '../../components/GarageCard';
 import Navbar from '../../components/Navbar';
 import { RootState } from '../../store/rootReducer';
+import DRIVERS from '../../data/drivers.json';
 
 const Garage: NextPage = () => {
   const { garage } = useSelector((state: RootState) => state.garage);
@@ -19,7 +20,7 @@ const Garage: NextPage = () => {
       </Head>
       <Navbar />
       <div className="flex-1 flex">
-        <div className="w-1/2 p-10">
+        <div className="w-2/5 p-10">
           <div className="bg-gray w-full h-full rounded-lg p-10">
             <div className="flex w-full justify-center items-center">
               <div className="w-1/2">
@@ -36,9 +37,33 @@ const Garage: NextPage = () => {
                 </h1>
               </div>
             </div>
+            <div className="w-36 mt-5">
+              <h1 className="text-white text-xl font-semibold text-left">
+                Race History
+              </h1>
+              <div className="h-0.5 mt-1 w-full bg-gradient-to-r from-redOne to-redTwo"></div>
+            </div>
+            <div className="w-full grid grid-cols-3">
+              <h3 className="text-left text-white text-base font-bold">
+                Driver
+              </h3>
+              <h3 className="text-left text-white text-base font-bold">Race</h3>
+              <h3 className="text-left text-white text-base font-bold">
+                Points
+              </h3>
+              {user.history.map((gp: any) => (
+                <>
+                  <h3 className="text-left capitalize text-white text-sm">
+                    {gp.driver.replace('-', ' ')}
+                  </h3>
+                  <h3 className="text-left text-white text-sm">{gp.race}</h3>
+                  <h3 className="text-left text-white text-sm">{gp.points}</h3>
+                </>
+              ))}
+            </div>{' '}
           </div>
         </div>
-        <div className="w-1/2 p-10">
+        <div className="w-3/5 p-10">
           {garage.length > 0 ? (
             <div className="grid grid-cols-2 gap-10">
               {garage.map((garageItem: any) => (
