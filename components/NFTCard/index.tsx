@@ -1,13 +1,13 @@
 import Image from 'next/image';
 
-const NFTCard = ({ team }: INFTCardProps) => {
+const NFTCard = ({ team, img }: INFTCardProps) => {
   return (
     <div
       style={{ width: '580px', height: '386px' }}
       className="border-2 border-redOne bg-gradient-to-r from-gray-lighter to-gray-lightest rounded-lg flex items-center justify-center"
     >
       <Image
-        src={require(`../../public/img/cars/${team}.png`)}
+        src={img ? img : require(`../../public/img/cars/${team}.png`)}
         width={526}
         height={156}
       />
@@ -18,5 +18,6 @@ const NFTCard = ({ team }: INFTCardProps) => {
 export default NFTCard;
 
 interface INFTCardProps {
-  team: string;
+  team?: string;
+  img?: string;
 }

@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import GarageCard from '../../components/GarageCard';
 import Navbar from '../../components/Navbar';
 import { RootState } from '../../store/rootReducer';
-import DRIVERS from '../../data/drivers.json';
 
 const Garage: NextPage = () => {
   const { garage } = useSelector((state: RootState) => state.garage);
@@ -51,18 +50,23 @@ const Garage: NextPage = () => {
               <h3 className="text-left text-white text-base font-bold">
                 Points
               </h3>
-              {user.history.map((gp: any) => (
-                <>
-                  <h3 className="text-left capitalize text-white text-sm">
-                    {gp.driver.replace('-', ' ')}
-                  </h3>
-                  <h3 className="text-left text-white text-sm">{gp.race}</h3>
-                  <h3 className="text-left text-white text-sm">{gp.points}</h3>
-                </>
-              ))}
+              {user.history &&
+                user.history.length > 0 &&
+                user.history.map((gp: any) => (
+                  <>
+                    <h3 className="text-left capitalize text-white text-sm">
+                      {gp.driver.replace('-', ' ')}
+                    </h3>
+                    <h3 className="text-left text-white text-sm">{gp.race}</h3>
+                    <h3 className="text-left text-white text-sm">
+                      {gp.points}
+                    </h3>
+                  </>
+                ))}
             </div>{' '}
           </div>
         </div>
+
         <div className="w-3/5 p-10">
           {garage.length > 0 ? (
             <div className="grid grid-cols-2 gap-10">
