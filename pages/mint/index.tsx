@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import Navbar from '../../components/Navbar';
 import NFTCard from '../../components/NFTCard';
 import TEAMS from '../../data/teams.json';
+import withAuth from '../../hoc/withAuth';
 import useNFT from '../../hooks/useNFT';
 
 const TEAMS1 = TEAMS.slice(0, 5);
@@ -85,4 +86,4 @@ const Mint: NextPage = () => {
   );
 };
 
-export default Mint;
+export default withAuth(Mint);

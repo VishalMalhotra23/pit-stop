@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import GarageCard from '../../components/GarageCard';
 import Navbar from '../../components/Navbar';
+import withAuth from '../../hoc/withAuth';
 import { RootState } from '../../store/rootReducer';
 
 const Garage: NextPage = () => {
@@ -110,7 +111,7 @@ const Garage: NextPage = () => {
   );
 };
 
-export default Garage;
+export default withAuth(Garage);
 
 enum TABS {
   Minted,

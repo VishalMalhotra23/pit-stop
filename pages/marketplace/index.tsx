@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Navbar from '../../components/Navbar';
+import withAuth from '../../hoc/withAuth';
 
 const Marketplace: NextPage = () => {
   return (
@@ -16,4 +17,4 @@ const Marketplace: NextPage = () => {
   );
 };
 
-export default Marketplace;
+export default withAuth(Marketplace);
