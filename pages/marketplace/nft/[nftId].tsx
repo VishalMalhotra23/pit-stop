@@ -16,6 +16,8 @@ const MarketplaceNFT: NextPage = () => {
   const { nftId } = router.query;
   console.log(nftId);
 
+  const { address } = useSelector((state: RootState) => state.auth);
+
   const { marketItems } = useSelector((state: RootState) => state.marketplace);
   console.log(marketItems);
 
@@ -83,12 +85,14 @@ const MarketplaceNFT: NextPage = () => {
                 </span>
               </div>
             </div>
-            <button
-              className="border-2 border-black mt-8 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
-              onClick={async () => buyItem(nft)}
-            >
-              Buy Now
-            </button>
+            {nft.seller !== address && (
+              <button
+                className="border-2 border-black mt-8 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
+                onClick={async () => buyItem(nft)}
+              >
+                Buy Now
+              </button>
+            )}
           </div>
         </div>
       )}
