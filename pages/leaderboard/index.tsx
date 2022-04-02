@@ -51,5 +51,4 @@ const Leaderboard: NextPage = () => {
   );
 };
 
-// export default withAuth(Leaderboard); //TODO: UNCOMMENT
-export default Leaderboard;
+export default withAuth(Leaderboard);

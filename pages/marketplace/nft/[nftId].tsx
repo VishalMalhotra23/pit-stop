@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import Navbar from '../../../components/Navbar';
 import NFTCard from '../../../components/NFTCard';
 import TEAMS from '../../../data/teams.json';
+import withAuth from '../../../hoc/withAuth';
 import useNFTMarket from '../../../hooks/useNFTMarket';
 import { RootState } from '../../../store/rootReducer';
 
@@ -14,12 +15,12 @@ const MarketplaceNFT: NextPage = () => {
   const { nftId } = router.query;
   console.log(nftId);
 
-  const { marketplace } = useSelector((state: RootState) => state.marketplace);
-  console.log(marketplace);
+  const { marketItems } = useSelector((state: RootState) => state.marketplace);
+  console.log(marketItems);
 
   const nft = useMemo(
-    () => marketplace.find((item: any) => item.itemId == nftId),
-    [marketplace]
+    () => marketItems.find((item: any) => item.itemId == nftId),
+    [marketItems]
   );
 
   console.log(nft);
@@ -74,4 +75,4 @@ const MarketplaceNFT: NextPage = () => {
   );
 };
 
-export default MarketplaceNFT;
+export default withAuth(MarketplaceNFT);

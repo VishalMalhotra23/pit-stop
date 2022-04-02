@@ -1,9 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useSelector } from 'react-redux';
+import MarketplaceCard from '../../components/MarketplaceCard';
 import Navbar from '../../components/Navbar';
 import withAuth from '../../hoc/withAuth';
+import { RootState } from '../../store/rootReducer';
 
 const Marketplace: NextPage = () => {
+  const { marketItems } = useSelector((state: RootState) => state.marketplace);
+
   return (
     <div className="text-center text-red-700">
       <Head>
@@ -13,6 +18,15 @@ const Marketplace: NextPage = () => {
       </Head>
 
       <Navbar />
+      <div className="flex-1 flex flex-col">
+        <h1 className="text-white text-3xl font-semibold">Marketplace</h1>
+        <div className="mx-auto h-0.5 w-72 bg-gradient-to-r from-redOne to-redTwo"></div>
+        <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-5 w-3/4 mx-auto">
+          {marketItems.map((item: any) => (
+            <MarketplaceCard NFT={item} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -12,10 +12,10 @@ const Boot = () => {
 
   // @ts-ignore
   useEffect(async () => {
-    // await connect();
-    // await fetchMintedNFTs();
-    // await fetchMarketItems();
-    // await fetchMyItems();
+    await connect();
+    await fetchMintedNFTs();
+    await fetchMarketItems();
+    await fetchMyItems();
     await fetchLeaderboard();
   }, []);
 
@@ -23,5 +23,3 @@ const Boot = () => {
 };
 
 export default Boot;
-
-//TODO: UNCOMMENT

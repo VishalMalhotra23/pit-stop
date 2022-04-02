@@ -9,6 +9,7 @@ import NFTCard from '../../../components/NFTCard';
 import { RootState } from '../../../store/rootReducer';
 import TEAMS from '../../../data/teams.json';
 import useNFTMarket from '../../../hooks/useNFTMarket';
+import withAuth from '../../../hoc/withAuth';
 
 const GarageNFT: NextPage = () => {
   const router = useRouter();
@@ -72,4 +73,4 @@ const GarageNFT: NextPage = () => {
   );
 };
 
-export default GarageNFT;
+export default withAuth(GarageNFT);
