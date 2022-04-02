@@ -71,11 +71,11 @@ const Mint: NextPage = () => {
         <div className="w-1/2 text-left">
           <div>
             <h3 className="text-gray-mute text-xl font-semibold">Livery</h3>
-            <h1 className="text-white text-2xl font-bold">{livery}</h1>
-            <p className="my-2 text-white text-base">{description}</p>
+            <h1 className="text-white text-3xl font-bold mt-2">{livery}</h1>
+            <p className="my-10 text-white text-base">{description}</p>
           </div>
           <button
-            className="my-20 bg-gradient-to-r from-redTwo to-redTwo rounded-lg w-72 py-3 text-white text-2xl font-bold"
+            className="border-2 border-black bg-gradient-to-r from-redOne to-redTwo rounded-lg w-72 py-3 text-white text-2xl font-bold"
             onClick={async () => await mintNFT(teamKey)}
           >
             Mint

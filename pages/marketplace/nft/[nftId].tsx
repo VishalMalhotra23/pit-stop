@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
@@ -50,23 +51,43 @@ const MarketplaceNFT: NextPage = () => {
           </div>
           <div className="w-1/2 text-left">
             <div>
-              <h1 className="text-white text-2xl font-bold">{nft.name}</h1>
-              <h3 className="text-white text-sm my-2">
+              <h1 className="text-white text-4xl font-bold">{nft.name}</h1>
+              <h3 className="text-white text-base my-3">
                 Created by <span className="text-redOne">{nft.seller}</span>
               </h3>
-              <p className="my-2 text-white text-base">{description}</p>
+
+              <p className="mt-5 text-white text-base">{description}</p>
             </div>
-            <h1 className="text-white text-2xl my-10 font-bold">
-              Points: {nft.points}
-            </h1>
-            <h1 className="text-white text-2xl my-10 font-bold">
-              Price: {nft.price} MATIC
-            </h1>
+            <div className="flex w-3/5 justify-between">
+              <div>
+                <h3 className="text-gray-mute mt-8 text-xl font-semibold">
+                  Price
+                </h3>
+                <div className="flex items-center mt-1">
+                  <Image
+                    src={require(`../../../public/img/matic.svg`)}
+                    width={42}
+                    height={21}
+                  />
+                  <span className="text-white text-2xl ml-2 font-bold">
+                    {nft.price} MATIC
+                  </span>
+                </div>
+              </div>
+              <div>
+                <h3 className="text-gray-mute mt-8 text-xl font-semibold">
+                  Points
+                </h3>
+                <span className="text-white text-2xl mt-1 font-bold">
+                  {nft.points}
+                </span>
+              </div>
+            </div>
             <button
-              className="my-10 bg-gradient-to-r from-redTwo to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
+              className="border-2 border-black mt-8 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
               onClick={async () => buyItem(nft)}
             >
-              Buy
+              Buy Now
             </button>
           </div>
         </div>

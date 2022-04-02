@@ -16,7 +16,8 @@ export default async function auth(
         address,
         nonce: Math.floor(Math.random() * 10000000),
         points: 0,
-        username: `Pit Crew Member ${Math.floor(Math.random() * 100000)}`
+        username: `Racer${Math.floor(Math.random() * 100000)}`,
+        pfp: 'https://ipfs.infura.io/ipfs/QmNg4MhiUJ9pCJmt81dHhTpA1FbSj7pnXLoGiVwBr852Da'
       };
 
       await router.put(`/users/${address}.json`, user);

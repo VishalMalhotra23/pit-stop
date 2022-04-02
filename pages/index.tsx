@@ -31,7 +31,7 @@ const Home: NextPage = () => {
             <br />
             Let’s go racing.
           </p>
-          <button className="mt-10 bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
+          <button className="mt-10 bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl border-2 border-black">
             Get Started
           </button>
         </div>

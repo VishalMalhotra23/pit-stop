@@ -16,7 +16,7 @@ export default function useNFTMarket() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  async function listItemOnMarketplace(tokenId: string) {
+  async function listItemOnMarketplace(tokenId: string, sellingPrice: string) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -33,7 +33,7 @@ export default function useNFTMarket() {
 
     console.log(data);
 
-    const thePrice = ethers.utils.parseUnits('100', 'ether');
+    const thePrice = ethers.utils.parseUnits(sellingPrice, 'ether');
 
     /* then list the item for sale on the marketplace */
     contract = new ethers.Contract(
@@ -107,7 +107,7 @@ export default function useNFTMarket() {
           owner: i.owner,
           sold: i.sold,
           image: meta.data.image,
-          name: `${meta.data.name} #${i.itemId}`,
+          name: `${meta.data.name} #${i.tokenId}`,
           points: meta.data.points
         };
         return item;
@@ -149,7 +149,7 @@ export default function useNFTMarket() {
           owner: i.owner,
           sold: i.sold,
           image: meta.data.image,
-          name: `${meta.data.name} #${i.itemId}`,
+          name: `${meta.data.name} #${i.tokenId}`,
           points: meta.data.points
         };
         return item;
@@ -168,7 +168,7 @@ export default function useNFTMarket() {
           owner: i.owner,
           sold: i.sold,
           image: meta.data.image,
-          name: `${meta.data.name} #${i.itemId}`,
+          name: `${meta.data.name} #${i.tokenId}`,
           points: meta.data.points
         };
         return item;
