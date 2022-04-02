@@ -148,12 +148,9 @@ export default function useNFTMarket() {
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
-          clip: meta.data.clip,
-          thumbnail: meta.data.thumbnail,
-          name: meta.data.name,
-          description: meta.data.desc,
-          game: meta.data.game,
-          tag: meta.data.tag
+          image: meta.data.image,
+          name: `${meta.data.name} #${i.itemId}`,
+          points: meta.data.points
         };
         return item;
       })
@@ -170,12 +167,9 @@ export default function useNFTMarket() {
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
-          clip: meta.data.clip,
-          thumbnail: meta.data.thumbnail,
-          name: meta.data.name,
-          description: meta.data.desc,
-          game: meta.data.game,
-          tag: meta.data.tag
+          image: meta.data.image,
+          name: `${meta.data.name} #${i.itemId}`,
+          points: meta.data.points
         };
         return item;
       })

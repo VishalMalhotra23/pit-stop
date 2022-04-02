@@ -160,6 +160,8 @@ const PurchasedNFTs = () => {
 const ListedNFTs = () => {
   const { listedItems } = useSelector((state: RootState) => state.marketplace);
 
+  console.log(listedItems);
+
   return listedItems.length > 0 ? (
     <div className="grid grid-cols-2 gap-10">
       {listedItems.map((listedItem: any) => (

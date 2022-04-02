@@ -14,7 +14,7 @@ import useUser from '../../hooks/useUser';
 import { RootState } from '../../store/rootReducer';
 
 const Race: NextPage = () => {
-  const [team, setTeam] = useState('ferrari');
+  const [team, setTeam] = useState('mclaren');
 
   const { garage } = useSelector((state: RootState) => state.garage);
   const { address, authenticated } = useSelector(
@@ -73,9 +73,9 @@ const Race: NextPage = () => {
             <Countdown timestamp={RACE.timestamp} />
             <div className="flex items-center justify-center w-full">
               <Image
-                src={require(`../../public/img/circuits/bahrain.png`)}
-                width={251}
-                height={180}
+                src={`https://ipfs.infura.io/ipfs/${RACE.circuit}`}
+                width={377}
+                height={270}
               />
             </div>
           </div>

@@ -20,7 +20,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
             <Navbar />
             <div className="flex-1 flex items-center justify-center">
               <h1 className="text-2xl font-semibold text-white text-center">
-                Sign in using Metamask wallet to access this page.
+                Sign in using MetaMask wallet to access this page.
               </h1>
             </div>
           </div>
