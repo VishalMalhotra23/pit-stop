@@ -21,7 +21,7 @@ const Mint: NextPage = () => {
     [teamKey]
   );
 
-  const { mintNFT, fetchMintedNFTs } = useNFT();
+  const { mintNFT } = useNFT();
 
   return (
     <div className="text-center h-screen flex flex-col text-red-700">
