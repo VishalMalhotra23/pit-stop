@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Countdown from '../components/Countdown';
 import Navbar from '../components/Navbar';
 import RACE from '../data/race.json';
+import ReactPlayer from 'react-player';
 
 const Home: NextPage = () => {
   return (
@@ -33,6 +34,26 @@ const Home: NextPage = () => {
           <button className="mt-10 bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
             Get Started
           </button>
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            right: '160px',
+            top: '90px',
+            boxShadow: '0 0 50px #CB2D3E',
+            borderRadius: '12px'
+          }}
+        >
+          <ReactPlayer
+            url="https://ipfs.infura.io/ipfs/Qme5wyu9XTLvZbmrX8BeHTzq8bJZo4bAJdRKfZxxFAJMht"
+            loop={true}
+            muted={true}
+            playing={true}
+            style={{
+              borderRadius: '12px',
+              overflow: 'hidden'
+            }}
+          />
         </div>
       </div>
 
