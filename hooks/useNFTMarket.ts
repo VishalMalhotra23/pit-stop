@@ -55,7 +55,7 @@ export default function useNFTMarket() {
     fetchMarketItems();
   }
 
-  async function buyItem(nft: any) {
+  async function buyItem(nft: any, address: string) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -65,6 +65,11 @@ export default function useNFTMarket() {
       process.env.NEXT_PUBLIC_NFT_MARKET_ADDRESS as string,
       Market.abi,
       signer
+    );
+    const tokenContract = new ethers.Contract(
+      process.env.NEXT_PUBLIC_NFT_ADDRESS as string,
+      NFT.abi,
+      provider
     );
 
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
@@ -76,6 +81,18 @@ export default function useNFTMarket() {
       }
     );
     await transaction.wait();
+
+    const tokenUri = await tokenContract.tokenURI(nft.itemId);
+    const meta = await axios.get(tokenUri);
+    let points = meta.data.points;
+    const authData = await fetch(
+      `/api/sale?address=${address}&points=${points}`
+    );
+    const user = await authData.json();
+    console.log(user);
+    // @ts-ignore
+    dispatch(getUserSuccess(user.user));
+
     router.push('/garage');
     fetchMarketItems();
   }
@@ -102,7 +119,7 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.itemId.toNumber(),
+          itemId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
@@ -144,7 +161,7 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.itemId.toNumber(),
+          itemId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
@@ -163,7 +180,7 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.itemId.toNumber(),
+          itemId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,

@@ -24,13 +24,12 @@ const Garage: NextPage = () => {
 
   const [tab, setTab] = useState(TABS.Garage);
 
-  const [isUploadThumbnailDisabled, setIsUploadThumbnailDisabled] =
-    useState(false);
+  const [isUploadImageDisabled, setIsUploadImageDisabled] = useState(false);
 
   const { changeProfilePhoto, changeUsername } = useUser();
 
-  async function onThumbnailUpload(e: any) {
-    setIsUploadThumbnailDisabled(true);
+  async function onImageUpload(e: any) {
+    setIsUploadImageDisabled(true);
 
     const file = e.target.files[0];
 
@@ -41,12 +40,12 @@ const Garage: NextPage = () => {
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       await changeProfilePhoto(address, url);
     } catch (error) {
-      console.log('Error uploading thumbnail file: ', error);
+      console.log('Error uploading Image file: ', error);
     }
   }
 
-  function openThumbnailInput() {
-    var inputEl = document.getElementById('thumbnail-upload');
+  function openImageInput() {
+    var inputEl = document.getElementById('Image-upload');
     inputEl?.click();
   }
 
@@ -80,13 +79,13 @@ const Garage: NextPage = () => {
                     <Image src={user.pfp} width={160} height={160} />
                   )}
                 </div>
-                <div className="" onClick={openThumbnailInput}>
+                <div className="" onClick={openImageInput}>
                   <input
                     type="file"
-                    id="thumbnail-upload"
+                    id="Image-upload"
                     className="w-full h-full hidden"
-                    onChange={onThumbnailUpload}
-                    disabled={isUploadThumbnailDisabled}
+                    onChange={onImageUpload}
+                    disabled={isUploadImageDisabled}
                   />
                   <h1 className="text-white text-sm text-center cursor-pointer hover:underline mt-3">
                     Edit profile photo

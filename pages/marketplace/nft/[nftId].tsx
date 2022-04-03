@@ -88,7 +88,7 @@ const MarketplaceNFT: NextPage = () => {
             {nft.seller !== address && (
               <button
                 className="border-2 border-black mt-8 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
-                onClick={async () => buyItem(nft)}
+                onClick={async () => buyItem(nft, address)}
               >
                 Buy Now
               </button>

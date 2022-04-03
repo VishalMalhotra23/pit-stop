@@ -20,11 +20,16 @@ const GarageNFT: NextPage = () => {
   const [sellingPrice, setSellingPrice] = useState('0');
 
   const { garage } = useSelector((state: RootState) => state.garage);
-
-  const nft = useMemo(
-    () => garage.find((item: any) => item.itemId == nftId),
-    [garage]
+  const { purchasedItems } = useSelector(
+    (state: RootState) => state.marketplace
   );
+
+  const nft = useMemo(() => {
+    let item = garage.find((item: any) => item.itemId == nftId);
+    if (item) return item;
+    item = purchasedItems.find((item: any) => item.itemId == nftId);
+    return item;
+  }, [garage, purchasedItems]);
 
   console.log(nft);
 
@@ -63,44 +68,74 @@ const GarageNFT: NextPage = () => {
 
               <p className="my-4 text-white text-base">{description}</p>
             </div>
-            <div className="flex w-3/5 justify-between">
-              <div>
-                <h3 className="text-gray-mute mt-8 text-xl font-semibold">
-                  Selling Price
-                </h3>
-                <div className="flex items-center mt-1">
-                  <Image
-                    src={require(`../../../public/img/matic.svg`)}
-                    width={42}
-                    height={21}
-                  />
-                  <span className="text-white text-2xl ml-2 font-bold">
-                    <input
-                      type="number"
-                      className="inline w-32 border-b-2 border-white text-2xl outline-none mr-3 font-bold"
-                      style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
-                      onChange={(e) => setSellingPrice(e.target.value)}
-                      value={sellingPrice}
-                    />{' '}
-                    MATIC
+            {!nft.sold ? (
+              <>
+                <div className="flex w-3/5 justify-between">
+                  <div>
+                    <h3 className="text-gray-mute mt-8 text-xl font-semibold">
+                      Selling Price
+                    </h3>
+                    <div className="flex items-center mt-1">
+                      <Image
+                        src={require(`../../../public/img/matic.svg`)}
+                        width={42}
+                        height={21}
+                      />
+                      <span className="text-white text-2xl ml-2 font-bold">
+                        <input
+                          type="number"
+                          className="inline w-32 border-b-2 border-white text-2xl outline-none mr-3 font-bold"
+                          style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
+                          onChange={(e) => setSellingPrice(e.target.value)}
+                          value={sellingPrice}
+                        />{' '}
+                        MATIC
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-gray-mute mt-8 text-xl font-semibold">
+                      Points
+                    </h3>
+                    <span className="text-white text-2xl mt-1 font-bold">
+                      {nft.points}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  className="my-7 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
+                  onClick={async () => sellNFT()}
+                >
+                  Sell
+                </button>
+              </>
+            ) : (
+              <div className="flex w-3/5 justify-between">
+                <div>
+                  <h3 className="text-gray-mute mt-8 text-xl font-semibold">
+                    Bought For
+                  </h3>
+                  <div className="flex items-center mt-1">
+                    <Image
+                      src={require(`../../../public/img/matic.svg`)}
+                      width={42}
+                      height={21}
+                    />
+                    <span className="text-white text-2xl ml-2 font-bold">
+                      {nft.price} MATIC
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="text-gray-mute mt-8 text-xl font-semibold">
+                    Points
+                  </h3>
+                  <span className="text-white text-2xl mt-1 font-bold">
+                    {nft.points}
                   </span>
                 </div>
               </div>
-              <div>
-                <h3 className="text-gray-mute mt-8 text-xl font-semibold">
-                  Points
-                </h3>
-                <span className="text-white text-2xl mt-1 font-bold">
-                  {nft.points}
-                </span>
-              </div>
-            </div>
-            <button
-              className="my-7 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
-              onClick={async () => sellNFT()}
-            >
-              Sell
-            </button>
+            )}
           </div>
         </div>
       )}
