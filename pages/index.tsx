@@ -6,8 +6,13 @@ import Countdown from '../components/Countdown';
 import Navbar from '../components/Navbar';
 import RACE from '../data/race.json';
 import ReactPlayer from 'react-player';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
+import MarketplaceCard from '../components/MarketplaceCard';
 
 const Home: NextPage = () => {
+  const { marketItems } = useSelector((state: RootState) => state.marketplace);
+
   return (
     <div className="text-center text-red-700">
       <Head>
@@ -104,7 +109,32 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-redOne to-redTwo w-full py-10">
+      {marketItems && marketItems.length > 0 && (
+        <div className="w-full px-14">
+          <div className="w-full flex justify-between">
+            <div className="text-white text-3xl font-bold text-left">
+              Trending Liveries
+            </div>
+            <Link href="/marketplace">
+              <div className="flex items-center cursor-pointer text-gray-mute hover:border-b-2 hover:border-gray-mute text-xl font-bold">
+                <span className="mr-3">Marketplace</span>
+                <Image
+                  src={require(`../public/img/arrow.svg`)}
+                  width={26}
+                  height={26}
+                />
+              </div>
+            </Link>
+          </div>
+          <div className="flex my-8">
+            {marketItems.slice(0, 3).map((item: any) => (
+              <MarketplaceCard NFT={item} small />
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="bg-gradient-to-r from-redOne to-redTwo w-full py-10 mt-12">
         <h1 className="text-white text-center text-3xl font-bold">
           {RACE.name}
         </h1>
