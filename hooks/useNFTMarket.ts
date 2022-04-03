@@ -96,7 +96,9 @@ export default function useNFTMarket() {
   }
 
   async function fetchMarketItems() {
-    const provider = new ethers.providers.JsonRpcProvider();
+    const provider = new ethers.providers.JsonRpcProvider(
+      `https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
+    );
 
     const tokenContract = new ethers.Contract(
       process.env.NEXT_PUBLIC_NFT_ADDRESS as string,
