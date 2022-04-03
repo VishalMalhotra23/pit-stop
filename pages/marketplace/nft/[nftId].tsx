@@ -8,6 +8,7 @@ import Navbar from '../../../components/Navbar';
 import NFTCard from '../../../components/NFTCard';
 import TEAMS from '../../../data/teams.json';
 import withAuth from '../../../hoc/withAuth';
+import useLeaderboard from '../../../hooks/useLeaderboard';
 import useNFTMarket from '../../../hooks/useNFTMarket';
 import { RootState } from '../../../store/rootReducer';
 
@@ -15,6 +16,7 @@ const MarketplaceNFT: NextPage = () => {
   const router = useRouter();
   const { nftId } = router.query;
   console.log(nftId);
+  const { fetchLeaderboard } = useLeaderboard();
 
   const { address } = useSelector((state: RootState) => state.auth);
 
@@ -88,7 +90,10 @@ const MarketplaceNFT: NextPage = () => {
             {nft.seller !== address && (
               <button
                 className="border-2 border-black mt-8 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
-                onClick={async () => buyItem(nft, address)}
+                onClick={async () => {
+                  await buyItem(nft, address);
+                  await fetchLeaderboard();
+                }}
               >
                 Buy Now
               </button>

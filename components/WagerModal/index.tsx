@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
+import useLeaderboard from '../../hooks/useLeaderboard';
 import useUser from '../../hooks/useUser';
 import { RootState } from '../../store/rootReducer';
 import GarageCard from '../GarageCard';
@@ -30,7 +31,7 @@ const WagerModal = ({
       onClick={() => closeModal()}
     >
       <div
-        className="w-1/2 h-3/4 bg-gray z-30 rounded-lg p-10"
+        className="w-1/2 h-3/4 bg-gray z-30 rounded-lg p-10 overflow-y-scroll whitespace-nowrap"
         onClick={(e) => e.stopPropagation()}
       >
         <h1 className="text-white text-xl font-semibold">

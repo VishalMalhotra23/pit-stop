@@ -80,7 +80,7 @@ export default function useNFTMarket() {
     );
     await transaction.wait();
 
-    const tokenUri = await tokenContract.tokenURI(nft.itemId);
+    const tokenUri = await tokenContract.tokenURI(nft.tokenId);
     const meta = await axios.get(tokenUri);
     let points = meta.data.points;
     const authData = await fetch(

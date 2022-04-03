@@ -10,6 +10,7 @@ import DRIVERS from '../../data/drivers.json';
 import RACE from '../../data/race.json';
 import TEAMS from '../../data/teams.json';
 import withAuth from '../../hoc/withAuth';
+import useLeaderboard from '../../hooks/useLeaderboard';
 import useNFT from '../../hooks/useNFT';
 import useUser from '../../hooks/useUser';
 import { RootState } from '../../store/rootReducer';
@@ -23,6 +24,7 @@ const Race: NextPage = () => {
 
   const { updateNFTPoints } = useNFT();
   const { fetchUser } = useUser();
+  const { fetchLeaderboard } = useLeaderboard();
 
   async function claimPoints() {
     //fetch points to scored from F1 race standings and update garage points on firebase
@@ -36,6 +38,7 @@ const Race: NextPage = () => {
 
     //refetch user
     await fetchUser(address);
+    await fetchLeaderboard();
   }
 
   const [showModal, setShowModal] = useState(false);

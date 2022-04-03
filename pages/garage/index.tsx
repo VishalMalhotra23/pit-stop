@@ -92,10 +92,10 @@ const Garage: NextPage = () => {
                   {user.username}
                 </h1>
                 <h1 className="my-2 text-redOne text-base w">
-                  {user.address && user.address.substring(0, 21)}
-                  <br />
                   {user.address &&
-                    user.address.substring(user.address.length - 21)}
+                    `${user.address.substring(0, 5)}...${user.address.substring(
+                      user.address.length - 3
+                    )}`}
                 </h1>
                 <h1 className="my-2 text-white text-xl font-semibold">
                   Points: <span className="text-redOne">{user.points}</span>
