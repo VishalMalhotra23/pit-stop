@@ -24,7 +24,7 @@ const MarketplaceNFT: NextPage = () => {
   console.log(marketItems);
 
   const nft = useMemo(
-    () => marketItems.find((item: any) => item.itemId == nftId),
+    () => marketItems.find((item: any) => item.tokenId == nftId),
     [marketItems]
   );
 

@@ -79,6 +79,7 @@ const GarageNFT: NextPage = () => {
                       <span className="text-white text-2xl ml-2 font-bold">
                         <input
                           type="number"
+                          min={0}
                           className="inline w-32 border-b-2 border-white text-2xl outline-none mr-3 font-bold"
                           style={{ backgroundColor: 'rgba(0,0,0,0.1)' }}
                           onChange={(e) => setSellingPrice(e.target.value)}
@@ -98,7 +99,7 @@ const GarageNFT: NextPage = () => {
                   </div>
                 </div>
                 <button
-                  className="my-7 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
+                  className="border-2 border-black my-7 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
                   onClick={async () => sellNFT()}
                 >
                   Sell

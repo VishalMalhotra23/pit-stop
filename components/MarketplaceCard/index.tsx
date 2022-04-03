@@ -45,7 +45,7 @@ const MarketplaceCard = ({ NFT, small }: IMarketplaceCardProps) => {
     <div className="border-2 px-4 py-7 border-redOne bg-gradient-to-r from-gray-lighter to-gray-lightest rounded-lg flex">
       <div className="h-full flex flex-col justify-between border-r-2 border-gray-mute pr-5">
         <Image src={NFT.image} width={266} height={79} />
-        <Link href={`/marketplace/nft/${NFT.itemId}`}>
+        <Link href={`/marketplace/nft/${NFT.tokenId}`}>
           <button
             className="border-2 border-black bg-gradient-to-r from-redOne to-redTwo rounded-lg w-36 mx-auto py-2 text-white text-base font-bold"
             onClick={() => null}
