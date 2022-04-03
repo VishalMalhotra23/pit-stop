@@ -6,11 +6,8 @@ import { useDispatch } from 'react-redux';
 import Web3Modal from 'web3modal';
 import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
-import {
-  getListedItems,
-  getMarketItems,
-  getPurchasedItems
-} from '../store/marketplace/actions';
+import { getListedItems, getMarketItems } from '../store/marketplace/actions';
+import { getPurchasedItems } from '../store/garage/actions';
 import { getUserSuccess } from '../store/user/actions';
 
 export default function useNFTMarket() {
@@ -163,8 +160,7 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.itemId.toNumber(),
-          tokenId: i.tokenId,
+          itemId: i.tokenId,
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,

@@ -50,11 +50,6 @@ const Garage: NextPage = () => {
   }
 
   const { garage } = useSelector((state: RootState) => state.garage);
-  const { purchasedItems } = useSelector(
-    (state: RootState) => state.marketplace
-  );
-
-  const ownedNFTs = [...garage, ...purchasedItems];
 
   const { listedItems } = useSelector((state: RootState) => state.marketplace);
 
@@ -160,7 +155,7 @@ const Garage: NextPage = () => {
             >
               Garage{' '}
               <span className="text-base ml-2 text-gray-mute">
-                {ownedNFTs.length}
+                {garage.length}
               </span>
             </h1>
             <h1
@@ -175,7 +170,7 @@ const Garage: NextPage = () => {
               </span>
             </h1>
           </div>
-          {tab === TABS.Garage && <GarageNFTs ownedNFTs={ownedNFTs} />}
+          {tab === TABS.Garage && <GarageNFTs garage={garage} />}
           {tab === TABS.OnSale && <OnSaleNFTs listedItems={listedItems} />}
         </div>
       </div>
@@ -190,10 +185,10 @@ enum TABS {
   OnSale
 }
 
-const GarageNFTs = ({ ownedNFTs }: IGarageNFTsProps) => {
-  return ownedNFTs.length > 0 ? (
+const GarageNFTs = ({ garage }: IGarageNFTsProps) => {
+  return garage.length > 0 ? (
     <div className="mt-10 grid grid-cols-2 gap-10">
-      {ownedNFTs.map((ownedItem: any) => (
+      {garage.map((ownedItem: any) => (
         <GarageCard link="garage" key={ownedItem.itemId} NFT={ownedItem} />
       ))}
     </div>
@@ -227,7 +222,7 @@ const OnSaleNFTs = ({ listedItems }: IOnSaleNFTsProps) => {
 };
 
 interface IGarageNFTsProps {
-  ownedNFTs: any;
+  garage: any;
 }
 
 interface IOnSaleNFTsProps {

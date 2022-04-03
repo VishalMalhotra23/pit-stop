@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import Countdown from '../../components/Countdown';
 import Navbar from '../../components/Navbar';
+import WagerModal from '../../components/WagerModal';
 import DRIVERS from '../../data/drivers.json';
 import RACE from '../../data/race.json';
 import TEAMS from '../../data/teams.json';
-import withAuth from '../../hoc/withAuth';
 import useNFT from '../../hooks/useNFT';
 import useUser from '../../hooks/useUser';
 import { RootState } from '../../store/rootReducer';
@@ -17,22 +17,11 @@ const Race: NextPage = () => {
   const [team, setTeam] = useState('mclaren');
 
   const { garage } = useSelector((state: RootState) => state.garage);
-  const { address, authenticated } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { address } = useSelector((state: RootState) => state.auth);
   const { user } = useSelector((state: RootState) => state.user);
 
   const { updateNFTPoints } = useNFT();
   const { getUser } = useUser();
-
-  async function backDriver(driver: string, itemId: number) {
-    const response = await fetch(
-      `/api/wager?address=${address}&driver=${driver}&itemId=${itemId}`
-    );
-    const data = await response.json();
-    console.log(data);
-    await getUser(address);
-  }
 
   async function claimPoints() {
     //fetch points to scored from F1 race standings and update garage points on firebase
@@ -48,6 +37,10 @@ const Race: NextPage = () => {
     await getUser(address);
   }
 
+  const [showModal, setShowModal] = useState(false);
+  const [selectedDriverKey, setSelectedDriverKey] = useState('');
+  const [selectedDriverName, setSelectedDriverName] = useState('');
+
   return (
     <div className="h-screen text-center text-red-700">
       <Head>
@@ -56,7 +49,13 @@ const Race: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-
+      {showModal && (
+        <WagerModal
+          driverKey={selectedDriverKey}
+          driverName={selectedDriverName}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
       <div className="flex-1 flex flex-col">
         <h1 className="text-white text-3xl font-semibold mt-4">
           Upcoming Race
@@ -107,11 +106,11 @@ const Race: NextPage = () => {
                 />
                 <p className="my-3 text-white font-semibold text-xl">
                   Congratulations! You backed{' '}
-                  <span className="capitalize">
+                  <span className="capitalize text-redOne">
                     {user.wager.driver.replace('-', ' ')}
                   </span>{' '}
                   with your{' '}
-                  <span>
+                  <span className="text-redOne">
                     {
                       garage.find(
                         (item: any) => item.itemId == user.wager.itemId
@@ -175,8 +174,11 @@ const Race: NextPage = () => {
                           {driver.name}
                         </h3>
                         <button
-                          onClick={() => backDriver(driver.key, 1)}
-                          // onClick={() => claimPoints()}
+                          onClick={() => {
+                            setShowModal(true);
+                            setSelectedDriverKey(driver.key);
+                            setSelectedDriverName(driver.name);
+                          }}
                           className="border-2 border-black my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
                         >
                           Support
@@ -194,4 +196,4 @@ const Race: NextPage = () => {
   );
 };
 
-export default withAuth(Race);
+export default Race;

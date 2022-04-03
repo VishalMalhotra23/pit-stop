@@ -20,16 +20,11 @@ const GarageNFT: NextPage = () => {
   const [sellingPrice, setSellingPrice] = useState('0');
 
   const { garage } = useSelector((state: RootState) => state.garage);
-  const { purchasedItems } = useSelector(
-    (state: RootState) => state.marketplace
-  );
 
-  const nft = useMemo(() => {
-    let item = garage.find((item: any) => item.itemId == nftId);
-    if (item) return item;
-    item = purchasedItems.find((item: any) => item.itemId == nftId);
-    return item;
-  }, [garage, purchasedItems]);
+  const nft = useMemo(
+    () => garage.find((item: any) => item.itemId == nftId),
+    [garage]
+  );
 
   console.log(nft);
 
