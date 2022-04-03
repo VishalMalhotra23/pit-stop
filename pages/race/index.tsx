@@ -9,6 +9,7 @@ import WagerModal from '../../components/WagerModal';
 import DRIVERS from '../../data/drivers.json';
 import RACE from '../../data/race.json';
 import TEAMS from '../../data/teams.json';
+import withAuth from '../../hoc/withAuth';
 import useNFT from '../../hooks/useNFT';
 import useUser from '../../hooks/useUser';
 import { RootState } from '../../store/rootReducer';
@@ -196,4 +197,4 @@ const Race: NextPage = () => {
   );
 };
 
-export default Race;
+export default withAuth(Race);

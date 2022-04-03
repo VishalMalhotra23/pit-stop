@@ -1,8 +1,9 @@
 import axios from 'axios';
+const fs = require('fs');
+const firebaseURL = fs.readFileSync('.firebase').toString();
 
 const router = axios.create({
-  baseURL:
-    'https://pit-stop-35cd8-default-rtdb.asia-southeast1.firebasedatabase.app/'
+  baseURL: firebaseURL
 });
 
 export default router;

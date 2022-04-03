@@ -12,6 +12,55 @@ const About: NextPage = () => {
       </Head>
 
       <Navbar />
+      <div className="flex flex-col">
+        <h1 className="text-white text-3xl font-semibold mt-4">
+          About Pit Stop
+        </h1>
+        <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
+        <div className="mx-40">
+          <p className="text-white text-xl font-semibold my-3">
+            Pit Stop is a web3 Formula 1 fantasy game platform where players can
+            build their virtual garages by minting F1 cars as NFTs and compete
+            with others by wagering these NFT cars on real life F1 races.
+          </p>
+        </div>
+        <h1 className="text-white text-3xl font-semibold mt-4">How it works</h1>
+        <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
+        <div className="mx-40">
+          <p className="text-white text-lg my-3">
+            Players start by building their own car garage in the metaverse, by
+            minting F1 cars of different liveries as NFTs.
+            <br /> These NFT cars have an initial <em>points</em> attribute
+            equal to 0 (zero) and can be wagered on one driver during each real
+            life F1 Grand Prix.
+            <br /> After the race, each NFT is updated with the number of points
+            scored by the driver in the Grand Prix.
+            <br /> The more points a player racks up, the more valuable the NFT
+            becomes, and the higher they move up the global leaderboard.
+            <br /> Players can also buy and sell these NFT cars at any given
+            time on the in-game marketplace, essentially trading some MATIC for
+            points.
+          </p>
+        </div>
+
+        <h6 className="text-white text-xl italic font-semibold mt-20">
+          🏁 Built by{' '}
+          <a href="https://twitter.com/thatshutterboi">
+            <span className="hover:text-redOne underline text-white">
+              Aayush Mishra
+            </span>
+          </a>{' '}
+          and{' '}
+          <a href="https://twitter.com/mizanxali">
+            <span className="hover:text-redOne underline text-white">
+              Mizan Ali
+            </span>
+          </a>{' '}
+          under ETHIndia's{' '}
+          <span className="text-redOne font-bold">ETHernals</span> Hackathon,
+          2022. 🏁
+        </h6>
+      </div>
     </div>
   );
 };

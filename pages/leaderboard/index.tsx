@@ -2,7 +2,6 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useSelector } from 'react-redux';
 import Navbar from '../../components/Navbar';
-import withAuth from '../../hoc/withAuth';
 import { RootState } from '../../store/rootReducer';
 
 const Leaderboard: NextPage = () => {
@@ -54,4 +53,4 @@ const Leaderboard: NextPage = () => {
   );
 };
 
-export default withAuth(Leaderboard);
+export default Leaderboard;

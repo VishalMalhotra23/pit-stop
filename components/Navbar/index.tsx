@@ -59,8 +59,11 @@ const NoAuthLinks = () => {
     await connect();
   }
   return (
-    <div className="flex w-1/5 justify-evenly items-center">
-      <span className="hover:text-redOne border-r-2 border-white pr-4">
+    <div className="flex w-1/3 justify-evenly items-center">
+      <span className="hover:text-redOne">
+        <Link href="/leaderboard">Leaderboard</Link>
+      </span>
+      <span className="hover:text-redOne border-r-2 border-white pr-5">
         <Link href="/about">About</Link>
       </span>
 

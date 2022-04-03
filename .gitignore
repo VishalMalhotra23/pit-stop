@@ -2,6 +2,7 @@
 
 .secret
 .alchemyid
+.firebase
 
 # dependencies
 /node_modules
