@@ -22,7 +22,7 @@ const Race: NextPage = () => {
   const { user } = useSelector((state: RootState) => state.user);
 
   const { updateNFTPoints } = useNFT();
-  const { getUser } = useUser();
+  const { fetchUser } = useUser();
 
   async function claimPoints() {
     //fetch points to scored from F1 race standings and update garage points on firebase
@@ -35,7 +35,7 @@ const Race: NextPage = () => {
     await updateNFTPoints(parseInt(data.itemId), pointsScored);
 
     //refetch user
-    await getUser(address);
+    await fetchUser(address);
   }
 
   const [showModal, setShowModal] = useState(false);

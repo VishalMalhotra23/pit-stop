@@ -11,7 +11,7 @@ const WagerModal = ({
 }: IWagerModalProps) => {
   const { garage } = useSelector((state: RootState) => state.garage);
   const { address } = useSelector((state: RootState) => state.auth);
-  const { getUser } = useUser();
+  const { fetchUser } = useUser();
 
   async function backDriver(driver: string, itemId: number) {
     const response = await fetch(
@@ -19,7 +19,7 @@ const WagerModal = ({
     );
     const data = await response.json();
     console.log(data);
-    await getUser(address);
+    await fetchUser(address);
     closeModal();
   }
 

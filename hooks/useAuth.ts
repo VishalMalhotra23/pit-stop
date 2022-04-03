@@ -4,13 +4,12 @@ import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import { useDispatch } from 'react-redux';
 import { authSuccess } from '../store/auth/actions';
-import { getUserSuccess } from '../store/user/actions';
 import useUser from './useUser';
 
 export default function useAuth() {
   const dispatch = useDispatch();
 
-  const { getUser } = useUser();
+  const { fetchUser } = useUser();
 
   const getWeb3Modal = useCallback(async () => {
     const web3Modal = new Web3Modal({
@@ -50,7 +49,7 @@ export default function useAuth() {
     const data = await response.json();
 
     dispatch(authSuccess(account));
-    getUser(account);
+    fetchUser(account);
   }, []);
 
   return {

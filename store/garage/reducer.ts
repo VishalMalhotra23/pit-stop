@@ -2,15 +2,13 @@ import { IAction } from '../storeInterfaces';
 import { GET_GARAGE_ITEMS, GET_PURCHASED_ITEMS } from './types';
 
 const initialState: IGarageState = {
-  garageLoading: false,
-  garage: [],
-  garageError: null
+  garage: []
 };
 
 const garageReducer = (state = initialState, action: IAction) => {
   switch (action.type) {
     case GET_GARAGE_ITEMS:
-      return { ...state, garageLoading: false, garage: action.payload };
+      return { ...state, garage: [...action.payload] };
     case GET_PURCHASED_ITEMS:
       return {
         ...state,
@@ -22,9 +20,7 @@ const garageReducer = (state = initialState, action: IAction) => {
 };
 
 export interface IGarageState {
-  garageLoading: boolean;
   garage: any;
-  garageError: string | null;
 }
 
 export { garageReducer };

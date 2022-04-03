@@ -8,7 +8,7 @@ import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
 import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 import { getListedItems, getMarketItems } from '../store/marketplace/actions';
 import { getPurchasedItems } from '../store/garage/actions';
-import { getUserSuccess } from '../store/user/actions';
+import { getUser } from '../store/user/actions';
 
 export default function useNFTMarket() {
   const dispatch = useDispatch();
@@ -89,7 +89,7 @@ export default function useNFTMarket() {
     const user = await authData.json();
     console.log(user);
     // @ts-ignore
-    dispatch(getUserSuccess(user.user));
+    dispatch(getUser(user.user));
 
     router.push('/garage');
     fetchMarketItems();
