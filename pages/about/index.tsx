@@ -57,7 +57,7 @@ const About: NextPage = () => {
               Mizan Ali
             </span>
           </a>{' '}
-          under ETHIndia's{' '}
+          under ETHIndia&apos;s{' '}
           <span className="text-redOne font-bold">ETHernals</span> Hackathon,
           2022. 🏁
         </h6>

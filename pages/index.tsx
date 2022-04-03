@@ -34,7 +34,7 @@ const Home: NextPage = () => {
             <br />
             Get to the top of leaderboard.
             <br />
-            Let’s go racing.
+            Let&apos;s go racing.
           </p>
           <Link href="/mint">
             <button className="mt-10 bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl border-2 border-black">
@@ -109,7 +109,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      {marketItems && marketItems.length > 0 && (
+      {marketItems && marketItems.length >= 3 && (
         <div className="w-full px-14">
           <div className="w-full flex justify-between">
             <div className="text-white text-3xl font-bold text-left">
@@ -128,7 +128,7 @@ const Home: NextPage = () => {
           </div>
           <div className="flex my-8">
             {marketItems.slice(0, 3).map((item: any) => (
-              <MarketplaceCard NFT={item} small />
+              <MarketplaceCard key={item.itemId} NFT={item} small />
             ))}
           </div>
         </div>
@@ -144,7 +144,7 @@ const Home: NextPage = () => {
         </div>
         <Link href="/race">
           <button className="border-2 border-black bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
-            Let's Go!
+            Let&apos;s Go!
           </button>
         </Link>
       </div>

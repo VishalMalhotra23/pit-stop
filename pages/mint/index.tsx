@@ -39,6 +39,7 @@ const Mint: NextPage = () => {
             {TEAMS1.map((team) => {
               return (
                 <div
+                  key={team.key}
                   onClick={() => setTeamKey(team.key)}
                   className="cursor-pointer text-white mx-1"
                 >
@@ -55,6 +56,7 @@ const Mint: NextPage = () => {
             {TEAMS2.map((team) => {
               return (
                 <div
+                  key={team.key}
                   onClick={() => setTeamKey(team.key)}
                   className="cursor-pointer text-white mx-1"
                 >

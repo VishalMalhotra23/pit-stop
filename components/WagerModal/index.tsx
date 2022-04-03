@@ -41,7 +41,10 @@ const WagerModal = ({
         {garage.length > 0 ? (
           <div className="grid grid-cols-2 gap-10 mt-10">
             {garage.map((ownedItem: any) => (
-              <span onClick={() => backDriver(driverKey, ownedItem.itemId)}>
+              <span
+                key={ownedItem.itemId}
+                onClick={() => backDriver(driverKey, ownedItem.itemId)}
+              >
                 <GarageCard
                   key={ownedItem.tokenId ? ownedItem.tokenId : ownedItem.itemId}
                   NFT={ownedItem}

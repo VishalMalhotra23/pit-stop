@@ -23,7 +23,7 @@ const Marketplace: NextPage = () => {
         <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
         <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-5 w-3/4 mx-auto">
           {marketItems.map((item: any) => (
-            <MarketplaceCard NFT={item} />
+            <MarketplaceCard key={item.itemId} NFT={item} />
           ))}
         </div>
       </div>
