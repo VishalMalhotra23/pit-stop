@@ -57,7 +57,7 @@ started with test MATIC tokens!
 ## Project Gallery📷
 
 Figma Design File -
-[Pit Stop](https://www.figma.com/file/4WRAoe3uvrPf9jTRDhlpXe/F1-App)
+[Pit Stop](https://www.figma.com/file/4WRAoe3uvrPf9jTRDhlpXe/Pit-Stop)
 
 </br>
 <p align="center">
