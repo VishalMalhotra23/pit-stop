@@ -5,13 +5,22 @@ export default async function sale(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { address, points } = req.query;
+  const { address, points, seller } = req.query;
 
   try {
-    const userData = await router.get(`/users/${address}.json`);
+    let userData = await router.get(`/users/${seller}.json`);
     let user = userData.data;
 
-    user.points += points;
+    const thePoints = parseInt(points as string);
+
+    user.points -= thePoints;
+
+    await router.put(`/users/${seller}.json`, user);
+
+    userData = await router.get(`/users/${address}.json`);
+    user = userData.data;
+
+    user.points += thePoints;
 
     await router.put(`/users/${address}.json`, user);
 

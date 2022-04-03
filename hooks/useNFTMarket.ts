@@ -11,6 +11,7 @@ import {
   getMarketItems,
   getPurchasedItems
 } from '../store/marketplace/actions';
+import { getUserSuccess } from '../store/user/actions';
 
 export default function useNFTMarket() {
   const dispatch = useDispatch();
@@ -86,7 +87,7 @@ export default function useNFTMarket() {
     const meta = await axios.get(tokenUri);
     let points = meta.data.points;
     const authData = await fetch(
-      `/api/sale?address=${address}&points=${points}`
+      `/api/sale?address=${address}&points=${points}&seller=${nft.seller}`
     );
     const user = await authData.json();
     console.log(user);
@@ -119,7 +120,8 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.tokenId.toNumber(),
+          itemId: i.itemId.toNumber(),
+          tokenId: i.tokenId,
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
@@ -161,7 +163,8 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.tokenId.toNumber(),
+          itemId: i.itemId.toNumber(),
+          tokenId: i.tokenId,
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
@@ -180,7 +183,8 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.tokenId.toNumber(),
+          itemId: i.itemId.toNumber(),
+          tokenId: i.tokenId,
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,
