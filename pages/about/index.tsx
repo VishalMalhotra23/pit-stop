@@ -29,7 +29,8 @@ const About: NextPage = () => {
         <div className="mx-40">
           <p className="text-white text-lg my-3">
             Players start by building their own car garage in the metaverse, by
-            minting F1 cars of different liveries as NFTs.
+            minting F1 cars of different liveries as NFTs on the Polygon Mumbai
+            Testnet.
             <br /> These NFT cars have an initial <em>points</em> attribute
             equal to 0 (zero) and can be wagered on one driver during each real
             life F1 Grand Prix.
