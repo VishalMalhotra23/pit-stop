@@ -13,8 +13,8 @@ export default function useAuth() {
 
   const getWeb3Modal = useCallback(async () => {
     const web3Modal = new Web3Modal({
-      network: 'mainnet',
-      cacheProvider: false,
+      network: 'testnet',
+      cacheProvider: true,
       providerOptions: {
         walletconnect: {
           package: WalletConnectProvider,
