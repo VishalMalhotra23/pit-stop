@@ -6,6 +6,7 @@ import { RootState } from '../../store/rootReducer';
 
 const Leaderboard: NextPage = () => {
   const { leaderboard } = useSelector((state: RootState) => state.leaderboard);
+  const { address } = useSelector((state: RootState) => state.auth);
 
   return (
     <div className="h-screen text-center text-red-700">
@@ -30,18 +31,51 @@ const Leaderboard: NextPage = () => {
           <h3 className="text-white text-xl font-bold">Points</h3>
           <div className="mx-auto h-0.5 w-full bg-gradient-to-r from-redOne to-redTwo col-span-4 mt-2 mb-4"></div>
           {leaderboard && leaderboard.length > 0 ? (
-            leaderboard.map((user: any, i: number) => (
-              <>
-                <h3 className="text-white text-base">{i + 1}</h3>
-                <h3 className="text-white text-base">{user.username}</h3>
-                <h3 className="text-white text-base">
-                  {`${user.address.substring(0, 5)}...${user.address.substring(
-                    user.address.length - 4
-                  )}`}
-                </h3>
-                <h3 className="text-white text-base">{user.points}</h3>
-              </>
-            ))
+            leaderboard.map((user: any, i: number) => {
+              return (
+                <>
+                  <h3
+                    className={`${
+                      user.address === address
+                        ? 'text-redOne font-bold'
+                        : 'text-white'
+                    } text-base`}
+                  >
+                    {i + 1}
+                  </h3>
+                  <h3
+                    className={`${
+                      user.address === address
+                        ? 'text-redOne font-bold'
+                        : 'text-white'
+                    } text-base`}
+                  >
+                    {user.username}
+                  </h3>
+                  <h3
+                    className={`${
+                      user.address === address
+                        ? 'text-redOne font-bold'
+                        : 'text-white'
+                    } text-base`}
+                  >
+                    {`${user.address.substring(
+                      0,
+                      5
+                    )}...${user.address.substring(user.address.length - 4)}`}
+                  </h3>
+                  <h3
+                    className={`${
+                      user.address === address
+                        ? 'text-redOne font-bold'
+                        : 'text-white'
+                    } text-base`}
+                  >
+                    {user.points}
+                  </h3>
+                </>
+              );
+            })
           ) : (
             <h1 className="text-center my-10 text-white text-sm">
               No leaderboard data to show
