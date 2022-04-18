@@ -11,16 +11,16 @@ const WagerModal = ({
   closeModal
 }: IWagerModalProps) => {
   const { garage } = useSelector((state: RootState) => state.garage);
-  const { address } = useSelector((state: RootState) => state.auth);
+  const { address, token } = useSelector((state: RootState) => state.auth);
   const { fetchUser } = useUser();
 
   async function backDriver(driver: string, itemId: number) {
     const response = await fetch(
-      `/api/wager?address=${address}&driver=${driver}&itemId=${itemId}`
+      `/api/wager?token=${token}&driver=${driver}&itemId=${itemId}`
     );
     const data = await response.json();
     console.log(data);
-    await fetchUser(address);
+    await fetchUser(token);
     closeModal();
   }
 

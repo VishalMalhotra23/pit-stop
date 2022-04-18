@@ -1,14 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import router from '../../util/router';
+import jwt from 'jsonwebtoken';
 
 export default async function sale(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { address, points, seller } = req.query;
+  const { token, points, seller } = req.query;
 
   try {
-    let userData = await router.get(`/users/${seller}.json`);
+    let userData = await router.get(
+      `/users.json?orderBy="address"&equalTo="${seller}"`
+    );
     let user = userData.data;
 
     const thePoints = parseInt(points as string);
@@ -17,12 +20,20 @@ export default async function sale(
 
     await router.put(`/users/${seller}.json`, user);
 
-    userData = await router.get(`/users/${address}.json`);
+    const decoded = jwt.verify(
+      token as string,
+      process.env.JWT_SECRET as string
+    );
+    //@ts-ignore
+    const { id } = decoded.user;
+    console.log(id);
+
+    userData = await router.get(`/users/${id}.json`);
     user = userData.data;
 
     user.points += thePoints;
 
-    await router.put(`/users/${address}.json`, user);
+    await router.put(`/users/${id}.json`, user);
 
     res.status(200).json({ success: true, user });
   } catch (error) {

@@ -9,13 +9,12 @@ export default async function leaderboard(
     const usersData = await router.get(`/users.json`);
     let users = usersData.data;
 
-    console.log(users);
-
     let leaderboard = [];
 
     for (const [key, value] of Object.entries(users)) {
       leaderboard.push({
-        address: key,
+        // @ts-ignore
+        address: value.address,
         // @ts-ignore
         points: value.points,
         // @ts-ignore

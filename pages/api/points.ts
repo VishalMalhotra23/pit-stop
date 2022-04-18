@@ -1,15 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import router from '../../util/router';
+import jwt from 'jsonwebtoken';
 
 export default async function wager(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { address } = req.query;
+  const { token } = req.query;
 
   try {
-    const userData = await router.get(`/users/${address}.json`);
+    const decoded = jwt.verify(
+      token as string,
+      process.env.JWT_SECRET as string
+    );
+    //@ts-ignore
+    const { id } = decoded.user;
+    console.log(id);
+
+    const userData = await router.get(`/users/${id}.json`);
     let user = userData.data;
 
     const driver = user.wager.driver;
@@ -53,7 +62,7 @@ export default async function wager(
           points
         }
       ];
-    await router.put(`/users/${address}.json`, user);
+    await router.put(`/users/${id}.json`, user);
 
     res.status(200).json({ success: true, points, itemId });
   } catch (error) {
