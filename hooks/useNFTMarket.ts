@@ -53,7 +53,7 @@ export default function useNFTMarket() {
     fetchMarketItems();
   }
 
-  async function buyItem(nft: any, address: string) {
+  async function buyItem(nft: any, token: string) {
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
@@ -84,7 +84,7 @@ export default function useNFTMarket() {
     const meta = await axios.get(tokenUri);
     let points = meta.data.points;
     const authData = await fetch(
-      `/api/sale?address=${address}&points=${points}&seller=${nft.seller}`
+      `/api/sale?token=${token}&points=${points}&seller=${nft.seller}`
     );
     const user = await authData.json();
     console.log(user);
@@ -162,7 +162,7 @@ export default function useNFTMarket() {
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
-          itemId: i.tokenId,
+          itemId: i.tokenId.toNumber(),
           seller: i.seller,
           owner: i.owner,
           sold: i.sold,

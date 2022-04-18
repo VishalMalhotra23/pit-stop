@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import useAuth from '../../hooks/useAuth';
+import useLeaderboard from '../../hooks/useLeaderboard';
+import useNFT from '../../hooks/useNFT';
+import useNFTMarket from '../../hooks/useNFTMarket';
 import { RootState } from '../../store/rootReducer';
 
 const Navbar = () => {
@@ -54,9 +57,14 @@ const AuthLinks = ({ address }: IAuthLinkProps) => {
 
 const NoAuthLinks = () => {
   const { connect } = useAuth();
+  const { fetchMintedNFTs } = useNFT();
+  const { fetchMarketItems, fetchMyItems } = useNFTMarket();
 
   async function connectButtonHandler() {
     await connect();
+    await fetchMintedNFTs();
+    await fetchMarketItems();
+    await fetchMyItems();
   }
   return (
     <div className="flex w-1/3 justify-evenly items-center">

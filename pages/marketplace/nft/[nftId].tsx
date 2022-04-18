@@ -18,7 +18,7 @@ const MarketplaceNFT: NextPage = () => {
   console.log(nftId);
   const { fetchLeaderboard } = useLeaderboard();
 
-  const { address } = useSelector((state: RootState) => state.auth);
+  const { address, token } = useSelector((state: RootState) => state.auth);
 
   const { marketItems } = useSelector((state: RootState) => state.marketplace);
   console.log(marketItems);
@@ -91,7 +91,7 @@ const MarketplaceNFT: NextPage = () => {
               <button
                 className="border-2 border-black mt-8 bg-gradient-to-r from-redOne to-redTwo rounded-lg w-64 py-2 text-white text-2xl font-bold"
                 onClick={async () => {
-                  await buyItem(nft, address);
+                  await buyItem(nft, token);
                   await fetchLeaderboard();
                 }}
               >

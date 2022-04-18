@@ -32,24 +32,36 @@ export default function useAuth() {
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const accounts = await provider.listAccounts();
-    signIn(connection, accounts[0]);
+    if (!localStorage.getItem('token')) signIn(connection, accounts[0]);
+    else {
+      const token = localStorage.getItem('token') as string;
+      dispatch(
+        authSuccess({
+          address: accounts[0],
+          token
+        })
+      );
+      fetchUser(token);
+    }
   }, []);
 
   const signIn = useCallback(async (connection: any, account: string) => {
+    console.log(account);
+
     const authData = await fetch(`/api/auth?address=${account}`);
     const user = await authData.json();
-    console.log(user.nonce);
+    console.log(user.id);
     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
     const signature = await signer.signMessage(user.nonce.toString());
     const response = await fetch(
-      `/api/verify?address=${account}&signature=${signature}`
+      `/api/verify?address=${account}&signature=${signature}&id=${user.id}`
     );
     const data = await response.json();
 
-    dispatch(authSuccess(account));
-    fetchUser(account);
+    dispatch(authSuccess({ address: account, token: data.token }));
+    fetchUser(data.token);
   }, []);
 
   return {

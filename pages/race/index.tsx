@@ -19,7 +19,7 @@ const Race: NextPage = () => {
   const [team, setTeam] = useState('mclaren');
 
   const { garage } = useSelector((state: RootState) => state.garage);
-  const { address } = useSelector((state: RootState) => state.auth);
+  const { address, token } = useSelector((state: RootState) => state.auth);
   const { user } = useSelector((state: RootState) => state.user);
 
   const { updateNFTPoints } = useNFT();
@@ -28,7 +28,7 @@ const Race: NextPage = () => {
 
   async function claimPoints() {
     //fetch points to scored from F1 race standings and update garage points on firebase
-    const response = await fetch(`/api/points?address=${address}`);
+    const response = await fetch(`/api/points?token=${token}`);
     const data = await response.json();
     console.log(data);
     const pointsScored = data.points;
@@ -37,7 +37,7 @@ const Race: NextPage = () => {
     await updateNFTPoints(parseInt(data.itemId), pointsScored);
 
     //refetch user
-    await fetchUser(address);
+    await fetchUser(token);
     await fetchLeaderboard();
   }
 

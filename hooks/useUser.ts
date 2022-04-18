@@ -5,31 +5,26 @@ import { getUser } from '../store/user/actions';
 export default function useUser() {
   const dispatch = useDispatch();
 
-  const fetchUser = useCallback(async (address: string) => {
-    const authData = await fetch(`/api/user?address=${address}`);
+  const fetchUser = useCallback(async (token: string) => {
+    const authData = await fetch(`/api/user?token=${token}`);
     const user = await authData.json();
     console.log(user);
     // @ts-ignore
     dispatch(getUser(user.user));
   }, []);
 
-  const changeProfilePhoto = useCallback(
-    async (address: string, url: string) => {
-      const authData = await fetch(
-        `/api/profile?address=${address}&url=${url}`
-      );
-      const user = await authData.json();
-      console.log(user);
-      // @ts-ignore
-      dispatch(getUser(user.user));
-    },
-    []
-  );
+  const changeProfilePhoto = useCallback(async (token: string, url: string) => {
+    const authData = await fetch(`/api/profile?token=${token}&url=${url}`);
+    const user = await authData.json();
+    console.log(user);
+    // @ts-ignore
+    dispatch(getUser(user.user));
+  }, []);
 
   const changeUsername = useCallback(
-    async (address: string, username: string) => {
+    async (token: string, username: string) => {
       const authData = await fetch(
-        `/api/profile?address=${address}&username=${username}`
+        `/api/profile?token=${token}&username=${username}`
       );
       const user = await authData.json();
       console.log(user);

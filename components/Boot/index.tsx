@@ -12,11 +12,14 @@ const Boot = () => {
 
   // @ts-ignore
   useEffect(async () => {
-    await connect();
-    await fetchMintedNFTs();
-    await fetchMarketItems();
-    await fetchMyItems();
     await fetchLeaderboard();
+
+    if (localStorage.getItem('token')) {
+      await connect();
+      await fetchMintedNFTs();
+      await fetchMarketItems();
+      await fetchMyItems();
+    }
   }, []);
 
   return null;

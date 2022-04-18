@@ -2,20 +2,25 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import GarageCard from '../../components/GarageCard';
 import Navbar from '../../components/Navbar';
 import withAuth from '../../hoc/withAuth';
 import { RootState } from '../../store/rootReducer';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 import useUser from '../../hooks/useUser';
+import { signOut } from '../../store/auth/actions';
+import { useRouter } from 'next/router';
 //@ts-ignore
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
 const Garage: NextPage = () => {
   const { user } = useSelector((state: RootState) => state.user);
-  const { address } = useSelector((state: RootState) => state.auth);
+  const { address, token } = useSelector((state: RootState) => state.auth);
   const { leaderboard } = useSelector((state: RootState) => state.leaderboard);
+
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const rank = useMemo(
     () => leaderboard.findIndex((item: any) => item.address == address) + 1,
@@ -28,6 +33,11 @@ const Garage: NextPage = () => {
 
   const { changeProfilePhoto, changeUsername } = useUser();
 
+  function signOutUser() {
+    dispatch(signOut());
+    router.push('/');
+  }
+
   async function onImageUpload(e: any) {
     setIsUploadImageDisabled(true);
 
@@ -38,7 +48,7 @@ const Garage: NextPage = () => {
         progress: (prog) => console.log(`received: ${prog}`)
       });
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-      await changeProfilePhoto(address, url);
+      await changeProfilePhoto(token, url);
     } catch (error) {
       console.log('Error uploading Image file: ', error);
     }
@@ -102,6 +112,12 @@ const Garage: NextPage = () => {
                 </h1>
                 <h1 className="my-2 text-white text-xl font-semibold">
                   Rank: <span className="text-redOne">{rank}</span>
+                </h1>
+                <h1
+                  onClick={signOutUser}
+                  className="my-2 text-white hover:text-redOne text-sm font-semibold hover:underline cursor-pointer"
+                >
+                  Sign Out
                 </h1>
               </div>
             </div>
