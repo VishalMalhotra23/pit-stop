@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GarageCard from '../../components/GarageCard';
 import Navbar from '../../components/Navbar';
@@ -32,12 +32,24 @@ const Garage: NextPage = () => {
   const [tab, setTab] = useState(TABS.Garage);
 
   const [isUploadImageDisabled, setIsUploadImageDisabled] = useState(false);
+  const [isEditingUsername, setIsEditingUsername] = useState(false);
+
+  const [username, setUsername] = useState(user.username);
+
+  useEffect(() => {
+    setUsername(user.username);
+  }, [user]);
 
   const { changeProfilePhoto, changeUsername } = useUser();
 
   function signOutUser() {
     dispatch(signOut());
     router.push('/');
+  }
+
+  async function submitChangeUsername() {
+    setIsEditingUsername(false);
+    await changeUsername(token, username);
   }
 
   async function onImageUpload(e: any) {
@@ -51,6 +63,7 @@ const Garage: NextPage = () => {
       });
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       await changeProfilePhoto(token, url);
+      setIsUploadImageDisabled(false);
     } catch (error) {
       console.log('Error uploading Image file: ', error);
     }
@@ -100,9 +113,36 @@ const Garage: NextPage = () => {
                 </div>
               </div>
               <div className="flex flex-col justify-start text-left flex-1 pt-2">
-                <h1 className="my-2 text-white text-2xl font-bold">
-                  {user.username}
-                </h1>
+                <div className="my-2 text-white text-2xl font-bold w-full flex justify-between items-center">
+                  {isEditingUsername ? (
+                    <form onSubmit={submitChangeUsername}>
+                      <input
+                        autoFocus
+                        type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        size={10}
+                        className="bg-background outline-none border-none text-white"
+                      />
+                    </form>
+                  ) : (
+                    <span>
+                      {username && username.length > 10
+                        ? `${username.substring(0, 10)}...`
+                        : username}
+                    </span>
+                  )}
+                  <div
+                    onClick={() => setIsEditingUsername(true)}
+                    className="cursor-pointer"
+                  >
+                    <Image
+                      src={require(`../../public/img/edit.svg`)}
+                      width={21}
+                      height={21}
+                    />
+                  </div>
+                </div>
                 <h1 className="my-2 text-redOne text-base w">
                   {user.address &&
                     `${user.address.substring(0, 5)}...${user.address.substring(
