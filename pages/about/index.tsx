@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 
 const About: NextPage = () => {
@@ -24,27 +25,133 @@ const About: NextPage = () => {
             with others by wagering these NFT cars on real life F1 races.
           </p>
         </div>
-        <h1 className="text-white text-3xl font-semibold mt-4">How it works</h1>
+        <h1 className="text-white text-3xl font-semibold mt-10">
+          How it works
+        </h1>
         <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
-        <div className="mx-40">
-          <p className="text-white text-lg my-3">
-            Players start by building their own car garage in the metaverse, by
-            minting F1 cars of different liveries as NFTs on the Polygon Mumbai
-            Testnet.
-            <br /> These NFT cars have an initial <em>points</em> attribute
-            equal to 0 (zero) and can be wagered on one driver during each real
-            life F1 Grand Prix.
-            <br /> After the race, each NFT is updated with the number of points
-            scored by the driver in the Grand Prix.
-            <br /> The more points a player racks up, the more valuable the NFT
-            becomes, and the higher they move up the global leaderboard.
-            <br /> Players can also buy and sell these NFT cars at any given
-            time on the in-game marketplace, essentially trading some MATIC for
-            points.
-          </p>
+        <div className="mx-40 text-white text-lg">
+          <ul className="">
+            <li className="my-2">
+              Players start by building their own car garage in the metaverse,
+              by minting F1 cars of different liveries as NFTs on the Polygon
+              Mumbai Testnet.
+            </li>
+            <li className="my-2">
+              {' '}
+              These NFT cars have an initial <em>points</em> attribute equal to
+              0 (zero) and can be wagered on one driver during each real life F1
+              Grand Prix.
+            </li>
+            <li className="my-2">
+              {' '}
+              After the race, each NFT is updated with the number of points
+              scored by the driver in the Grand Prix.
+            </li>
+            <li className="my-2">
+              {' '}
+              The more points a player racks up, the more valuable the NFT
+              becomes, and the higher they move up the global leaderboard.
+            </li>
+            <li className="my-2">
+              {' '}
+              Players can also buy and sell these NFT cars at any given time on
+              the in-game marketplace, essentially trading some MATIC for
+              points.
+            </li>
+          </ul>
         </div>
 
-        <h6 className="text-white text-xl italic font-semibold mt-20">
+        <h1 className="text-white text-3xl font-semibold mt-10">How to play</h1>
+        <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
+        <div className="mx-40 text-white text-lg">
+          <ol className="list-decimal">
+            <li className="my-2">
+              Get started by{' '}
+              <a
+                className="underline hover:text-redOne"
+                href="https://metamask.io/download/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                installing the Metamask wallet
+              </a>
+            </li>
+            <li className="my-2">
+              <a
+                className="underline hover:text-redOne"
+                href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/#add-the-polygon-network-manually"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Add the Polygon Mumbai-Testnet network
+              </a>{' '}
+              to your Metamask wallet
+            </li>
+            <li className="my-2">
+              Head over to the{' '}
+              <a
+                className="underline hover:text-redOne"
+                href="https://faucet.polygon.technology/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Polygon faucet
+              </a>{' '}
+              and request some test MATIC tokens to your wallet
+            </li>
+            <li className="my-2">
+              Sign in using your wallet by clicking on the{' '}
+              <span className="text-redOne font-bold italic">
+                Connect Wallet
+              </span>{' '}
+              button
+            </li>
+            <li className="my-2">
+              Once you receive the tokens, navigate to the{' '}
+              <Link href="/mint">
+                <span className="text-redOne font-bold cursor-pointer hover:underline">
+                  Mint
+                </span>
+              </Link>{' '}
+              page and mint your first NFT car with the livery of your choice
+            </li>
+            <li className="my-2">
+              Once you have a car in your{' '}
+              <Link href="/garage">
+                <span className="text-redOne font-bold cursor-pointer hover:underline">
+                  Garage
+                </span>
+              </Link>
+              , you can back a driver for the upcoming Grand Prix by going to
+              the{' '}
+              <Link href="/race">
+                <span className="text-redOne font-bold cursor-pointer hover:underline">
+                  Race
+                </span>
+              </Link>{' '}
+              page
+            </li>
+            <li className="my-2">
+              Claim your points once the race is over and climb the{' '}
+              <Link href="/leaderboard">
+                <span className="text-redOne font-bold cursor-pointer hover:underline">
+                  Leaderboard
+                </span>
+              </Link>{' '}
+            </li>
+            <li className="my-2">
+              Make sure to check out the{' '}
+              <Link href="/marketplace">
+                <span className="text-redOne font-bold cursor-pointer hover:underline">
+                  Marketplace
+                </span>
+              </Link>{' '}
+              to buy and sell cars at any given point
+            </li>
+          </ol>
+        </div>
+
+        <h6 className="text-white text-xl italic font-semibold mt-20 mb-10">
           🏁 Built by{' '}
           <a href="https://twitter.com/thatshutterboi">
             <span className="hover:text-redOne underline text-white">
