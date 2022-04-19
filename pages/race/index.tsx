@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
+import { TailSpin } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import Countdown from '../../components/Countdown';
 import Navbar from '../../components/Navbar';
@@ -21,6 +22,7 @@ const Race: NextPage = () => {
   const { garage } = useSelector((state: RootState) => state.garage);
   const { address, token } = useSelector((state: RootState) => state.auth);
   const { user } = useSelector((state: RootState) => state.user);
+  const { bootLoading } = useSelector((state: RootState) => state.boot);
 
   const { updateNFTPoints } = useNFT();
   const { fetchUser } = useUser();
@@ -101,36 +103,42 @@ const Race: NextPage = () => {
             </div>
           </div>
           {user.wager ? (
-            <div className="p-14 w-full flex-1 flex items-center justify-center">
-              <div>
-                <Image
-                  src={require(`../../public/img/drivers/${user.wager.driver}.png`)}
-                  width={350}
-                  height={280}
-                />
-                <p className="my-3 text-white font-semibold text-xl">
-                  Congratulations! You backed{' '}
-                  <span className="capitalize text-redOne">
-                    {user.wager.driver.replace('-', ' ')}
-                  </span>{' '}
-                  with your{' '}
-                  <span className="text-redOne">
-                    {
-                      garage.find(
-                        (item: any) => item.itemId == user.wager.itemId
-                      ).name
-                    }
-                  </span>{' '}
-                  for the <span>{RACE.name}</span>.
-                </p>
-                <button
-                  onClick={() => claimPoints()}
-                  className="border-2 border-black my-2 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-lg py-2 px-10 rounded-xl"
-                >
-                  Claim
-                </button>
+            bootLoading ? (
+              <div className="flex w-full flex-1  justify-center items-center">
+                <TailSpin color="#EF473A" height={80} width={80} />
               </div>
-            </div>
+            ) : (
+              <div className="p-14 w-full flex-1 flex items-center justify-center">
+                <div>
+                  <Image
+                    src={require(`../../public/img/drivers/${user.wager.driver}.png`)}
+                    width={350}
+                    height={280}
+                  />
+                  <p className="my-3 text-white font-semibold text-xl">
+                    Congratulations! You backed{' '}
+                    <span className="capitalize text-redOne">
+                      {user.wager.driver.replace('-', ' ')}
+                    </span>{' '}
+                    with your{' '}
+                    <span className="text-redOne">
+                      {
+                        garage.find(
+                          (item: any) => item.itemId == user.wager.itemId
+                        ).name
+                      }
+                    </span>{' '}
+                    for the <span>{RACE.name}</span>.
+                  </p>
+                  <button
+                    onClick={() => claimPoints()}
+                    className="border-2 border-black my-2 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-lg py-2 px-10 rounded-xl"
+                  >
+                    Claim
+                  </button>
+                </div>
+              </div>
+            )
           ) : (
             <div className="h-full p-6 flex-1">
               <div className="">

@@ -1,8 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import useAuth from '../../hooks/useAuth';
 import useLeaderboard from '../../hooks/useLeaderboard';
 import useNFT from '../../hooks/useNFT';
 import useNFTMarket from '../../hooks/useNFTMarket';
+import {
+  bootLoadingFinished,
+  bootLoadingStarted
+} from '../../store/boot/actions';
 
 const Boot = () => {
   const { connect } = useAuth();
@@ -10,8 +15,11 @@ const Boot = () => {
   const { fetchMarketItems, fetchMyItems } = useNFTMarket();
   const { fetchLeaderboard } = useLeaderboard();
 
+  const dispatch = useDispatch();
+
   // @ts-ignore
   useEffect(async () => {
+    dispatch(bootLoadingStarted());
     await fetchLeaderboard();
 
     if (localStorage.getItem('token')) {
@@ -20,6 +28,8 @@ const Boot = () => {
       await fetchMarketItems();
       await fetchMyItems();
     }
+
+    dispatch(bootLoadingFinished());
   }, []);
 
   return null;

@@ -6,6 +6,7 @@ import Boot from '../components/Boot';
 import useWindowSize from '../hooks/useWindowSize';
 import { useStore } from '../store';
 import '../styles/globals.css';
+// import '../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const store = useStore(pageProps.initialReduxState);

@@ -11,6 +11,7 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 import useUser from '../../hooks/useUser';
 import { signOut } from '../../store/auth/actions';
 import { useRouter } from 'next/router';
+import { TailSpin } from 'react-loader-spinner';
 //@ts-ignore
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
@@ -18,6 +19,7 @@ const Garage: NextPage = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const { address, token } = useSelector((state: RootState) => state.auth);
   const { leaderboard } = useSelector((state: RootState) => state.leaderboard);
+  const { bootLoading } = useSelector((state: RootState) => state.boot);
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -113,12 +115,12 @@ const Garage: NextPage = () => {
                 <h1 className="my-2 text-white text-xl font-semibold">
                   Rank: <span className="text-redOne">{rank}</span>
                 </h1>
-                <h1
+                <span
                   onClick={signOutUser}
                   className="my-2 text-white hover:text-redOne text-sm font-semibold hover:underline cursor-pointer"
                 >
                   Sign Out
-                </h1>
+                </span>
               </div>
             </div>
             <div className="w-36 mt-8 mb-5">
@@ -162,32 +164,40 @@ const Garage: NextPage = () => {
         </div>
 
         <div className="w-3/5 p-10">
-          <div className="flex w-1/3 justify-between">
-            <h1
-              onClick={() => setTab(TABS.Garage)}
-              className={`cursor-pointer text-white text-2xl font-semibold text-left ${
-                tab === TABS.Garage && 'border-b-2 border-redOne pb-1.5'
-              }`}
-            >
-              Garage{' '}
-              <span className="text-base ml-2 text-gray-mute">
-                {garage.length}
-              </span>
-            </h1>
-            <h1
-              onClick={() => setTab(TABS.OnSale)}
-              className={`cursor-pointer text-white text-2xl font-semibold text-left ${
-                tab === TABS.OnSale && 'border-b-2 border-redOne pb-1.5'
-              }`}
-            >
-              On Sale{' '}
-              <span className="text-base ml-2 text-gray-mute">
-                {listedItems.length}
-              </span>
-            </h1>
-          </div>
-          {tab === TABS.Garage && <GarageNFTs garage={garage} />}
-          {tab === TABS.OnSale && <OnSaleNFTs listedItems={listedItems} />}
+          {!bootLoading ? (
+            <>
+              <div className="flex w-1/3 justify-between">
+                <h1
+                  onClick={() => setTab(TABS.Garage)}
+                  className={`cursor-pointer text-white text-2xl font-semibold text-left ${
+                    tab === TABS.Garage && 'border-b-2 border-redOne pb-1.5'
+                  }`}
+                >
+                  Garage{' '}
+                  <span className="text-base ml-2 text-gray-mute">
+                    {garage.length}
+                  </span>
+                </h1>
+                <h1
+                  onClick={() => setTab(TABS.OnSale)}
+                  className={`cursor-pointer text-white text-2xl font-semibold text-left ${
+                    tab === TABS.OnSale && 'border-b-2 border-redOne pb-1.5'
+                  }`}
+                >
+                  On Sale{' '}
+                  <span className="text-base ml-2 text-gray-mute">
+                    {listedItems.length}
+                  </span>
+                </h1>
+              </div>
+              {tab === TABS.Garage && <GarageNFTs garage={garage} />}
+              {tab === TABS.OnSale && <OnSaleNFTs listedItems={listedItems} />}
+            </>
+          ) : (
+            <div className="flex w-full h-full justify-center items-center">
+              <TailSpin color="#EF473A" height={80} width={80} />
+            </div>
+          )}
         </div>
       </div>
     </div>

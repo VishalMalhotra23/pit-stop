@@ -9,10 +9,13 @@ import { useDispatch } from 'react-redux';
 import { getGarageItems } from '../store/garage/actions';
 import { useRouter } from 'next/router';
 import axios from 'axios';
+import useNFTMarket from './useNFTMarket';
+import { bootLoadingFinished, bootLoadingStarted } from '../store/boot/actions';
 
 export default function useNFT() {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { fetchMarketItems, fetchMyItems } = useNFTMarket();
 
   async function uploadMetaDataToIPFS(teamKey: string) {
     const data = JSON.stringify({
@@ -52,7 +55,11 @@ export default function useNFT() {
     console.log(tx);
 
     router.push('/garage');
-    fetchMintedNFTs();
+    dispatch(bootLoadingStarted());
+    await fetchMintedNFTs();
+    await fetchMarketItems();
+    await fetchMyItems();
+    dispatch(bootLoadingFinished());
   }
 
   async function fetchMintedNFTs() {
@@ -121,7 +128,11 @@ export default function useNFT() {
       console.log(url);
       await contract.updateTokenURI(itemId, url);
       router.push('/garage');
-      fetchMintedNFTs();
+      dispatch(bootLoadingStarted());
+      await fetchMintedNFTs();
+      await fetchMarketItems();
+      await fetchMyItems();
+      dispatch(bootLoadingFinished());
     } catch (error) {
       console.log('Error uploading data: ', error);
     }
