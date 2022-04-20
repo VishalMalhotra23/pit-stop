@@ -13,13 +13,15 @@ export default function useAuth() {
 
   const getWeb3Modal = useCallback(async () => {
     const web3Modal = new Web3Modal({
-      network: 'testnet',
+      // network: 'testnet',
       cacheProvider: true,
       providerOptions: {
         walletconnect: {
           package: WalletConnectProvider,
           options: {
-            infuraId: process.env.NEXT_PUBLIC_INFURA_ID
+            rpc: {
+              80001: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
+            }
           }
         }
       }

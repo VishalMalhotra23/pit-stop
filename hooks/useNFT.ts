@@ -11,11 +11,31 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import useNFTMarket from './useNFTMarket';
 import { bootLoadingFinished, bootLoadingStarted } from '../store/boot/actions';
+import { useCallback } from 'react';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 export default function useNFT() {
   const dispatch = useDispatch();
   const router = useRouter();
   const { fetchMarketItems, fetchMyItems } = useNFTMarket();
+
+  const getWeb3Modal = useCallback(async () => {
+    const web3Modal = new Web3Modal({
+      // network: 'testnet',
+      cacheProvider: true,
+      providerOptions: {
+        walletconnect: {
+          package: WalletConnectProvider,
+          options: {
+            rpc: {
+              80001: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
+            }
+          }
+        }
+      }
+    });
+    return web3Modal;
+  }, []);
 
   async function uploadMetaDataToIPFS(teamKey: string) {
     const data = JSON.stringify({
@@ -40,7 +60,7 @@ export default function useNFT() {
   async function mintNFT(teamKey: string) {
     const url = await uploadMetaDataToIPFS(teamKey);
 
-    const web3Modal = new Web3Modal();
+    const web3Modal = await getWeb3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
@@ -63,7 +83,7 @@ export default function useNFT() {
   }
 
   async function fetchMintedNFTs() {
-    const web3Modal = new Web3Modal();
+    const web3Modal = await getWeb3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
@@ -97,7 +117,7 @@ export default function useNFT() {
   }
 
   async function updateNFTPoints(itemId: number, newPoints: number) {
-    const web3Modal = new Web3Modal();
+    const web3Modal = await getWeb3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();

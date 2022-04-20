@@ -9,13 +9,33 @@ import Market from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 import { getListedItems, getMarketItems } from '../store/marketplace/actions';
 import { getPurchasedItems } from '../store/garage/actions';
 import { getUser } from '../store/user/actions';
+import { useCallback } from 'react';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 export default function useNFTMarket() {
   const dispatch = useDispatch();
   const router = useRouter();
 
+  const getWeb3Modal = useCallback(async () => {
+    const web3Modal = new Web3Modal({
+      // network: 'testnet',
+      cacheProvider: true,
+      providerOptions: {
+        walletconnect: {
+          package: WalletConnectProvider,
+          options: {
+            rpc: {
+              80001: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`
+            }
+          }
+        }
+      }
+    });
+    return web3Modal;
+  }, []);
+
   async function listItemOnMarketplace(tokenId: string, sellingPrice: string) {
-    const web3Modal = new Web3Modal();
+    const web3Modal = await getWeb3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
@@ -54,7 +74,7 @@ export default function useNFTMarket() {
   }
 
   async function buyItem(nft: any, token: string) {
-    const web3Modal = new Web3Modal();
+    const web3Modal = await getWeb3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
 
@@ -136,7 +156,7 @@ export default function useNFTMarket() {
   }
 
   async function fetchMyItems() {
-    const web3Modal = new Web3Modal();
+    const web3Modal = await getWeb3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
 
