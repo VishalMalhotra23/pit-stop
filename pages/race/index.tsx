@@ -135,12 +135,21 @@ const Race: NextPage = () => {
                     </span>{' '}
                     for the <span>{RACE.name}</span>.
                   </p>
-                  <button
-                    onClick={() => claimPoints()}
-                    className="border-2 border-black my-2 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-lg py-2 px-10 rounded-xl"
-                  >
-                    Claim
-                  </button>
+                  {RACE.claim < Math.round(new Date().getTime() / 1000) ? (
+                    <button
+                      onClick={() => claimPoints()}
+                      className="border-2 border-black my-2 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-lg py-2 px-10 rounded-xl"
+                    >
+                      Claim
+                    </button>
+                  ) : (
+                    <div>
+                      <h3 className="text-lg text-white font-semibold mt-2 mb-3">
+                        Claim in
+                      </h3>
+                      <Countdown inverted timestamp={RACE.claim} />
+                    </div>
+                  )}
                 </div>
               </div>
             )
