@@ -9,9 +9,12 @@ import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import MarketplaceCard from '../components/MarketplaceCard';
+import useWindowSize from '../hooks/useWindowSize';
 
 const Home: NextPage = () => {
   const { marketItems } = useSelector((state: RootState) => state.marketplace);
+
+  const size = useWindowSize();
 
   return (
     <div className="text-center text-red-700">
@@ -23,32 +26,32 @@ const Home: NextPage = () => {
 
       <Navbar />
 
-      <div className="w-full mt-8 relative">
+      <div className="w-full md:mt-8 relative">
         <Image src={require(`../public/img/mesh.png`)} />
-        <div className="absolute z-10 left-40 top-20 text-left">
-          <h1 className="text-white text-5xl font-bold w-96">
-            Built for the love of Racing.
-          </h1>
-          <p className="text-white text-xl mt-10">
-            Build your garage. Back your favourite drivers.
-            <br />
-            Get to the top of leaderboard.
-            <br />
-            Let&apos;s go racing.
-          </p>
-          <Link href="/mint">
-            <button className="mt-10 bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl border-2 border-black">
-              Get Started
-            </button>
-          </Link>
+        <div className="left__hero">
+          <div>
+            <h1 className="text-white text-lg md:text-3xl lg:text-5xl font-bold md:w-96">
+              Built for the love of Racing.
+            </h1>
+            <p className="text-white text-2xs md:text-base lg:text-xl mt-3 md:mt-10">
+              Build your garage. Back your favourite drivers.
+              <br />
+              Get to the top of leaderboard.
+              <br />
+              Let&apos;s go racing.
+            </p>
+
+            <Link href="/mint">
+              <button className="mt-3 md:mt-10 bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-2xs md:text-xl border-2 border-black">
+                Get Started
+              </button>
+            </Link>
+          </div>
         </div>
         <div
+          className="right__hero"
           style={{
-            position: 'absolute',
-            right: '160px',
-            top: '90px',
-            boxShadow: '0 0 50px #CB2D3E',
-            borderRadius: '12px'
+            boxShadow: '0 0 50px #CB2D3E'
           }}
         >
           <ReactPlayer
@@ -56,6 +59,8 @@ const Home: NextPage = () => {
             loop={true}
             muted={true}
             playing={true}
+            width={size.width >= 1280 ? 640 : size.width >= 1000 ? 533 : 320}
+            height={size.width >= 1280 ? 360 : size.width >= 1000 ? 300 : 180}
             style={{
               borderRadius: '12px',
               overflow: 'hidden'
@@ -64,8 +69,8 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="w-4/5 mx-auto my-10 grid grid-cols-3">
-        <div className="px-10 py-3">
+      <div className="w-4/5 mx-auto my-10 grid grid-cols-1 md:grid-cols-3">
+        <div className="px-10 py-0 md:py-3">
           <div className="h-64 flex items-center justify-center">
             <Image
               src={require(`../public/img/collect.svg`)}
@@ -73,13 +78,13 @@ const Home: NextPage = () => {
               height={193}
             />
           </div>
-          <h1 className="text-white font-bold text-3xl">Collect</h1>
-          <p className="text-white text-base">
+          <h1 className="text-white font-bold text-lg md:text-3xl">Collect</h1>
+          <p className="text-white text-2xs md:text-base">
             Get started by minting the livery of your choice and create your own
             garage.
           </p>
         </div>
-        <div className="px-10 py-3">
+        <div className="px-10 py-0 md:py-3">
           <div className="h-64 flex items-center justify-center">
             <Image
               src={require(`../public/img/support.svg`)}
@@ -87,13 +92,13 @@ const Home: NextPage = () => {
               height={190}
             />
           </div>
-          <h1 className="text-white font-bold text-3xl">Support</h1>
-          <p className="text-white text-base">
+          <h1 className="text-white font-bold text-lg md:text-3xl">Support</h1>
+          <p className="text-white text-2xs md:text-base">
             Use your NFTs to back your favourite drivers in real world grand
             prix.
           </p>
         </div>
-        <div className="px-10 py-3">
+        <div className="px-10 py-0 md:py-3">
           <div className="h-64 flex items-center justify-center">
             <Image
               src={require(`../public/img/win.svg`)}
@@ -101,8 +106,8 @@ const Home: NextPage = () => {
               height={193}
             />
           </div>
-          <h1 className="text-white font-bold text-3xl">Win</h1>
-          <p className="text-white text-base">
+          <h1 className="text-white font-bold text-lg md:text-3xl">Win</h1>
+          <p className="text-white text-2xs md:text-base">
             Climb the leaderboards and earn rewards or sell your liveries on our
             marketplace.
           </p>

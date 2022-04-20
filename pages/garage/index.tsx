@@ -162,7 +162,7 @@ const Garage: NextPage = () => {
         </div>
 
         <div className="w-3/5 p-10">
-          <div className="flex w-1/3 justify-between">
+          <div className="flex w-1/2 xl:w-1/3 justify-between">
             <h1
               onClick={() => setTab(TABS.Garage)}
               className={`cursor-pointer text-white text-2xl font-semibold text-left ${

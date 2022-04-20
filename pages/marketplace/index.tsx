@@ -21,7 +21,7 @@ const Marketplace: NextPage = () => {
       <div className="flex-1 flex flex-col">
         <h1 className="text-white text-3xl font-semibold mt-4">Marketplace</h1>
         <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
-        <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-5 w-3/4 mx-auto">
+        <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-5 w-5/6 xl:w-3/4 mx-auto">
           {marketItems.map((item: any) => (
             <MarketplaceCard key={item.itemId} NFT={item} />
           ))}
