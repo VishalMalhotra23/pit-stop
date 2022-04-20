@@ -49,7 +49,7 @@ const Countdown = ({ timestamp }: ICountdownProps) => {
   }, []);
 
   return (
-    <div className="flex justify-between w-3/4 mx-auto text-center">
+    <div className="w-3/4 mx-auto text-center flex justify-center">
       <TimeUnit unit="Days" value={days} />
       <TimeUnit unit="Hours" value={hours} />
       <TimeUnit unit="Minutes" value={minutes} />
@@ -60,7 +60,7 @@ const Countdown = ({ timestamp }: ICountdownProps) => {
 
 const TimeUnit = ({ unit, value }: ITimeUnitProps) => {
   return (
-    <div className="text-center">
+    <div className="text-center mx-2">
       <div className="mx-auto w-12 h-12 rounded-lg bg-gray text-white flex justify-center items-center font-semibold text-xl">
         {value}
       </div>

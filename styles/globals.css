@@ -1,3 +1,53 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* mobile */
+  .left__hero {
+    @apply absolute z-10 flex justify-center items-center w-full h-full left-0 top-0;
+  }
+
+  /* normal laptop screen */
+  @media (min-width: 768px) {
+    .left__hero {
+      @apply absolute z-10 w-auto h-full block text-left left-16 top-20;
+    }
+  }
+
+  /* wide laptop screen */
+  @media (min-width: 1536px) {
+    .left__hero {
+      @apply absolute z-10 w-auto h-full block text-left left-40 top-20;
+    }
+  }
+
+  .customRightHeroMedium {
+    right: 70px;
+    top: 90px;
+  }
+
+  .customRightHeroLarge {
+    right: 160px;
+    top: 90px;
+  }
+
+  /* mobile */
+  .right__hero {
+    @apply hidden;
+  }
+
+  /* normal laptop screen */
+  @media (min-width: 768px) {
+    .right__hero {
+      @apply block absolute rounded-xl customRightHeroMedium;
+    }
+  }
+
+  /* wide laptop screen */
+  @media (min-width: 1536px) {
+    .right__hero {
+      @apply block absolute rounded-xl customRightHeroLarge;
+    }
+  }
+}
