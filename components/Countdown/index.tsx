@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const Countdown = ({ timestamp }: ICountdownProps) => {
+const Countdown = ({ timestamp, inverted }: ICountdownProps) => {
   const [loop, setLoop] = useState<any>();
   const [days, setDays] = useState('0');
   const [hours, setHours] = useState('0');
@@ -50,10 +50,21 @@ const Countdown = ({ timestamp }: ICountdownProps) => {
 
   return (
     <div className="w-3/4 mx-auto text-center flex justify-center">
-      <TimeUnit unit="Days" value={days} />
-      <TimeUnit unit="Hours" value={hours} />
-      <TimeUnit unit="Minutes" value={minutes} />
-      <TimeUnit unit="Seconds" value={seconds} />
+      {inverted ? (
+        <>
+          <TimeUnitInvertedColors unit="Days" value={days} />
+          <TimeUnitInvertedColors unit="Hours" value={hours} />
+          <TimeUnitInvertedColors unit="Minutes" value={minutes} />
+          <TimeUnitInvertedColors unit="Seconds" value={seconds} />
+        </>
+      ) : (
+        <>
+          <TimeUnit unit="Days" value={days} />
+          <TimeUnit unit="Hours" value={hours} />
+          <TimeUnit unit="Minutes" value={minutes} />
+          <TimeUnit unit="Seconds" value={seconds} />
+        </>
+      )}
     </div>
   );
 };
@@ -69,6 +80,17 @@ const TimeUnit = ({ unit, value }: ITimeUnitProps) => {
   );
 };
 
+const TimeUnitInvertedColors = ({ unit, value }: ITimeUnitProps) => {
+  return (
+    <div className="text-center mx-2">
+      <div className="mx-auto w-12 h-12 rounded-lg bg-redOne text-white flex justify-center items-center font-semibold text-xl">
+        {value}
+      </div>
+      <span className="text-sm text-white">{unit}</span>
+    </div>
+  );
+};
+
 export default Countdown;
 
 interface ITimeUnitProps {
@@ -78,4 +100,5 @@ interface ITimeUnitProps {
 
 interface ICountdownProps {
   timestamp: number;
+  inverted?: boolean;
 }
