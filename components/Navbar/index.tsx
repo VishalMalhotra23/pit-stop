@@ -1,11 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useAuth from '../../hooks/useAuth';
 import useNFT from '../../hooks/useNFT';
 import useNFTMarket from '../../hooks/useNFTMarket';
 import useWindowSize from '../../hooks/useWindowSize';
+import {
+  bootLoadingFinished,
+  bootLoadingStarted
+} from '../../store/boot/actions';
 import { RootState } from '../../store/rootReducer';
 
 const Navbar = () => {
@@ -145,11 +149,15 @@ const NoAuthLinks = () => {
   const { fetchMintedNFTs } = useNFT();
   const { fetchMarketItems, fetchMyItems } = useNFTMarket();
 
+  const dispatch = useDispatch();
+
   async function connectButtonHandler() {
+    dispatch(bootLoadingStarted());
     await connect();
     await fetchMintedNFTs();
     await fetchMarketItems();
     await fetchMyItems();
+    dispatch(bootLoadingFinished());
   }
 
   const size = useWindowSize();

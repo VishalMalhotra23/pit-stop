@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUser } from '../store/user/actions';
+import useLeaderboard from './useLeaderboard';
 
 export default function useUser() {
   const dispatch = useDispatch();
+  const { fetchLeaderboard } = useLeaderboard();
 
   const fetchUser = useCallback(async (token: string) => {
     const authData = await fetch(`/api/user?token=${token}`);
@@ -30,6 +32,7 @@ export default function useUser() {
       console.log(user);
       // @ts-ignore
       dispatch(getUser(user.user));
+      fetchLeaderboard();
     },
     []
   );

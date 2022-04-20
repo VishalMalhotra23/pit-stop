@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { TailSpin } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import useLeaderboard from '../../hooks/useLeaderboard';
 import useUser from '../../hooks/useUser';
@@ -12,6 +13,7 @@ const WagerModal = ({
 }: IWagerModalProps) => {
   const { garage } = useSelector((state: RootState) => state.garage);
   const { address, token } = useSelector((state: RootState) => state.auth);
+  const { bootLoading } = useSelector((state: RootState) => state.boot);
   const { fetchUser } = useUser();
 
   async function backDriver(driver: string, itemId: number) {
@@ -38,7 +40,11 @@ const WagerModal = ({
           Select a car from your garage to support{' '}
           <span className="text-redOne">{driverName}</span>
         </h1>
-        {garage.length > 0 ? (
+        {bootLoading ? (
+          <div className="flex w-full h-full justify-center items-center">
+            <TailSpin color="#EF473A" height={80} width={80} />
+          </div>
+        ) : garage.length > 0 ? (
           <div className="grid grid-cols-2 gap-10 mt-10">
             {garage.map((ownedItem: any) => (
               <span
