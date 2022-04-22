@@ -11,6 +11,7 @@ import { getPurchasedItems } from '../store/garage/actions';
 import { getUser } from '../store/user/actions';
 import { useCallback } from 'react';
 import WalletConnectProvider from '@walletconnect/web3-provider';
+import { bootLoadingFinished, bootLoadingStarted } from '../store/boot/actions';
 
 export default function useNFTMarket() {
   const dispatch = useDispatch();
@@ -70,7 +71,11 @@ export default function useNFTMarket() {
     );
     await transaction.wait();
     router.push('/garage');
-    fetchMarketItems();
+    dispatch(bootLoadingStarted());
+    await fetchMarketItems();
+    await fetchMarketItems();
+    await fetchMyItems();
+    dispatch(bootLoadingFinished());
   }
 
   async function buyItem(nft: any, token: string) {
@@ -112,7 +117,11 @@ export default function useNFTMarket() {
     dispatch(getUser(user.user));
 
     router.push('/garage');
-    fetchMarketItems();
+    dispatch(bootLoadingStarted());
+    await fetchMarketItems();
+    await fetchMarketItems();
+    await fetchMyItems();
+    dispatch(bootLoadingFinished());
   }
 
   async function fetchMarketItems() {

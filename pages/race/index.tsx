@@ -199,16 +199,19 @@ const Race: NextPage = () => {
                         <h3 className="my-3 text-lg font-semibold text-white">
                           {driver.name}
                         </h3>
-                        <button
-                          onClick={() => {
-                            setShowModal(true);
-                            setSelectedDriverKey(driver.key);
-                            setSelectedDriverName(driver.name);
-                          }}
-                          className="border-2 border-black my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
-                        >
-                          Support
-                        </button>
+                        {RACE.timestamp >
+                          Math.round(new Date().getTime() / 1000) && (
+                          <button
+                            onClick={() => {
+                              setShowModal(true);
+                              setSelectedDriverKey(driver.key);
+                              setSelectedDriverName(driver.name);
+                            }}
+                            className="border-2 border-black my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
+                          >
+                            Support
+                          </button>
+                        )}
                       </div>
                     );
                   })}
