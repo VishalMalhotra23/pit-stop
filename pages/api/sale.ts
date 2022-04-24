@@ -12,13 +12,15 @@ export default async function sale(
     let userData = await router.get(
       `/users.json?orderBy="address"&equalTo="${seller}"`
     );
-    let user = userData.data;
+    let userD = userData.data;
+
+    let user = userD[Object.keys(userD)[0]];
 
     const thePoints = parseInt(points as string);
 
     user.points -= thePoints;
 
-    await router.put(`/users/${seller}.json`, user);
+    await router.put(`/users/${Object.keys(userD)[0]}.json`, user);
 
     const decoded = jwt.verify(
       token as string,
