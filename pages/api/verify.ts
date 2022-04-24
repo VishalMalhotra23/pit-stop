@@ -37,7 +37,7 @@ export default async function verify(
       jwt.sign(
         payload,
         process.env.JWT_SECRET as string,
-        { expiresIn: 360000 },
+        { expiresIn: '30d' },
         (err, token) => {
           if (err) {
             throw err;
