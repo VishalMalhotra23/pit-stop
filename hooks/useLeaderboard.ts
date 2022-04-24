@@ -8,7 +8,6 @@ export default function useLeaderboard() {
   const fetchLeaderboard = useCallback(async () => {
     const leaderboardData = await fetch(`/api/leaderboard`);
     const leaderboard = await leaderboardData.json();
-    console.log(leaderboard);
     // @ts-ignore
     dispatch(getLeaderboard(leaderboard.leaderboard));
   }, []);

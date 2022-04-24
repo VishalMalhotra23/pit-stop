@@ -48,11 +48,8 @@ export default function useAuth() {
   }, []);
 
   const signIn = useCallback(async (connection: any, account: string) => {
-    console.log(account);
-
     const authData = await fetch(`/api/auth?address=${account}`);
     const user = await authData.json();
-    console.log(user.id);
     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();

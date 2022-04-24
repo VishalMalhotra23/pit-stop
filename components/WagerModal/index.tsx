@@ -21,7 +21,6 @@ const WagerModal = ({
       `/api/wager?token=${token}&driver=${driver}&itemId=${itemId}`
     );
     const data = await response.json();
-    console.log(data);
     await fetchUser(token);
     closeModal();
   }

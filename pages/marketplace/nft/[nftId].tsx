@@ -15,20 +15,16 @@ import { RootState } from '../../../store/rootReducer';
 const MarketplaceNFT: NextPage = () => {
   const router = useRouter();
   const { nftId } = router.query;
-  console.log(nftId);
   const { fetchLeaderboard } = useLeaderboard();
 
   const { address, token } = useSelector((state: RootState) => state.auth);
 
   const { marketItems } = useSelector((state: RootState) => state.marketplace);
-  console.log(marketItems);
 
   const nft = useMemo(
     () => marketItems.find((item: any) => item.tokenId == nftId),
     [marketItems]
   );
-
-  console.log(nft);
 
   const description = useMemo(
     () =>

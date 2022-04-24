@@ -2,8 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const MarketplaceCard = ({ NFT, small }: IMarketplaceCardProps) => {
-  console.log(NFT);
-
   if (small)
     return (
       <div

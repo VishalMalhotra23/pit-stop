@@ -10,7 +10,6 @@ export default function useUser() {
   const fetchUser = useCallback(async (token: string) => {
     const authData = await fetch(`/api/user?token=${token}`);
     const user = await authData.json();
-    console.log(user);
     // @ts-ignore
     dispatch(getUser(user.user));
   }, []);
@@ -18,7 +17,6 @@ export default function useUser() {
   const changeProfilePhoto = useCallback(async (token: string, url: string) => {
     const authData = await fetch(`/api/profile?token=${token}&url=${url}`);
     const user = await authData.json();
-    console.log(user);
     // @ts-ignore
     dispatch(getUser(user.user));
   }, []);
@@ -29,7 +27,6 @@ export default function useUser() {
         `/api/profile?token=${token}&username=${username}`
       );
       const user = await authData.json();
-      console.log(user);
       // @ts-ignore
       dispatch(getUser(user.user));
       fetchLeaderboard();

@@ -15,7 +15,6 @@ import Image from 'next/image';
 const GarageNFT: NextPage = () => {
   const router = useRouter();
   const { nftId } = router.query;
-  console.log(nftId);
 
   const [sellingPrice, setSellingPrice] = useState('0');
 
@@ -25,8 +24,6 @@ const GarageNFT: NextPage = () => {
     () => garage.find((item: any) => item.itemId == nftId),
     [garage]
   );
-
-  console.log(nft);
 
   const description = useMemo(
     () =>
@@ -39,8 +36,6 @@ const GarageNFT: NextPage = () => {
   const { listItemOnMarketplace } = useNFTMarket();
 
   async function sellNFT() {
-    console.log(sellingPrice);
-
     if (sellingPrice) listItemOnMarketplace(nftId as string, sellingPrice);
   }
 

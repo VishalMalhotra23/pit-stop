@@ -50,7 +50,6 @@ export default function useNFT() {
       const added = await client.add(data);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       /* after file is uploaded to IPFS, return the URL to use it in the transaction */
-      console.log(url);
       return url;
     } catch (error) {
       console.log('Error uploading data: ', error);
@@ -72,7 +71,6 @@ export default function useNFT() {
     );
     let transaction = await contract.createToken(url);
     let tx = await transaction.wait();
-    console.log(tx);
 
     router.push('/garage');
     dispatch(bootLoadingStarted());
@@ -95,8 +93,6 @@ export default function useNFT() {
     );
 
     const data = await contract.fetchNFTs();
-
-    console.log(data);
 
     const items = await Promise.all(
       data.map(async (i: any) => {
@@ -145,7 +141,6 @@ export default function useNFT() {
       const added = await client.add(data);
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       /* after file is uploaded to IPFS, return the URL to use it in the transaction */
-      console.log(url);
       await contract.updateTokenURI(itemId, url);
       router.push('/garage');
       dispatch(bootLoadingStarted());

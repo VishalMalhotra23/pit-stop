@@ -2,8 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const GarageCard = ({ NFT, link }: IGarageCardProps) => {
-  console.log(NFT);
-
   if (link)
     return (
       <Link href={`/${link}/nft/${NFT.tokenId ? NFT.tokenId : NFT.itemId}`}>

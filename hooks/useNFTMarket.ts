@@ -50,8 +50,6 @@ export default function useNFTMarket() {
 
     const data = await contract.removeMintedNFTOnSale(tokenId);
 
-    console.log(data);
-
     const thePrice = ethers.utils.parseUnits(sellingPrice, 'ether');
 
     /* then list the item for sale on the marketplace */
@@ -112,7 +110,6 @@ export default function useNFTMarket() {
       `/api/sale?token=${token}&points=${points}&seller=${nft.seller}`
     );
     const user = await authData.json();
-    console.log(user);
     // @ts-ignore
     dispatch(getUser(user.user));
 

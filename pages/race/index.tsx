@@ -32,7 +32,6 @@ const Race: NextPage = () => {
     //fetch points to scored from F1 race standings and update garage points on firebase
     const response = await fetch(`/api/points?token=${token}`);
     const data = await response.json();
-    console.log(data);
     const pointsScored = data.points;
 
     //update token uri
