@@ -144,6 +144,31 @@ const Race: NextPage = () => {
                     </button>
                   ) : (
                     <div>
+                      <a
+                        href={`https://twitter.com/intent/tweet?text=I+am+backing+${user.wager.driver
+                          .replace('-', ' ')
+                          .replace(/(^\w|\s\w)/g, (m: any) =>
+                            m.toUpperCase()
+                          )}+for+the+${RACE.name}+${RACE.emoji}+with+my+${garage
+                          .find((item: any) => item.itemId == user.wager.itemId)
+                          .name.replace(
+                            '#',
+                            '%23'
+                          )}+NFT+on+%40PitStop_HQ.+Let%27s+go+racing%21+%F0%9F%8F%81%0D%0A%0D%0ABack+your+driver+now+on+-+playpitstop.racing%0D%0A%0D%0A+%23F1+%23${RACE.name
+                          .replace(/ /g, '')
+                          .replace('GrandPrix', 'GP')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <button className="border-2 border-black my-3 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-lg py-2 px-10 rounded-xl flex items-center mx-auto">
+                          <Image
+                            src={require(`../../public/img/twitter.svg`)}
+                            width={18}
+                            height={18}
+                          />
+                          <span className="ml-4">Tweet about it!</span>
+                        </button>
+                      </a>
                       <h3 className="text-lg text-white font-semibold mt-2 mb-3">
                         Claim in
                       </h3>
