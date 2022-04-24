@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useAuth from '../../hooks/useAuth';
@@ -22,11 +23,20 @@ const Boot = () => {
     dispatch(bootLoadingStarted());
     await fetchLeaderboard();
 
-    if (localStorage.getItem('token')) {
-      await connect();
-      await fetchMintedNFTs();
-      await fetchMarketItems();
-      await fetchMyItems();
+    const cachedToken = localStorage.getItem('token');
+
+    if (cachedToken) {
+      // @ts-ignore
+      const expiry = jwt.decode(cachedToken)['exp'];
+
+      if (expiry > Math.round(new Date().getTime() / 1000)) {
+        await connect();
+        await fetchMintedNFTs();
+        await fetchMarketItems();
+        await fetchMyItems();
+      } else {
+        localStorage.removeItem('token');
+      }
     }
 
     dispatch(bootLoadingFinished());
