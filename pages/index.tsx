@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Countdown from '../components/Countdown';
 import Navbar from '../components/Navbar';
-import RACE from '../data/race.json';
+import NEXTRACE from '../data/next-race.json';
 import ReactPlayer from 'react-player';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
@@ -146,11 +146,11 @@ const Home: NextPage = () => {
 
       <div className="bg-gradient-to-r from-redOne to-redTwo w-full py-10 mt-12">
         <h1 className="text-white text-center text-3xl font-bold">
-          {RACE.name}
+          {NEXTRACE.name}
         </h1>
         <p className="text-white text-center text-lg mt-2">Starts In</p>
         <div className="w-1/4 mx-auto my-4">
-          <Countdown timestamp={RACE.timestamp} />
+          <Countdown timestamp={NEXTRACE.timestamp} />
         </div>
         <Link href="/race">
           <button className="border-2 border-black bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
