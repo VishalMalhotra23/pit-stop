@@ -9,6 +9,7 @@ import Navbar from '../../components/Navbar';
 import WagerModal from '../../components/WagerModal';
 import DRIVERS from '../../data/drivers.json';
 import RACE from '../../data/race.json';
+import NEXTRACE from '../../data/next-race.json';
 import TEAMS from '../../data/teams.json';
 import withAuth from '../../hoc/withAuth';
 import useLeaderboard from '../../hooks/useLeaderboard';
@@ -81,26 +82,30 @@ const Race: NextPage = () => {
               <div>
                 <h3 className="text-lg text-black font-semibold">Grand Prix</h3>
                 <h4 className="text-lg text-white font-bold mt-1">
-                  {RACE.name}
+                  {NEXTRACE.name}
                 </h4>
               </div>
               <Image
-                src={`https://ipfs.infura.io/ipfs/${RACE.flag}`}
+                src={`https://ipfs.infura.io/ipfs/${NEXTRACE.flag}`}
                 width={106}
                 height={53}
               />
             </div>
             <h3 className="text-lg text-black font-semibold mt-2">Track</h3>
-            <h4 className="text-lg text-white font-bold mt-1">{RACE.track}</h4>
+            <h4 className="text-lg text-white font-bold mt-1">
+              {NEXTRACE.track}
+            </h4>
             <h3 className="text-lg text-black font-semibold mt-2">Date</h3>
-            <h4 className="text-lg text-white font-bold mt-1">{RACE.date}</h4>
+            <h4 className="text-lg text-white font-bold mt-1">
+              {NEXTRACE.date}
+            </h4>
             <h3 className="text-lg text-black font-semibold mt-2 mb-3">
               Begins in
             </h3>
-            <Countdown timestamp={RACE.timestamp} />
+            <Countdown timestamp={NEXTRACE.timestamp} />
             <div className="flex items-center justify-center w-full mt-3">
               <Image
-                src={`https://ipfs.infura.io/ipfs/${RACE.circuit}`}
+                src={`https://ipfs.infura.io/ipfs/${NEXTRACE.circuit}`}
                 width={377}
                 height={270}
               />
