@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import router from '../../util/router';
 import jwt from 'jsonwebtoken';
 
-export default async function wager(
+export default async function backdriver(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
@@ -15,14 +15,13 @@ export default async function wager(
     );
     //@ts-ignore
     const { id } = decoded.user;
-    console.log(id);
 
     const wager = {
       itemId,
       driver
     };
 
-    await router.put(`/users/${id}/wager.json`, wager);
+    await router.put(`/users/${id}/driverwager.json`, wager);
 
     res.status(200).json({ success: true });
   } catch (error) {

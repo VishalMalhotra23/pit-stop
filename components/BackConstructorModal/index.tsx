@@ -6,19 +6,19 @@ import useUser from '../../hooks/useUser';
 import { RootState } from '../../store/rootReducer';
 import GarageCard from '../GarageCard';
 
-const WagerModal = ({
-  driverKey,
-  driverName,
+const BackConstructorModal = ({
+  constructorKey,
+  constructorName,
   closeModal
-}: IWagerModalProps) => {
+}: IBackConstructorModalProps) => {
   const { garage } = useSelector((state: RootState) => state.garage);
   const { address, token } = useSelector((state: RootState) => state.auth);
   const { bootLoading } = useSelector((state: RootState) => state.boot);
   const { fetchUser } = useUser();
 
-  async function backDriver(driver: string, itemId: number) {
+  async function backConstructor(constructor: string, itemId: number) {
     const response = await fetch(
-      `/api/wager?token=${token}&driver=${driver}&itemId=${itemId}`
+      `/api/backconstructor?token=${token}&constructor=${constructor}&itemId=${itemId}`
     );
     const data = await response.json();
     await fetchUser(token);
@@ -37,7 +37,7 @@ const WagerModal = ({
       >
         <h1 className="text-white text-xl font-semibold">
           Select a car from your garage to support{' '}
-          <span className="text-redOne">{driverName}</span>
+          <span className="text-redOne">{constructorName}</span>
         </h1>
         {bootLoading ? (
           <div className="flex w-full h-full justify-center items-center">
@@ -48,7 +48,9 @@ const WagerModal = ({
             {garage.map((ownedItem: any) => (
               <span
                 key={ownedItem.itemId}
-                onClick={() => backDriver(driverKey, ownedItem.itemId)}
+                onClick={() =>
+                  backConstructor(constructorKey, ownedItem.itemId)
+                }
               >
                 <GarageCard
                   key={ownedItem.tokenId ? ownedItem.tokenId : ownedItem.itemId}
@@ -69,10 +71,10 @@ const WagerModal = ({
   );
 };
 
-export default WagerModal;
+export default BackConstructorModal;
 
-interface IWagerModalProps {
-  driverKey: string;
-  driverName: string;
+interface IBackConstructorModalProps {
+  constructorKey: string;
+  constructorName: string;
   closeModal: Function;
 }

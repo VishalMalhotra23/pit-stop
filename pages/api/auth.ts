@@ -8,8 +8,6 @@ export default async function auth(
 ) {
   const { address } = req.query;
 
-  console.log(address);
-
   try {
     const userData = await router.get(
       `/users.json?orderBy="address"&equalTo="${address}"`
@@ -59,13 +57,13 @@ type Data = {
   success: boolean;
 };
 
-let obj = {
-  ['c700713e-477a-402f-ac72-e59c88cb62ec']: {
-    address: '0x73AE27967C2C98Dc168EC8f2b4cB1f2412239DEd',
-    history: [[Object], [Object], [Object], [Object]],
-    nonce: 5813866,
-    pfp: 'https://ipfs.infura.io/ipfs/QmdYWioi4HTRgCkaPW1BY27CEAaVpaFnBBcE8DUW3Y7Tj7',
-    points: 37,
-    username: 'Racer84620'
-  }
-};
+// let obj = {
+//   ['c700713e-477a-402f-ac72-e59c88cb62ec']: {
+//     address: '0x73AE27967C2C98Dc168EC8f2b4cB1f2412239DEd',
+//     history: [[Object], [Object], [Object], [Object]],
+//     nonce: 5813866,
+//     pfp: 'https://ipfs.infura.io/ipfs/QmdYWioi4HTRgCkaPW1BY27CEAaVpaFnBBcE8DUW3Y7Tj7',
+//     points: 37,
+//     username: 'Racer84620'
+//   }
+// };

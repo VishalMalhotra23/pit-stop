@@ -175,19 +175,27 @@ const Garage: NextPage = () => {
               <div className="h-0.5 mt-1 my-3 w-full bg-gradient-to-r from-redOne to-redTwo"></div>
             </div>
             {user.history && user.history.length > 0 ? (
-              <div className="w-full grid grid-cols-3 gap-x-3 gap-y-2">
-                <h3 className="text-left text-white text-lg font-bold">
-                  Driver
-                </h3>
-                <h3 className="text-left text-white text-lg font-bold">Race</h3>
-                <h3 className="text-left text-white text-lg font-bold">
-                  Points
-                </h3>
+              <div>
+                <div className="my-2 w-full grid grid-cols-3 gap-x-3 gap-y-2">
+                  <h3 className="text-left text-white text-lg font-bold">
+                    Driver
+                  </h3>
+                  <h3 className="text-left text-white text-lg font-bold">
+                    Race
+                  </h3>
+                  <h3 className="text-left text-white text-lg font-bold">
+                    Points
+                  </h3>
+                </div>
                 {user.history
                   .slice(0)
                   .reverse()
-                  .map((gp: any) => (
-                    <>
+                  .filter((gp: any) => gp.driver)
+                  .map((gp: any, i: number) => (
+                    <div
+                      key={i}
+                      className="my-2 w-full grid grid-cols-3 gap-x-3 gap-y-2"
+                    >
                       <h3 className="text-left capitalize text-white text-sm">
                         {gp.driver.replace('-', ' ')}
                       </h3>
@@ -197,7 +205,38 @@ const Garage: NextPage = () => {
                       <h3 className="text-left text-white text-sm">
                         {gp.points}
                       </h3>
-                    </>
+                    </div>
+                  ))}
+                <div className="my-2 mt-8 w-full grid grid-cols-3 gap-x-3 gap-y-2">
+                  <h3 className="text-left text-white text-lg font-bold">
+                    Constructor
+                  </h3>
+                  <h3 className="text-left text-white text-lg font-bold">
+                    Race
+                  </h3>
+                  <h3 className="text-left text-white text-lg font-bold">
+                    Points
+                  </h3>
+                </div>
+                {user.history
+                  .slice(0)
+                  .reverse()
+                  .filter((gp: any) => !gp.driver)
+                  .map((gp: any, i: number) => (
+                    <div
+                      key={i}
+                      className="my-2 w-full grid grid-cols-3 gap-x-3 gap-y-2"
+                    >
+                      <h3 className="text-left capitalize text-white text-sm">
+                        {gp.constructor.replace('-', ' ')}
+                      </h3>
+                      <h3 className="text-left text-white text-sm">
+                        {gp.race}
+                      </h3>
+                      <h3 className="text-left text-white text-sm">
+                        {gp.points}
+                      </h3>
+                    </div>
                   ))}
               </div>
             ) : (

@@ -1,51 +1,16 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import { useState } from 'react';
 import { TailSpin } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
-import Countdown from '../../components/Countdown';
+import BackConstructors from '../../components/BackConstructors';
+import BackDrivers from '../../components/BackDrivers';
 import Navbar from '../../components/Navbar';
-import WagerModal from '../../components/WagerModal';
-import DRIVERS from '../../data/drivers.json';
-import RACE from '../../data/race.json';
-import NEXTRACE from '../../data/next-race.json';
-import TEAMS from '../../data/teams.json';
+import UpcomingRaceInfo from '../../components/UpcomingRaceInfo';
 import withAuth from '../../hoc/withAuth';
-import useLeaderboard from '../../hooks/useLeaderboard';
-import useNFT from '../../hooks/useNFT';
-import useUser from '../../hooks/useUser';
 import { RootState } from '../../store/rootReducer';
 
 const Race: NextPage = () => {
-  const [team, setTeam] = useState('mclaren');
-
-  const { garage } = useSelector((state: RootState) => state.garage);
-  const { address, token } = useSelector((state: RootState) => state.auth);
-  const { user } = useSelector((state: RootState) => state.user);
   const { bootLoading } = useSelector((state: RootState) => state.boot);
-
-  const { updateNFTPoints } = useNFT();
-  const { fetchUser } = useUser();
-  const { fetchLeaderboard } = useLeaderboard();
-
-  async function claimPoints() {
-    //fetch points to scored from F1 race standings and update garage points on firebase
-    const response = await fetch(`/api/points?token=${token}`);
-    const data = await response.json();
-    const pointsScored = data.points;
-
-    //update token uri
-    await updateNFTPoints(parseInt(data.itemId), pointsScored);
-
-    //refetch user
-    await fetchUser(token);
-    await fetchLeaderboard();
-  }
-
-  const [showModal, setShowModal] = useState(false);
-  const [selectedDriverKey, setSelectedDriverKey] = useState('');
-  const [selectedDriverName, setSelectedDriverName] = useState('');
 
   return (
     <div className="h-screen text-center text-red-700">
@@ -60,13 +25,6 @@ const Race: NextPage = () => {
         />
       </Head>
       <Navbar />
-      {showModal && (
-        <WagerModal
-          driverKey={selectedDriverKey}
-          driverName={selectedDriverName}
-          closeModal={() => setShowModal(false)}
-        />
-      )}
       <div className="flex-1 flex flex-col">
         <h1 className="text-white text-3xl font-semibold mt-4">
           Upcoming Race
@@ -77,175 +35,15 @@ const Race: NextPage = () => {
           className="bg-gray my-4 mx-auto w-3/4 flex-1 rounded-xl flex h-full"
           style={{ boxShadow: '0px -3px 86px 0px #00000080' }}
         >
-          <div className="w-1/3 bg-gradient-to-b from-redOne to-redTwo rounded-lg flex flex-col items-start py-8 px-6 text-left">
-            <div className="flex w-full justify-between items-center">
-              <div>
-                <h3 className="text-lg text-black font-semibold">Grand Prix</h3>
-                <h4 className="text-lg text-white font-bold mt-1">
-                  {NEXTRACE.name}
-                </h4>
-              </div>
-              <Image
-                src={`https://ipfs.infura.io/ipfs/${NEXTRACE.flag}`}
-                width={106}
-                height={53}
-              />
+          <UpcomingRaceInfo />
+          {bootLoading ? (
+            <div className="flex w-full flex-1  justify-center items-center">
+              <TailSpin color="#EF473A" height={80} width={80} />
             </div>
-            <h3 className="text-lg text-black font-semibold mt-2">Track</h3>
-            <h4 className="text-lg text-white font-bold mt-1">
-              {NEXTRACE.track}
-            </h4>
-            <h3 className="text-lg text-black font-semibold mt-2">Date</h3>
-            <h4 className="text-lg text-white font-bold mt-1">
-              {NEXTRACE.date}
-            </h4>
-            <h3 className="text-lg text-black font-semibold mt-2 mb-3">
-              Begins in
-            </h3>
-            <Countdown timestamp={NEXTRACE.timestamp} />
-            <div className="flex items-center justify-center w-full mt-3">
-              <Image
-                src={`https://ipfs.infura.io/ipfs/${NEXTRACE.circuit}`}
-                width={377}
-                height={270}
-              />
-            </div>
-          </div>
-          {user.wager ? (
-            bootLoading ? (
-              <div className="flex w-full flex-1  justify-center items-center">
-                <TailSpin color="#EF473A" height={80} width={80} />
-              </div>
-            ) : (
-              <div className="p-14 w-full flex-1 flex items-center justify-center">
-                <div>
-                  <Image
-                    src={require(`../../public/img/drivers/${user.wager.driver}.png`)}
-                    width={350}
-                    height={280}
-                  />
-                  <p className="my-3 text-white font-semibold text-xl">
-                    Congratulations! You backed{' '}
-                    <span className="capitalize text-redOne">
-                      {user.wager.driver.replace('-', ' ')}
-                    </span>{' '}
-                    with your{' '}
-                    <span className="text-redOne">
-                      {
-                        garage.find(
-                          (item: any) => item.itemId == user.wager.itemId
-                        ).name
-                      }
-                    </span>{' '}
-                    for the <span>{RACE.name}</span>.
-                  </p>
-                  {RACE.claim < Math.round(new Date().getTime() / 1000) ? (
-                    <button
-                      onClick={() => claimPoints()}
-                      className="border-2 border-black my-2 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-lg py-2 px-10 rounded-xl"
-                    >
-                      Claim
-                    </button>
-                  ) : (
-                    <div>
-                      <a
-                        href={`https://twitter.com/intent/tweet?text=I+am+backing+${user.wager.driver
-                          .replace('-', ' ')
-                          .replace(/(^\w|\s\w)/g, (m: any) =>
-                            m.toUpperCase()
-                          )}+for+the+${RACE.name}+${RACE.emoji}+with+my+${garage
-                          .find((item: any) => item.itemId == user.wager.itemId)
-                          .name.replace(
-                            '#',
-                            '%23'
-                          )}+NFT+on+%40PitStop_HQ.+Let%27s+go+racing%21+%F0%9F%8F%81%0D%0A%0D%0ABack+your+driver+now+on+-+playpitstop.racing%0D%0A%0D%0A+%23F1+%23${RACE.name
-                          .replace(/ /g, '')
-                          .replace('GrandPrix', 'GP')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <button className="border-2 border-black my-3 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-lg py-2 px-10 rounded-xl flex items-center mx-auto">
-                          <Image
-                            src={require(`../../public/img/twitter.svg`)}
-                            width={18}
-                            height={18}
-                          />
-                          <span className="ml-4">Tweet about it!</span>
-                        </button>
-                      </a>
-                      <h3 className="text-lg text-white font-semibold mt-2 mb-3">
-                        Claim in
-                      </h3>
-                      <Countdown inverted timestamp={RACE.claim} />
-                    </div>
-                  )}
-                </div>
-              </div>
-            )
           ) : (
             <div className="h-full p-6 flex-1">
-              <div className="">
-                <h1 className="text-2xl text-white font-bold my-2 text-left">
-                  Teams
-                </h1>
-                <div className="mt-5 flex w-full justify-between">
-                  {TEAMS.map((team) => {
-                    return (
-                      <div
-                        key={team.key}
-                        onClick={() => setTeam(team.key)}
-                        className="cursor-pointer text-white"
-                      >
-                        <Image
-                          src={require(`../../public/img/teams/${team.key}.png`)}
-                          width={56}
-                          height={56}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              <div className="mt-7">
-                <h1 className="text-2xl text-white font-bold my-2 text-left">
-                  Drivers
-                </h1>
-                <div className="mt-5 flex">
-                  {/* @ts-ignore */}
-                  {DRIVERS[`${team}`].map((driver, i) => {
-                    return (
-                      <div
-                        key={driver.key}
-                        className={`w-full ${
-                          i === 0 && 'border-r-2 border-gray-mute'
-                        }`}
-                      >
-                        <Image
-                          src={require(`../../public/img/drivers/${driver.key}.png`)}
-                          width={249}
-                          height={200}
-                        />
-                        <h3 className="my-3 text-lg font-semibold text-white">
-                          {driver.name}
-                        </h3>
-                        {RACE.timestamp >
-                          Math.round(new Date().getTime() / 1000) && (
-                          <button
-                            onClick={() => {
-                              setShowModal(true);
-                              setSelectedDriverKey(driver.key);
-                              setSelectedDriverName(driver.name);
-                            }}
-                            className="border-2 border-black my-1 bg-gradient-to-r from-redOne to-redTwo text-white font-semibold text-base py-2 px-10 rounded-xl"
-                          >
-                            Support
-                          </button>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
+              <BackDrivers />
+              {/* <BackConstructors /> */}
             </div>
           )}
         </div>

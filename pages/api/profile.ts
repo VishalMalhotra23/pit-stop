@@ -8,8 +8,6 @@ export default async function profile(
 ) {
   const { token, url, username } = req.query;
 
-  console.log(token);
-
   try {
     const decoded = jwt.verify(
       token as string,
@@ -17,7 +15,6 @@ export default async function profile(
     );
     //@ts-ignore
     const { id } = decoded.user;
-    console.log(id);
 
     const userData = await router.get(`/users/${id}.json`);
     let user = userData.data;
