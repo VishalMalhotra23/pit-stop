@@ -28,7 +28,6 @@ export default async function sale(
     );
     //@ts-ignore
     const { id } = decoded.user;
-    console.log(id);
 
     userData = await router.get(`/users/${id}.json`);
     user = userData.data;

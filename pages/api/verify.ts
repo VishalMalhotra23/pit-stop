@@ -9,21 +9,15 @@ export default async function verify(
 ) {
   let authenticated = false;
   const { address, signature, id } = req.query;
-  console.log(req.query);
-  console.log(req.query.id);
 
   try {
     const userData = await router.get(`/users/${id}.json`);
     let user = userData.data;
 
-    console.log(user.nonce);
-
     const decodedAddress = ethers.utils.verifyMessage(
       user.nonce.toString(),
       signature as string
     );
-
-    console.log(address, decodedAddress);
 
     if ((address as string).toLowerCase() === decodedAddress.toLowerCase()) {
       authenticated = true;

@@ -2,15 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import router from '../../util/router';
 import jwt from 'jsonwebtoken';
 
-export default async function user(
+export default async function backconstructor(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { token } = req.query;
-
-  if (!token) {
-    return res.status(400).json({ success: false });
-  }
+  const { token, itemId, constructor } = req.query;
 
   try {
     const decoded = jwt.verify(
@@ -20,18 +16,19 @@ export default async function user(
     //@ts-ignore
     const { id } = decoded.user;
 
-    const userData = await router.get(`/users/${id}.json`);
-    let user = userData.data;
+    const wager = {
+      itemId,
+      constructor
+    };
 
-    res.status(200).json({ user, success: true });
+    await router.put(`/users/${id}/constructorwager.json`, wager);
+
+    res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
-
     res.status(400).json({ success: false });
   }
 }
 
 type Data = {
-  user?: any;
   success: boolean;
 };
