@@ -27,7 +27,7 @@ const Leaderboard: NextPage = () => {
         <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
 
         <div
-          className="bg-gray grid grid-cols-4 gap-3 w-1/2 mx-auto px-10 py-7 rounded-lg text-center mt-5"
+          className="bg-gray grid grid-cols-4 gap-3 w-1/2 mx-auto px-10 py-7 rounded-lg text-center my-5"
           style={{ boxShadow: '0px -3px 86px 0px #00000080' }}
         >
           <h3 className=" text-white text-xl font-bold">Rank</h3>

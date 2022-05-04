@@ -1,9 +1,13 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import ReactPlayer from 'react-player/youtube';
 import Navbar from '../../components/Navbar';
+import useWindowSize from '../../hooks/useWindowSize';
 
 const About: NextPage = () => {
+  const size = useWindowSize();
+
   return (
     <div className="text-center text-red-700">
       <Head>
@@ -66,94 +70,116 @@ const About: NextPage = () => {
           </ul>
         </div>
 
-        <h1 className="text-white text-3xl font-semibold mt-10">How to play</h1>
-        <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
-        <div className="mx-40 text-white text-lg">
-          <ol className="list-decimal">
-            <li className="my-2">
-              Get started by{' '}
-              <a
-                className="underline hover:text-redOne"
-                href="https://metamask.io/download/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                installing the Metamask wallet
-              </a>
-            </li>
-            <li className="my-2">
-              <a
-                className="underline hover:text-redOne"
-                href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/#add-the-polygon-network-manually"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Add the Polygon Mumbai-Testnet network
-              </a>{' '}
-              to your Metamask wallet
-            </li>
-            <li className="my-2">
-              Head over to the{' '}
-              <a
-                className="underline hover:text-redOne"
-                href="https://faucet.polygon.technology/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Polygon faucet
-              </a>{' '}
-              and request some test MATIC tokens to your wallet
-            </li>
-            <li className="my-2">
-              Sign in using your wallet by clicking on the{' '}
-              <span className="text-redOne font-bold italic">
-                Connect Wallet
-              </span>{' '}
-              button
-            </li>
-            <li className="my-2">
-              Once you receive the tokens, navigate to the{' '}
-              <Link href="/mint">
-                <span className="text-redOne font-bold cursor-pointer hover:underline">
-                  Mint
-                </span>
-              </Link>{' '}
-              page and mint your first NFT car with the livery of your choice
-            </li>
-            <li className="my-2">
-              Once you have a car in your{' '}
-              <Link href="/garage">
-                <span className="text-redOne font-bold cursor-pointer hover:underline">
-                  Garage
-                </span>
-              </Link>
-              , you can back a driver for the upcoming Grand Prix by going to
-              the{' '}
-              <Link href="/race">
-                <span className="text-redOne font-bold cursor-pointer hover:underline">
-                  Race
-                </span>
-              </Link>{' '}
-              page
-            </li>
-            <li className="my-2">
-              Claim your points once the race is over and climb the{' '}
-              <Link href="/leaderboard">
-                <span className="text-redOne font-bold cursor-pointer hover:underline">
-                  Leaderboard
-                </span>
-              </Link>{' '}
-            </li>
-            <li className="my-2">
-              Make sure to check out the{' '}
-              <Link href="/marketplace">
-                <span className="text-redOne font-bold cursor-pointer hover:underline">
-                  Marketplace
-                </span>
-              </Link>{' '}
-              to buy and sell cars at any given point
-            </li>
-          </ol>
+        <div className="w-full px-24 flex">
+          <div className="w-1/2 pr-10">
+            <h1 className="text-white text-3xl font-semibold mt-10">
+              How to play
+            </h1>
+            <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
+            <div className="text-left text-white text-lg">
+              <ol className="list-decimal">
+                <li className="my-2">
+                  Get started by{' '}
+                  <a
+                    className="underline hover:text-redOne"
+                    href="https://metamask.io/download/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    installing the Metamask wallet
+                  </a>
+                </li>
+                <li className="my-2">
+                  <a
+                    className="underline hover:text-redOne"
+                    href="https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/#add-the-polygon-network-manually"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Add the Polygon Mumbai-Testnet network
+                  </a>{' '}
+                  to your Metamask wallet
+                </li>
+                <li className="my-2">
+                  Head over to the{' '}
+                  <a
+                    className="underline hover:text-redOne"
+                    href="https://faucet.polygon.technology/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Polygon faucet
+                  </a>{' '}
+                  and request some test MATIC tokens to your wallet
+                </li>
+                <li className="my-2">
+                  Sign in using your wallet by clicking on the{' '}
+                  <span className="text-redOne font-bold italic">
+                    Connect Wallet
+                  </span>{' '}
+                  button
+                </li>
+                <li className="my-2">
+                  Once you receive the tokens, navigate to the{' '}
+                  <Link href="/mint">
+                    <span className="text-redOne font-bold cursor-pointer hover:underline">
+                      Mint
+                    </span>
+                  </Link>{' '}
+                  page and mint your first NFT car with the livery of your
+                  choice
+                </li>
+                <li className="my-2">
+                  Once you have a car in your{' '}
+                  <Link href="/garage">
+                    <span className="text-redOne font-bold cursor-pointer hover:underline">
+                      Garage
+                    </span>
+                  </Link>
+                  , you can back a driver for the upcoming Grand Prix by going
+                  to the{' '}
+                  <Link href="/compete">
+                    <span className="text-redOne font-bold cursor-pointer hover:underline">
+                      Race
+                    </span>
+                  </Link>{' '}
+                  page
+                </li>
+                <li className="my-2">
+                  Claim your points once the race is over and climb the{' '}
+                  <Link href="/leaderboard">
+                    <span className="text-redOne font-bold cursor-pointer hover:underline">
+                      Leaderboard
+                    </span>
+                  </Link>{' '}
+                </li>
+                <li className="my-2">
+                  Make sure to check out the{' '}
+                  <Link href="/marketplace">
+                    <span className="text-redOne font-bold cursor-pointer hover:underline">
+                      Marketplace
+                    </span>
+                  </Link>{' '}
+                  to buy and sell cars at any given point
+                </li>
+              </ol>
+            </div>
+          </div>
+          <div className="w-1/2 pl-20 flex items-center justify-center">
+            <ReactPlayer
+              url="https://youtu.be/-QEw3bJsfO4"
+              loop={true}
+              muted={true}
+              playing={true}
+              controls
+              width={size.width >= 1000 ? 533 : 320}
+              height={size.width >= 1000 ? 300 : 180}
+              style={{
+                borderRadius: '12px',
+                overflow: 'hidden'
+              }}
+            />
+          </div>
         </div>
 
         <h6 className="text-white text-xl italic font-semibold mt-20 mb-10">

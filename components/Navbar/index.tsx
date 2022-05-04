@@ -95,7 +95,7 @@ const AuthLinks = ({ address }: IAuthLinkProps) => {
           <Link href="/mint">Mint</Link>
         </span>
         <span className="flex justify-center items-center text-white text-base my-1 hover:text-redOne">
-          <Link href="/race">Race</Link>
+          <Link href="/compete">Compete</Link>
         </span>
         <span className="flex justify-center items-center text-white text-base my-1 hover:text-redOne">
           <Link href="/marketplace">Marketplace</Link>
@@ -124,7 +124,7 @@ const AuthLinks = ({ address }: IAuthLinkProps) => {
         <Link href="/mint">Mint</Link>
       </span>
       <span className="hover:text-redOne">
-        <Link href="/race">Race</Link>
+        <Link href="/compete">Compete</Link>
       </span>
       <span className="hover:text-redOne">
         <Link href="/marketplace">Marketplace</Link>

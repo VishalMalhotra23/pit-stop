@@ -10,11 +10,27 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import MarketplaceCard from '../components/MarketplaceCard';
 import useWindowSize from '../hooks/useWindowSize';
+import NFTCard from '../components/NFTCard';
+import { useEffect, useState } from 'react';
+import TEAMS from '../data/teams.json';
 
 const Home: NextPage = () => {
   const { marketItems } = useSelector((state: RootState) => state.marketplace);
 
   const size = useWindowSize();
+
+  const [teamKeyIndex, setTeamKeyIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      let newKey;
+      if (teamKeyIndex == TEAMS.length - 1) newKey = 0;
+      else newKey = teamKeyIndex + 1;
+      setTeamKeyIndex(newKey);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  });
 
   return (
     <div className="text-center text-red-700">
@@ -74,48 +90,106 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="w-4/5 mx-auto my-10 grid grid-cols-1 md:grid-cols-3">
-        <div className="px-10 py-0 md:py-3">
-          <div className="h-64 flex items-center justify-center">
-            <Image
-              src={require(`../public/img/collect.svg`)}
-              width={266}
-              height={193}
-            />
+      <div className="w-full flex mx-auto text-white my-10 bg-gradient-to-r from-redTwo to-redTwo py-12 px-14">
+        <div className="w-5/6 grid grid-cols-3 gap-x-4">
+          <div className="flex flex-col border-l-2 border-white py-1 text-left pl-4">
+            <h3 className="text-xl mb-2 font-bold">Get Your Liveries</h3>
+            <p className="text-base">
+              Mint your favorite liveries as NFTs and build your own car garage.
+            </p>
           </div>
-          <h1 className="text-white font-bold text-lg md:text-3xl">Collect</h1>
-          <p className="text-white text-2xs md:text-base">
-            Get started by minting the livery of your choice and create your own
-            garage.
-          </p>
+          <div className="flex flex-col border-l-2 border-white py-1 text-left pl-4">
+            <h3 className="text-xl mb-2 font-bold">
+              Back Your Driver & Constructor
+            </h3>
+            <p className="text-base">
+              Use your minted NFT cars to back your favorite driver and
+              constructor in the upcoming real world Grand Prix.
+            </p>
+          </div>
+          <div className="flex flex-col border-l-2 border-white py-1 text-left pl-4">
+            <h3 className="text-xl mb-2 font-bold">Climb The Ranks</h3>
+            <p className="text-base">
+              Score points across race weekends to increase your garage&apos;s
+              score, make your NFTs more valuable, and climb the leaderboard.
+            </p>
+          </div>
         </div>
-        <div className="px-10 py-0 md:py-3">
-          <div className="h-64 flex items-center justify-center">
-            <Image
-              src={require(`../public/img/support.svg`)}
-              width={233}
-              height={190}
-            />
-          </div>
-          <h1 className="text-white font-bold text-lg md:text-3xl">Support</h1>
-          <p className="text-white text-2xs md:text-base">
-            Use your NFTs to back your favourite drivers in real world grand
-            prix.
-          </p>
+        <div className="w-1/6 flex justify-center items-center">
+          <Link href="/about">
+            <button className="border-2 border-white text-white text-lg font-semibold py-2 px-3 rounded-md">
+              Learn More
+            </button>
+          </Link>
         </div>
-        <div className="px-10 py-0 md:py-3">
-          <div className="h-64 flex items-center justify-center">
-            <Image
-              src={require(`../public/img/win.svg`)}
-              width={372}
-              height={193}
+      </div>
+
+      <div className="w-full px-14 my-10">
+        <h1 className="text-white text-3xl font-bold mt-4">Get Started</h1>
+        <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-3"></div>
+        <div className="flex py-8">
+          <div className="w-1/2 flex flex-col text-left px-6">
+            <h3 className="mb-2 text-lg text-redOne font-bold">
+              Step 1 : Connect your wallet
+            </h3>
+            <p className="text-white text-base">
+              To get started, all you need to do is connect your wallet on the
+              Polygon Mumbai Testnet.
+            </p>
+            <h3 className="mt-4 mb-2 text-lg text-redOne font-bold">
+              Step 2 : Mint Your Liveries
+            </h3>
+            <p className="text-white text-base">
+              Mint your favorite liveries as NFT cars from the{' '}
+              <Link href="mint">
+                <a className="cursor-pointer text-redOne">Mint</a>
+              </Link>{' '}
+              page and use these to build your own garage.
+            </p>
+            <h3 className="mt-4 mb-2 text-lg text-redOne font-bold">
+              Step 3 : Back your favorite driver and constructor
+            </h3>
+            <p className="text-white text-base">
+              Use your minted NFTs to back your favorite driver and/or
+              constructor on the grid in the upcoming real world Grand Prix from
+              the{' '}
+              <Link href="race">
+                <a className="cursor-pointer text-redOne">Compete</a>
+              </Link>{' '}
+              page.
+            </p>
+            <h3 className="mt-4 mb-2 text-lg text-redOne font-bold">
+              Step 4 : Score and claim points
+            </h3>
+            <p className="text-white text-base">
+              After the race, the NFT that you backed your driver/constructor
+              with gains points based on results of the race and you can{' '}
+              <Link href="race">
+                <a className="cursor-pointer text-redOne">Claim </a>
+              </Link>
+              these points.
+            </p>
+            <h3 className="mt-4 mb-2 text-lg text-redOne font-bold">
+              Step 5 : Increase the value of your NFTs and climb the leaderboard
+            </h3>
+            <p className="text-white text-base">
+              Keep backing your favorite drivers and constructors across race
+              weekends to keep earning points. These points make your NFTs more
+              valuable and also increase your total garage score which helps you
+              to climb the{' '}
+              <Link href="leaderboard">
+                <a className="cursor-pointer text-redOne">Leaderboard</a>
+              </Link>
+              .
+            </p>
+          </div>
+          <div className="w-1/2 flex justify-center items-center">
+            <NFTCard
+              key={teamKeyIndex}
+              compact
+              team={TEAMS[teamKeyIndex].key}
             />
           </div>
-          <h1 className="text-white font-bold text-lg md:text-3xl">Win</h1>
-          <p className="text-white text-2xs md:text-base">
-            Climb the leaderboards and earn rewards or sell your liveries on our
-            marketplace.
-          </p>
         </div>
       </div>
 
@@ -152,7 +226,7 @@ const Home: NextPage = () => {
         <div className="w-1/4 mx-auto my-4">
           <Countdown timestamp={NEXTRACE.timestamp} />
         </div>
-        <Link href="/race">
+        <Link href="/compete">
           <button className="border-2 border-black bg-gradient-to-r from-redOne to-redTwo rounded-lg px-10 py-2 font-semibold text-white text-xl">
             Let&apos;s Go!
           </button>
