@@ -49,12 +49,13 @@ const ConstructorsCarousel = ({
             <StackedCarousel
               ref={carouselRef}
               data={ConstructorData}
-              carouselWidth={parentWidth}
-              slideWidth={200}
+              carouselWidth={400}
+              slideWidth={170}
               slideComponent={Slide}
               maxVisibleSlide={3}
               currentVisibleSlide={3}
               useGrabCursor={true}
+              height={300}
             />
           );
         }}
@@ -92,7 +93,7 @@ const Slide = React.memo(function (props: StackedCarouselSlideProps) {
       {slideIndex === 0 && (
         <>
           <h1 className="text-white my-3 font-semibold text-lg">{name}</h1>
-          {RACE.timestamp > Math.round(new Date().getTime() / 1000) && (
+          {RACE.timestamp < Math.round(new Date().getTime() / 1000) && (
             <button
               onClick={() => {
                 setShowModal(true);

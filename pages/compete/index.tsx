@@ -11,6 +11,7 @@ import { RootState } from '../../store/rootReducer';
 
 const Race: NextPage = () => {
   const { bootLoading } = useSelector((state: RootState) => state.boot);
+  const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <div className="h-screen text-center text-red-700">
@@ -43,7 +44,10 @@ const Race: NextPage = () => {
           ) : (
             <div className="h-full p-6 flex-1">
               <BackDrivers />
-              {/* <BackConstructors /> */}
+              {user.driverwager && user.constructorwager && (
+                <div className="mx-auto h-0.5 w-96 bg-gray-mute my-8"></div>
+              )}
+              <BackConstructors />
             </div>
           )}
         </div>

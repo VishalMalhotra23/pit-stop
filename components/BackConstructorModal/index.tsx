@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useMemo } from 'react';
 import { TailSpin } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import useLeaderboard from '../../hooks/useLeaderboard';
@@ -25,6 +26,10 @@ const BackConstructorModal = ({
     closeModal();
   }
 
+  const matchingCars = useMemo(() => {
+    return garage.filter((i: any) => i.name.split(' #')[0] === constructorName);
+  }, [garage, constructorName]);
+
   return (
     <div
       className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center z-20"
@@ -39,32 +44,40 @@ const BackConstructorModal = ({
           Select a car from your garage to support{' '}
           <span className="text-redOne">{constructorName}</span>
         </h1>
+        <h1 className="text-white text-base">
+          You can back <span className="text-redOne">{constructorName} </span>
+          only with their own cars.
+        </h1>
         {bootLoading ? (
           <div className="flex w-full h-full justify-center items-center">
             <TailSpin color="#EF473A" height={80} width={80} />
           </div>
         ) : garage.length > 0 ? (
-          <div className="grid grid-cols-2 gap-10 mt-10">
-            {garage.map((ownedItem: any) => (
-              <span
+          matchingCars.length > 0 ? (
+            matchingCars.map((ownedItem: any) => (
+              <div
                 key={ownedItem.itemId}
-                onClick={() =>
-                  backConstructor(constructorKey, ownedItem.itemId)
-                }
+                className="grid grid-cols-2 gap-10 mt-10"
               >
-                <GarageCard
-                  key={ownedItem.tokenId ? ownedItem.tokenId : ownedItem.itemId}
-                  NFT={ownedItem}
-                />
-              </span>
-            ))}
-          </div>
+                <span
+                  onClick={() =>
+                    backConstructor(constructorKey, ownedItem.itemId)
+                  }
+                >
+                  <GarageCard
+                    key={
+                      ownedItem.tokenId ? ownedItem.tokenId : ownedItem.itemId
+                    }
+                    NFT={ownedItem}
+                  />
+                </span>
+              </div>
+            ))
+          ) : (
+            <NoMatchingCarUI constructorName={constructorName} />
+          )
         ) : (
-          <div className="flex items-center justify-center w-full h-full">
-            <h1 className="text-white text-center font-semibold text-lg">
-              No cars in your garage yet!
-            </h1>
-          </div>
+          <EmptyGarageUI />
         )}
       </div>
     </div>
@@ -78,3 +91,24 @@ interface IBackConstructorModalProps {
   constructorName: string;
   closeModal: Function;
 }
+
+const EmptyGarageUI = () => {
+  return (
+    <div className="flex items-center justify-center w-full h-full">
+      <h1 className="text-white text-center font-semibold text-lg">
+        No cars in your garage yet!
+      </h1>
+    </div>
+  );
+};
+
+const NoMatchingCarUI = ({ constructorName }: any) => {
+  return (
+    <div className="flex items-center justify-center w-full h-full">
+      <h1 className="text-white text-center font-semibold text-lg">
+        No <span className="text-redOne">{constructorName} </span>cars in your
+        garage yet!
+      </h1>
+    </div>
+  );
+};
