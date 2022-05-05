@@ -141,7 +141,7 @@ const Home: NextPage = () => {
             </h3>
             <p className="text-white text-base">
               Mint your favorite liveries as NFT cars from the{' '}
-              <Link href="mint">
+              <Link href="/mint">
                 <a className="cursor-pointer text-redOne">Mint</a>
               </Link>{' '}
               page and use these to build your own garage.
@@ -153,7 +153,7 @@ const Home: NextPage = () => {
               Use your minted NFTs to back your favorite driver and/or
               constructor on the grid in the upcoming real world Grand Prix from
               the{' '}
-              <Link href="race">
+              <Link href="/compete">
                 <a className="cursor-pointer text-redOne">Compete</a>
               </Link>{' '}
               page.
@@ -164,7 +164,7 @@ const Home: NextPage = () => {
             <p className="text-white text-base">
               After the race, the NFT that you backed your driver/constructor
               with gains points based on results of the race and you can{' '}
-              <Link href="race">
+              <Link href="/compete">
                 <a className="cursor-pointer text-redOne">Claim </a>
               </Link>
               these points.
@@ -177,7 +177,7 @@ const Home: NextPage = () => {
               weekends to keep earning points. These points make your NFTs more
               valuable and also increase your total garage score which helps you
               to climb the{' '}
-              <Link href="leaderboard">
+              <Link href="/leaderboard">
                 <a className="cursor-pointer text-redOne">Leaderboard</a>
               </Link>
               .
