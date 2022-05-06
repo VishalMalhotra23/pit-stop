@@ -236,14 +236,14 @@ const Garage: NextPage = () => {
                 {isDriverHistoryExpanded ? (
                   <div
                     onClick={() => setIsDriverHistoryExpanded(false)}
-                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer"
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
                   >
                     Show Less
                   </div>
                 ) : (
                   <div
                     onClick={() => setIsDriverHistoryExpanded(true)}
-                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer"
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
                   >
                     Show More
                   </div>
@@ -276,14 +276,14 @@ const Garage: NextPage = () => {
                 {isConstructorHistoryExpanded ? (
                   <div
                     onClick={() => setIsConstructorHistoryExpanded(false)}
-                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer"
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
                   >
                     Show Less
                   </div>
                 ) : (
                   <div
                     onClick={() => setIsConstructorHistoryExpanded(true)}
-                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer"
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
                   >
                     Show More
                   </div>

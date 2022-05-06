@@ -104,7 +104,7 @@ const AuthLinks = ({ address }: IAuthLinkProps) => {
           <Link href="/leaderboard">Leaderboard</Link>
         </span>
         <span className="flex justify-center items-center text-white text-base my-1 hover:text-redOne">
-          <Link href="/garage">Garage</Link>
+          <Link href="/garage">My Garage</Link>
         </span>
         <div className="flex justify-center items-center my-1 cursor-pointer bg-gradient-to-r from-redOne to-redTwo rounded-full text-white text-base px-6 py-2">
           {`${address.substring(0, 5)}...${address.substring(
@@ -133,7 +133,7 @@ const AuthLinks = ({ address }: IAuthLinkProps) => {
         <Link href="/leaderboard">Leaderboard</Link>
       </span>
       <span className="hover:text-redOne border-r-2 border-white pr-5">
-        <Link href="/garage">Garage</Link>
+        <Link href="/garage">My Garage</Link>
       </span>
       <div className="cursor-pointer bg-gradient-to-r from-redOne to-redTwo rounded-full text-white text-base px-6 py-2">
         {`${address.substring(0, 5)}...${address.substring(
