@@ -69,7 +69,7 @@ const BackDrivers = () => {
                 <h3 className="my-3 text-lg font-semibold text-white">
                   {driver.name}
                 </h3>
-                {RACE.timestamp < Math.round(new Date().getTime() / 1000) && (
+                {RACE.timestamp > Math.round(new Date().getTime() / 1000) && (
                   <button
                     onClick={() => {
                       setShowModal(true);
