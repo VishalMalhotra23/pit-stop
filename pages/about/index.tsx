@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import ReactPlayer from 'react-player/youtube';
 import Navbar from '../../components/Navbar';
@@ -34,40 +35,47 @@ const About: NextPage = () => {
             with others by wagering these NFT cars on real life F1 races.
           </p>
         </div>
-        <h1 className="text-white text-3xl font-semibold mt-10">
-          How it works
-        </h1>
-        <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
-        <div className="mx-40 text-white text-lg">
-          <ul className="">
-            <li className="my-2">
-              Players start by building their own car garage in the metaverse,
-              by minting F1 cars of different liveries as NFTs on the Polygon
-              Mumbai Testnet.
-            </li>
-            <li className="my-2">
-              {' '}
-              These NFT cars have an initial <em>points</em> attribute equal to
-              0 (zero) and can be wagered on one driver during each real life F1
-              Grand Prix.
-            </li>
-            <li className="my-2">
-              {' '}
-              After the race, each NFT is updated with the number of points
-              scored by the driver in the Grand Prix.
-            </li>
-            <li className="my-2">
-              {' '}
-              The more points a player racks up, the more valuable the NFT
-              becomes, and the higher they move up the global leaderboard.
-            </li>
-            <li className="my-2">
-              {' '}
-              Players can also buy and sell these NFT cars at any given time on
-              the in-game marketplace, essentially trading some MATIC for
-              points.
-            </li>
-          </ul>
+        <div className="w-full px-24 flex">
+          <div className="w-1/2 pr-10 flex items-center justify-center">
+            <Image src={require('../../public/img/win.svg')} objectFit="fill" />
+          </div>
+          <div className="w-1/2 pl-10">
+            <h1 className="text-white text-3xl font-semibold mt-10">
+              How it works
+            </h1>
+            <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-4"></div>
+            <div className="text-white text-lg">
+              <ul className="text-left">
+                <li className="my-2">
+                  Players start by building their own car garage in the
+                  metaverse, by minting F1 cars of different liveries as NFTs on
+                  the Polygon Mumbai Testnet.
+                </li>
+                <li className="my-2">
+                  {' '}
+                  These NFT cars have an initial <em>points</em> attribute equal
+                  to 0 (zero) and can be wagered on one driver during each real
+                  life F1 Grand Prix.
+                </li>
+                <li className="my-2">
+                  {' '}
+                  After the race, each NFT is updated with the number of points
+                  scored by the driver in the Grand Prix.
+                </li>
+                <li className="my-2">
+                  {' '}
+                  The more points a player racks up, the more valuable the NFT
+                  becomes, and the higher they move up the global leaderboard.
+                </li>
+                <li className="my-2">
+                  {' '}
+                  Players can also buy and sell these NFT cars at any given time
+                  on the in-game marketplace, essentially trading some MATIC for
+                  points.
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="w-full px-24 flex">

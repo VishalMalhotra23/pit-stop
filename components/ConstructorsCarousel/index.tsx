@@ -26,9 +26,12 @@ const ConstructorsCarousel = ({
   const ref = React.useRef<ResponsiveContainerProps>();
 
   return (
-    <div className="mx-auto w-2/3 flex items-center">
-      {/* @ts-ignore */}
-      <div className="cursor-pointer" onClick={() => ref.current.goBack()}>
+    <div className="mx-auto w-2/3 flex items-start">
+      <div
+        className="mt-20 cursor-pointer"
+        //  @ts-ignore
+        onClick={() => ref.current.goBack()}
+      >
         <Image
           src={require(`../../public/img/chevron-left.svg`)}
           width={38}
@@ -49,18 +52,23 @@ const ConstructorsCarousel = ({
             <StackedCarousel
               ref={carouselRef}
               data={ConstructorData}
-              carouselWidth={parentWidth}
-              slideWidth={200}
+              carouselWidth={360}
+              slideWidth={170}
               slideComponent={Slide}
               maxVisibleSlide={3}
               currentVisibleSlide={3}
               useGrabCursor={true}
+              height={300}
+              disableSwipe
             />
           );
         }}
       />
-      {/* @ts-ignore */}
-      <div className="cursor-pointer" onClick={() => ref.current.goNext()}>
+      <div
+        className="mt-20 cursor-pointer"
+        //@ts-ignore
+        onClick={() => ref.current.goNext()}
+      >
         <Image
           src={require(`../../public/img/chevron-right.svg`)}
           width={38}

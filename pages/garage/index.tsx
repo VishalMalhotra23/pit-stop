@@ -78,6 +78,38 @@ const Garage: NextPage = () => {
 
   const { listedItems } = useSelector((state: RootState) => state.marketplace);
 
+  const [isDriverHistoryExpanded, setIsDriverHistoryExpanded] = useState(false);
+  const [isConstructorHistoryExpanded, setIsConstructorHistoryExpanded] =
+    useState(false);
+
+  const driverHistory = useMemo(() => {
+    if (user.history && user.history.length > 0) {
+      const fullDriverHistory = user.history
+        .slice(0)
+        .reverse()
+        .filter((gp: any) => gp.driver);
+
+      if (isDriverHistoryExpanded) return fullDriverHistory;
+      else return fullDriverHistory.slice(0, 3);
+    }
+
+    return [];
+  }, [user.history, isDriverHistoryExpanded]);
+
+  const constructorHistory = useMemo(() => {
+    if (user.history && user.history.length > 0) {
+      const fullConstructorHistory = user.history
+        .slice(0)
+        .reverse()
+        .filter((gp: any) => !gp.driver);
+
+      if (isConstructorHistoryExpanded) return fullConstructorHistory;
+      else return fullConstructorHistory.slice(0, 3);
+    }
+
+    return [];
+  }, [user.history, isConstructorHistoryExpanded]);
+
   return (
     <div className="h-screen flex flex-col text-center text-red-700">
       <Head>
@@ -187,26 +219,35 @@ const Garage: NextPage = () => {
                     Points
                   </h3>
                 </div>
-                {user.history
-                  .slice(0)
-                  .reverse()
-                  .filter((gp: any) => gp.driver)
-                  .map((gp: any, i: number) => (
-                    <div
-                      key={i}
-                      className="my-2 w-full grid grid-cols-3 gap-x-3 gap-y-2"
-                    >
-                      <h3 className="text-left capitalize text-white text-sm">
-                        {gp.driver.replace('-', ' ')}
-                      </h3>
-                      <h3 className="text-left text-white text-sm">
-                        {gp.race}
-                      </h3>
-                      <h3 className="text-left text-white text-sm">
-                        {gp.points}
-                      </h3>
-                    </div>
-                  ))}
+                {driverHistory.map((gp: any, i: number) => (
+                  <div
+                    key={i}
+                    className="my-2 w-full grid grid-cols-3 gap-x-3 gap-y-2"
+                  >
+                    <h3 className="text-left capitalize text-white text-sm">
+                      {gp.driver.replace('-', ' ')}
+                    </h3>
+                    <h3 className="text-left text-white text-sm">{gp.race}</h3>
+                    <h3 className="text-left text-white text-sm">
+                      {gp.points}
+                    </h3>
+                  </div>
+                ))}
+                {isDriverHistoryExpanded ? (
+                  <div
+                    onClick={() => setIsDriverHistoryExpanded(false)}
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
+                  >
+                    Show Less
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => setIsDriverHistoryExpanded(true)}
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
+                  >
+                    Show More
+                  </div>
+                )}
                 <div className="my-2 mt-8 w-full grid grid-cols-3 gap-x-3 gap-y-2">
                   <h3 className="text-left text-white text-lg font-bold">
                     Constructor
@@ -218,26 +259,35 @@ const Garage: NextPage = () => {
                     Points
                   </h3>
                 </div>
-                {user.history
-                  .slice(0)
-                  .reverse()
-                  .filter((gp: any) => !gp.driver)
-                  .map((gp: any, i: number) => (
-                    <div
-                      key={i}
-                      className="my-2 w-full grid grid-cols-3 gap-x-3 gap-y-2"
-                    >
-                      <h3 className="text-left capitalize text-white text-sm">
-                        {gp.constructor.replace('-', ' ')}
-                      </h3>
-                      <h3 className="text-left text-white text-sm">
-                        {gp.race}
-                      </h3>
-                      <h3 className="text-left text-white text-sm">
-                        {gp.points}
-                      </h3>
-                    </div>
-                  ))}
+                {constructorHistory.map((gp: any, i: number) => (
+                  <div
+                    key={i}
+                    className="my-2 w-full grid grid-cols-3 gap-x-3 gap-y-2"
+                  >
+                    <h3 className="text-left capitalize text-white text-sm">
+                      {gp.constructor.replace('-', ' ')}
+                    </h3>
+                    <h3 className="text-left text-white text-sm">{gp.race}</h3>
+                    <h3 className="text-left text-white text-sm">
+                      {gp.points}
+                    </h3>
+                  </div>
+                ))}
+                {isConstructorHistoryExpanded ? (
+                  <div
+                    onClick={() => setIsConstructorHistoryExpanded(false)}
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
+                  >
+                    Show Less
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => setIsConstructorHistoryExpanded(true)}
+                    className="text-redOne text-sm mt-4 hover:underline cursor-pointer text-right pr-12"
+                  >
+                    Show More
+                  </div>
+                )}
               </div>
             ) : (
               <h1 className="text-center my-16 text-white text-sm">
