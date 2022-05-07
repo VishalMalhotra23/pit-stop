@@ -75,7 +75,7 @@ const ConstructorBacked = () => {
                 .name.replace(
                   '#',
                   '%23'
-                )}+NFT+on+%40PitStop_HQ.+Let%27s+go+racing%21+%F0%9F%8F%81%0D%0A%0D%0ABack+your+driver+now+on+-+playpitstop.racing%0D%0A%0D%0A+%23F1+%23${RACE.name
+                )}+NFT+on+%40PitStop_HQ.+Let%27s+go+racing%21+%F0%9F%8F%81%0D%0A%0D%0ABack+your+constructor+now+on+-+playpitstop.racing%0D%0A%0D%0A+%23F1+%23${RACE.name
                 .replace(/ /g, '')
                 .replace('GrandPrix', 'GP')}`}
               target="_blank"
