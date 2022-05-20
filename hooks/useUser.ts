@@ -34,9 +34,21 @@ export default function useUser() {
     []
   );
 
+  const submitInviteCode = useCallback(
+    async (token: string, inviteCode: string) => {
+      const inviteCodeData = await fetch(
+        `/api/invite?token=${token}&invitecode=${inviteCode}`
+      );
+      const data = await inviteCodeData.json();
+      return data;
+    },
+    []
+  );
+
   return {
     fetchUser,
     changeProfilePhoto,
-    changeUsername
+    changeUsername,
+    submitInviteCode
   };
 }

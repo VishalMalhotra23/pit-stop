@@ -1,18 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { TailSpin } from 'react-loader-spinner';
-import { useSelector } from 'react-redux';
-import BackConstructors from '../../components/BackConstructors';
-import BackDrivers from '../../components/BackDrivers';
+import CompeteDashboard from '../../components/CompeteDashboard';
 import Navbar from '../../components/Navbar';
 import UpcomingRaceInfo from '../../components/UpcomingRaceInfo';
 import withAuth from '../../hoc/withAuth';
-import { RootState } from '../../store/rootReducer';
 
 const Race: NextPage = () => {
-  const { bootLoading } = useSelector((state: RootState) => state.boot);
-  const { user } = useSelector((state: RootState) => state.user);
-
   return (
     <div className="h-screen text-center text-red-700">
       <Head>
@@ -26,30 +19,18 @@ const Race: NextPage = () => {
         />
       </Head>
       <Navbar />
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-full">
         <h1 className="text-white text-3xl font-semibold mt-4">
           Upcoming Race
         </h1>
         <div className="mx-auto h-0.5 w-80 bg-gradient-to-r from-redOne to-redTwo mt-1 mb-3"></div>
 
         <div
-          className="bg-gray my-4 mx-auto w-3/4 flex-1 rounded-xl flex h-full"
+          className="bg-gray my-4 mx-auto w-3/4 flex-1 rounded-xl flex min-h-full"
           style={{ boxShadow: '0px -3px 86px 0px #00000080' }}
         >
           <UpcomingRaceInfo />
-          {bootLoading ? (
-            <div className="flex w-full flex-1  justify-center items-center">
-              <TailSpin color="#EF473A" height={80} width={80} />
-            </div>
-          ) : (
-            <div className="h-full p-6 flex-1">
-              <BackDrivers />
-              {user.driverwager && user.constructorwager && (
-                <div className="mx-auto h-0.5 w-96 bg-gray-mute my-8"></div>
-              )}
-              <BackConstructors />
-            </div>
-          )}
+          <CompeteDashboard />
         </div>
       </div>
     </div>
