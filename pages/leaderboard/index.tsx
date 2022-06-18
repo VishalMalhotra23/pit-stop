@@ -76,7 +76,7 @@ const Leaderboard: NextPage = () => {
                         : 'text-white'
                     } text-base`}
                   >
-                    {user.points}
+                    {user.points.toFixed(2)}
                   </h3>
                 </>
               );
