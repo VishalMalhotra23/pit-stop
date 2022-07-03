@@ -18,27 +18,27 @@ const CompeteDashboard = () => {
       </div>
     );
 
-  if (user.access)
-    return (
-      <div className="h-full p-6 flex-1">
-        <BackDrivers />
-        {user.driverwager && user.constructorwager && (
-          <div className="mx-auto h-0.5 w-96 bg-gray-mute my-8"></div>
-        )}
-        <BackConstructors />
-      </div>
-    );
-
+  // if (user.access)
   return (
-    <div className="min-h-full py-6 px-20 flex flex-1 justify-center items-center">
-      <div>
-        <h1 className="text-white text-3xl font-semibold">
-          Let&apos;s go racing in {NEXTRACE.country}!
-        </h1>
-        <InviteCodeInput />
-      </div>
+    <div className="h-full p-6 flex-1">
+      <BackDrivers />
+      {user.driverwager && user.constructorwager && (
+        <div className="mx-auto h-0.5 w-96 bg-gray-mute my-8"></div>
+      )}
+      <BackConstructors />
     </div>
   );
+
+  // return (
+  //   <div className="min-h-full py-6 px-20 flex flex-1 justify-center items-center">
+  //     <div>
+  //       <h1 className="text-white text-3xl font-semibold">
+  //         Let&apos;s go racing in {NEXTRACE.country}!
+  //       </h1>
+  //       <InviteCodeInput />
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default CompeteDashboard;
