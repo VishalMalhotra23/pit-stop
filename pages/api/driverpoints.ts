@@ -44,7 +44,7 @@ export default async function driverpoints(
         points: parseInt(result.points),
         grid: parseInt(result.grid),
         name: `${result.Driver.givenName.toLowerCase()}-${result.Driver.familyName.toLowerCase()}`,
-        fl: formatLapTimes(result.FastestLap.Time.time)
+        fl: result.FastestLap ? formatLapTimes(result.FastestLap.Time.time) : undefined
       };
 
       if (raceStanding.name === 'nico-hülkenberg')
